@@ -87,6 +87,21 @@ Las familias podran registrar indormacion basica, como:
 - experiencia previa con mascotas
 - Motivación ¿Por qué quiere adoptar una mascota en este momento?
 
+### Sistema basico de matching
+
+El sistema revisara el estilo de vida de la familia y analizara la personalidad de nuestras mascostas y sugerira mascotas compatibles.
+
+El matching considerará criterios como:
+
+- tamaño de la mascota vs tamaño del hogar
+- Tiempo de soledad vs independencia de la mascota
+- experiencia previa vs complejidad del animal
+- Presencia de otras mascotas vs sociabilidad
+- compatibilidad con niños
+- costos estimados de cuidado
+
+
+
 
 
 ### Funcionalidades fuera del MVP (OUT)
