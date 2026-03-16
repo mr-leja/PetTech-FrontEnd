@@ -59,11 +59,13 @@ Los refugios podran registar mascotas con informacion basica de la mascota, como
 - Raza (O indicar si es mestizo/criollo)
 - Edad
 - Tamaño
+- peso
 - Sexo
 - Nivel de energia
 - Fotos/Videos
+- Historial de vacunas
 - Historia de la mascota (breve descripcion de su personalidad)
-- Informacion adicional necesaria para el seguimiento del veterinario (desparasitacion, estado de vacunacion, esterilizacion, etc)
+- Informacion adicional necesaria para el seguimiento del veterinario (desparasitacion, esterilizacion, etc)
 
 ### Registro de las familias adoptantes
 
@@ -103,6 +105,18 @@ El matching considerará criterios como:
 ### Confirmacion de adopcion
 
 Cuando una familia elige una mascota y el refugio confirme que la adopción puede realizarse el sistema registrará el match como adopción exitosa. De esta manera, se reconoce que tanto la familia como el refugio han llegado a un acuerdo y que la mascota ha encontrado un nuevo hogar. Esto permitirá llevar un seguimiento más claro del proceso de adopción y de los casos que se concretan con éxito.
+
+
+### Generacion del Calendario de vacunas
+
+Una vez confirmada la adopción, el sistema generará automáticamente un calendario inicial de vacunación para la mascota. Este calendario se calculará considerando factores como: 
+
+- Especie (os protocolos para perros ( Parvovirus, Moquillo) son muy difrentes a los de gatos ( Panleucopenia, Calicivirus))
+- Edad Biologica (El sistema debe distinguir entre cachorro (requiere refuerzos frecuentes) o adulto (refuerzos anuales o trienales))
+- Histotial de Vacunacion (el sistema debe conocer qué vacunas ya tiene la mascota al momento de la adopción)
+- Peso de la mascota
+
+Esto, con el propósito de brindar apoyo a los adoptantes sobre los cuidados preventivos que deben realizarse en las etapas posteriores a la adopción. 
 
 
 
