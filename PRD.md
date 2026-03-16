@@ -25,6 +25,13 @@ Este sistema contará con un motor de emparejamiento que facilitará la adopció
 
 Con base en estos datos, el sistema generará sugerencias de las mascotas que sean más compatibles con la información de cada familia. Adicionalmente, una vez que la adopción sea exitosa, la plataforma generará automáticamente un calendario inicial de vacunación
 
+### Usuarios Objetivo
+
+| Usuario | Descripción |
+|---|---|
+| **Familia adoptante** | Hogares interesados en adoptar, con o sin experiencia previa |
+| **Refugio o Centros de Adopcion** | Organizaciones que admistran mascotas disponibles para adopción |
+
 
 #objetivos del producto (principales y especificos)
 #usarios del sistema
