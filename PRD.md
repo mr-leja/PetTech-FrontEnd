@@ -46,9 +46,28 @@ Facilitar las adopciones responsables a traves de un sistema de emparejamiento e
 - Disminuir el numero de adopciones fallidas y devoluiones de las mascotas mediante recomendaciones de adopción más informadas
 - Generar un calendario inicial de vacunación que guie a los adoptantes sobre los cuidados de salud necesarios para las mascotas
 
+## Alcance del MVP
+
+### Funcionalidades Incluidas (IN)
+
+#### Registro de mascotas
+
+Los refugios podran registar mascotas con informacion basica de la mascota, como:
+
+- Nombre
+- Especie (perro, gato, conejo, etc)
+- Raza (O indicar si es mestizo/criollo)
+- Edad
+- Tamaño
+- Sexo
+- Nivel de energia
+- Fotos/Videos
+- Historia de la mascota (breve descripcion de su personalidad)
+- Informacion adicional necesaria para el seguimiento del veterinario (desparasitacion, estado de vacunacion, esterilizacion, etc)
 
 
 
-#Alcance del mvp (IN)
-#Alcance del mvp (OUT)
+### Funcionalidades fuera del MVP (OUT)
+
+
 #Riesgos (tecnicos, de calidad y de negocio)
