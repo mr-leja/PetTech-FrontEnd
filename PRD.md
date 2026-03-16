@@ -1,4 +1,4 @@
-# Vision y Objetivos
+## Vision y Objetivos
 
 PetTech es una plataforma que facilita la adopcion responsable de mascotas, ayudando a emparejar mascotas disponibles con familias adecuadas segun sus caracteristicas y condiciones de vida. 
 
@@ -18,7 +18,7 @@ Actualmente muchas adopciones fracasan porque:
 Estas situaciones muestran que todavia faltan herramientas que ayuden a evaluar de manera adecuada si una mascota realmente es compatible con la familia que desea adoptarla. Como resultado, se presentan adopciones fallidas por ejemplo, se estima que alrededor del 20.7 % de los animales adoptados son devueltos a los refugios. Esta realidad evidencia la importancia de contar con soluciones que orienten mejor a las familias durante el proceso de adopción, permitiendo tomar decisiones más informadas y responsables, reduciendo el riesgo de devoluciones y garantizando un mayor bienestar para los animales que esperan encontrar un hogar definitivo.
 
 
-### Que problema resuelve el producto
+### Solucion
 Para abordar los problemas identificados en el proceso de adopción, se propone el desarrollo de un sistema web llamado “PetTech: Matcher de Adopción y Cuidados”.
 
 Este sistema contará con un motor de emparejamiento que facilitará la adopción responsable entre mascotas disponibles y familias adoptantes. La solución permitirá analizar la información esencial tanto de las mascotas como de los posibles adoptantes, considerando factores como el tamaño del hogar, la presencia de niños y el ingreso familiar.
@@ -33,8 +33,22 @@ Con base en estos datos, el sistema generará sugerencias de las mascotas que se
 | **Refugio o Centros de Adopcion** | Organizaciones que admistran mascotas disponibles para adopción |
 
 
-#objetivos del producto (principales y especificos)
-#usarios del sistema
+## Objetivos del producto
+
+### Objetivo General
+
+Facilitar las adopciones responsables a traves de un sistema de emparejamiento entre las mascotas y las familias adoptantes
+
+### Obejtvos Especificos
+
+- Reducir los procesos manuales en el proceso de adpcion en refugios, mediante un registro digital tanto de las mascotas como de los adoptantes
+- Mejorar la compatibilidad entre los hogares y las mascotas, considerando datos como el tamaño del hogar, la presencai de niños y los ingresos familiares
+- Disminuir el numero de adopciones fallidas y devoluiones de las mascotas mediante recomendaciones de adopción más informadas
+- Generar un calendario inicial de vacunación que guie a los adoptantes sobre los cuidados de salud necesarios para las mascotas
+
+
+
+
 #Alcance del mvp (IN)
 #Alcance del mvp (OUT)
 #Riesgos (tecnicos, de calidad y de negocio)
