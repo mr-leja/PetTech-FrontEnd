@@ -135,3 +135,14 @@ las siguientes funcionalidades quedan fuera del alcance Inicial del proyecto:
 
 
 #Riesgos (tecnicos, de calidad y de negocio)
+
+
+
+
+
+## 3. Riesgos
+
+### 3.1 Riesgos de Negocio (Liderado por QA)
+
+**RN1: Veracidad de la información declarada por el adoptante/familia adoptante**
+Existe un riesgo alto de que las familias interesadas proporcionen datos falsos en el formulario de registro con el objetivo de forzar un "match" positivo con una mascota que les guste a primera vista, pero que no es apta para su entorno real. Esta situación provocaría que el abandono sea evidente a largo plazo, invalidando la efectividad del motor de reglas. Como mitigación, se incluirá una declaración de responsabilidad legal en formato PDF, la cual deberá ser firmada y entregada de manera presencial para formalizar la entrega de la mascota.
