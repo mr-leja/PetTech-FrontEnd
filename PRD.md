@@ -91,13 +91,15 @@ Las familias podran registrar indormacion basica, como:
 
 ### Sistema basico de matching
 
-El sistema revisara el estilo de vida de la familia y analizara la personalidad de nuestras mascostas y sugerira mascotas compatibles.
+El administrador del sistema revisará la información proporcionada por la familia adoptante y el estilo de vida, basado en estos datos, analizara la personalidad de las mascostas registradas en el sitema y le sugerira/asignara mascotas compatibles.
+
+Adicionalmente, las familias adoptantes podrán acceder a un panel de “Mascotas” donde podrán explorar las mascotas disponibles para adopción, consultar información relevante sobre cada una (como la edad,el tamaño y las características de comportamiento) y realizar una solicitud de revisión o interés de adopción para esa mascota específica.
 
 El matching considerará criterios como:
 
 - tamaño de la mascota vs tamaño del hogar
 - Tiempo de soledad vs independencia de la mascota
-- experiencia previa vs complejidad del animal
+- experiencia previa vs complejidad de la mascota
 - Presencia de otras mascotas vs sociabilidad
 - compatibilidad con niños
 - costos estimados de cuidado vs gastos de la mascota
@@ -118,11 +120,18 @@ Una vez confirmada la adopción, el sistema generará automáticamente un calend
 
 Esto, con el propósito de brindar apoyo a los adoptantes sobre los cuidados preventivos que deben realizarse en las etapas posteriores a la adopción. 
 
-
-
-
-
 ### Funcionalidades fuera del MVP (OUT)
+
+las siguientes funcionalidades quedan fuera del alcance Inicial del proyecto: 
+
+- Pasarela de Pagos
+- seguimiento veterinario
+- historial médico completo de la mascota
+- chat entre adoptante y refugio
+- Funcionalidades de Red social o comunidad (sistema de me gusta, comentarios, compartir, chat interno entre usarios)
+- Envío automático de correos, sistemas de notificaciones o integraciones con servicios como WhatsApp Business API.
+- Matching Avanzado con Inteligencia Artificial
+- Integración con otros Sistemas Veterinarios
 
 
 #Riesgos (tecnicos, de calidad y de negocio)
