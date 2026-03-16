@@ -108,6 +108,8 @@ El matching considerará criterios como:
 
 Cuando una familia elige una mascota y el refugio confirme que la adopción puede realizarse el sistema registrará el match como adopción exitosa. De esta manera, se reconoce que tanto la familia como el refugio han llegado a un acuerdo y que la mascota ha encontrado un nuevo hogar. Esto permitirá llevar un seguimiento más claro del proceso de adopción y de los casos que se concretan con éxito.
 
+Además, las adopciones confirmadas podran visualizarse en una seccion denominada “Adopciones realizadas”, donde se almacenará el historial de adopciones completadas filtrado por usuarios.
+
 
 ### Generacion del Calendario de vacunas
 
