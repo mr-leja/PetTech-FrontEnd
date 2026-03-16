@@ -132,7 +132,7 @@ las siguientes funcionalidades quedan fuera del alcance Inicial del proyecto:
 - Envío automático de correos, sistemas de notificaciones o integraciones con servicios como WhatsApp Business API.
 - Matching Avanzado con Inteligencia Artificial
 - Integración con otros Sistemas Veterinarios
-
+- Construccion para aplicativo movil
 
 
 #Riesgos (tecnicos, de calidad y de negocio)
