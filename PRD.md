@@ -98,7 +98,7 @@ El matching considerará criterios como:
 - experiencia previa vs complejidad del animal
 - Presencia de otras mascotas vs sociabilidad
 - compatibilidad con niños
-- costos estimados de cuidado
+- costos estimados de cuidado vs gastos de la mascota
 
 
 
