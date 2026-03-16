@@ -100,6 +100,10 @@ El matching considerará criterios como:
 - compatibilidad con niños
 - costos estimados de cuidado vs gastos de la mascota
 
+### Confirmacion de adopcion
+
+Cuando una familia elige una mascota y el refugio confirme que la adopción puede realizarse el sistema registrará el match como adopción exitosa. De esta manera, se reconoce que tanto la familia como el refugio han llegado a un acuerdo y que la mascota ha encontrado un nuevo hogar. Esto permitirá llevar un seguimiento más claro del proceso de adopción y de los casos que se concretan con éxito.
+
 
 
 
