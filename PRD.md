@@ -65,6 +65,28 @@ Los refugios podran registar mascotas con informacion basica de la mascota, como
 - Historia de la mascota (breve descripcion de su personalidad)
 - Informacion adicional necesaria para el seguimiento del veterinario (desparasitacion, estado de vacunacion, esterilizacion, etc)
 
+### Registro de las familias adoptantes
+
+Las familias podran registrar indormacion basica, como:
+
+- Nombre Completo
+- Cedula
+- Edad 
+- Direccion de residencia
+- Telefono
+- Correo electronico
+- Redes sociales (opcional)
+- Tipo de vivienda (casa, apartamento, finca)
+- Propiedad (casa propia o alquilada?)
+- Cuantas personas viven en la casa
+- otras mascotas (si tiene mas mascotas, preguntra: cantidad, especie, edad y si estan vacunadas/esterilizadas)
+- Tiempo solo ¿Cuántas horas al día pasara la mascota sin compañía?
+- Tamano del hogar
+- Presencia de ninos
+- Ingresos estiamdos para los cuidados de la mascota
+- experiencia previa con mascotas
+- Motivación ¿Por qué quiere adoptar una mascota en este momento?
+
 
 
 ### Funcionalidades fuera del MVP (OUT)
