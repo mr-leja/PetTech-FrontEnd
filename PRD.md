@@ -58,6 +58,7 @@ Los refugios podran registar mascotas con informacion basica de la mascota, como
 - Especie (perro, gato, conejo, etc)
 - Raza (O indicar si es mestizo/criollo)
 - Edad
+- Fecha de Nacimiento
 - Tamaño
 - peso
 - Sexo
