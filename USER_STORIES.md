@@ -87,38 +87,75 @@ Para mejorar su visualización en la plataforma
   - 5 puntos
    registro de información con validaciones (datos obligatorios y mayoría de edad) y almacenamiento en base de datos
 
+---
+
 # Épica 3: Visualización de Mascotas
 
-## HU-03 - Ver listado de mascotas
+## HU-04 - Ver listado de mascotas
 
 - Como familia adoptante
-- Quiero visualizar el listado de mascotas y consultar el detalle de cada una
-- Para explorar opciones y conocer sus características antes de solicitar una adopción
+- Quiero ver las mascotas disponibles
+- Para explorar opciones de adopción
 
 ## Criterios de aceptacion
 
-### Feature: Consulta de mascotas disponibles
+### Feature: Visualización del listado de mascotas disponibles
 
-#### Scenario: Visualización del listado de mascotas
+#### Scenario: Visualización de mascotas disponibles
   - Given que existen mascotas registradas en el sistema
   - When la familia accede a la sección de mascotas
   - Then se muestra el listado de mascotas disponibles
-  - And cada mascota presenta su información básica
-
-#### Scenario: Visualización del detalle de una mascota
-  - Given que una mascota está disponible en el listado
-  - When la familia consulta el detalle de la mascota
-  - Then se muestra la información completa de la mascota
-  - And se visualizan sus fotos
 
 #### Scenario: Visualización según disponibilidad de la mascota
   - Given que existen mascotas registradas con diferentes estados de disponibilidad
-  - When la familia accede al listado de mascotas
+  - When la familia accede a la sección de mascotas
   - Then se muestran únicamente las mascotas disponibles
   - And las mascotas no disponibles no se presentan en el listado
 
-  ## Story Points HU-03
+#### Scenario: Información básica en el listado
 
+ - Given que la familia visualiza el listado de mascotas
+ - When observa cada mascota
+ - Then cada una muestra su información completa
+
+#### Scenario: Carga correcta del listado
+
+ - Given que la familia accede a la sección de mascotas
+ - When el sistema carga la información
+ - Then el listado se muestra correctamente sin errores
+
+  ## Story Points HU-04
+---
+
+## HU-05 – Ver detalle de mascota
+
+- Como familia adoptante
+- Quiero ver el detalle de una mascota
+- Para conocer sus características antes de solicitar adopción
+
+### Criterios de aceptación:
+
+## Feature: Visualización de la Informacion de una mascota
+
+### Scenario: Visualización del detalle de una mascota
+
+ - Given que la familia selecciona una mascota del listado
+ - When accede a su detalle
+ - Then el sistema muestra la información completa de la mascota
+
+### Scenario: Visualización de fotografías
+
+ - Given que la familia accede al detalle de una mascota
+ - When existen imágenes asociadas
+ - Then el sistema muestra las fotos de la mascota
+
+### Scenario: Visualización del historial básico
+
+ - Given que la familia accede al detalle de una mascota
+ - When la mascota tiene información de salud registrada
+ - Then el sistema muestra su historial básico
+
+ ## Story Points HU-05
 ---
 
 # Épica 4: Solicitud y Matching
