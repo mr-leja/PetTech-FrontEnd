@@ -224,3 +224,7 @@ Como familia adoptante
 **Given** que una adopción ha sido confirmada  
 **When** el sistema registra la adopción como exitosa  
 **Then** la mascota queda vinculada a la familia adoptante  
+
+## Story Points HU-06
+  - 3 puntos de estimacion
+    Cambio de estado , manejo de fechas , relacion de dos tablas logica directa
