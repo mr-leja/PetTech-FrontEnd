@@ -314,3 +314,23 @@ Como familia adoptante
 ## Story Points HU-08
   - 8 puntos de estimacion
     logica de negocio importante
+
+## HU-09 – Consultar calendario
+
+Como familia adoptante  
+Quiero ver el calendario de vacunación  
+Para cumplir con los cuidados de salud de la mascota  
+
+## Criterios de aceptación
+
+El calendario es visible después de la adopción  
+
+Se muestran vacunas y fechas  
+
+La información es clara y ordenada  
+
+## Feature: visualizacion del calendario de vacunación
+### Scenario: Asociación del calendario a la adopción
+**Given** que la familia adoptante ha completado una adopción  
+**When** accede a la información de su mascota  
+**Then** el sistema muestra el calendario de vacunación con sus fechas correspondientes  
