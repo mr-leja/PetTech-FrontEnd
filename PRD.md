@@ -118,7 +118,6 @@ Una vez confirmada la adopción, el sistema generará automáticamente un calend
 - Especie (los protocolos para perros ( Parvovirus, Moquillo) son muy difrentes a los de gatos ( Panleucopenia, Calicivirus))
 - Edad Biologica (El sistema debe distinguir entre cachorro (requiere refuerzos frecuentes) o adulto (refuerzos anuales o trienales))
 - Histotial de Vacunacion (el sistema debe conocer qué vacunas ya tiene la mascota al momento de la adopción)
-- Peso de la mascota
 
 Esto, con el propósito de brindar apoyo a los adoptantes sobre los cuidados preventivos que deben realizarse en las etapas siguientes a la adopción. 
 
