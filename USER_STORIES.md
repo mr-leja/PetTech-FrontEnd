@@ -164,19 +164,13 @@ Para mejorar su visualización en la plataforma
 
 # Épica 4: Solicitud y Matching
 
-## HU-04 – Solicitar adopción
+## HU-06 – Solicitar adopción
 
 Como familia adoptante
  Quiero enviar una solicitud de adopción
  Para expresar interés en una mascota
 
-## Criterios de aceptación:
-
-- Se puede seleccionar una mascota
-- Se envia la solicitud
-- El estado queda como “pendiente”
-
-## Gherkin
+## Criterios de aceptación
 
 ## Feature: Solicitud de adopción
 
@@ -190,26 +184,19 @@ Como familia adoptante
 - Given que la familia adoptante ha enviado una solicitud de adopción
 - When la solicitud es registrada en el sistema
 - Then el estado de la solicitud queda como "pendiente"
-## Story Points HU-04
+## Story Points HU-06
   - 3 puntos de estimacion
     Flujo CRUD sencillo: selección + registro + estado inicial+ validaciones simples.
 
-# HU-05 – Evaluar Compatibilidad
+   --- 
+
+# HU-07 – Evaluar Compatibilidad
 
 **Como** administrador  
 **Quiero** revisar información de familia y mascota  
 **Para** validar la compatibilidad antes de aprobar o sugerir la adopción  
 
----
-
 ## Criterios de aceptación
-
-- Se puede visualizar información de ambas partes  
-- Se puede tomar decisión de aprobación o rechazo  
-- Se puede asignar una sugerencia de mascota a una familia  
-- La asignación queda registrada  
-
----
 
 ## Feature: Evaluación de compatibilidad
 
@@ -218,30 +205,26 @@ Como familia adoptante
 **When** accede al detalle de la solicitud  
 **Then** el sistema muestra la información de la familia y de la mascota  
 
----
-
 ### Scenario: Toma de decisión sobre la solicitud
 **Given** que el administrador ha revisado la información de la familia y la mascota  
 **When** decide aprobar o rechazar la solicitud  
 **Then** el sistema permite registrar la asignación tomada  
-
----
 
 ### Scenario: Sugerencia de mascota a una familia
 **Given** que el administrador identifica una mejor opción de adopción  
 **When** asigna una mascota sugerida a una familia  
 **Then** el sistema registra la sugerencia de adopción  
 
----
-
 ### Scenario: Registro de la decisión
 **Given** que el administrador ha tomado una decisión sobre una solicitud  
 **When** la decisión es confirmada  
 **Then** la solicitud pasa a un estado de "aprobado" o "rechazado"
 
-## Story Points HU-04
+## Story Points HU-07
   - 5 puntos de estimacion
     Mayor complejidad , logica cruzada de diferentes tablas , logica de decision
+
+    ---
 
 # Épica 5: Confirmación de Adopción
 
