@@ -125,6 +125,8 @@ Para mejorar su visualización en la plataforma
  - Then el listado se muestra correctamente sin errores
 
   ## Story Points HU-04
+     -3 puntos 
+     Visualización de listado con filtro por disponibilidad
 ---
 
 ## HU-05 – Ver detalle de mascota
@@ -156,6 +158,8 @@ Para mejorar su visualización en la plataforma
  - Then el sistema muestra su historial básico
 
  ## Story Points HU-05
+    -5 puntos
+     Visualización de detalle con más información (datos, fotos e historial). Mayor alcance que el listado
 ---
 
 # Épica 4: Solicitud y Matching
