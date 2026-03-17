@@ -1,4 +1,4 @@
-## Vision y Objetivos
+ ## Visión y Objetivos
 
 PetTech es una plataforma que facilita la adopcion responsable de mascotas, ayudando a emparejar mascotas disponibles con familias adecuadas segun sus caracteristicas y condiciones de vida. 
 
@@ -9,11 +9,11 @@ PetTech es una plataforma que facilita la adopcion responsable de mascotas, ayud
 Actualmente muchas adopciones fracasan porque:
 - las familias no conocen las condiciones reales de la mascota
 - los refugios de mascotas no tiene las herramientas necesarias para evaluar la compatibilidad con las familias que desean adoptar
-- El proceso de seguimiento es manual, lo que hace que la adopcion sea lenta
-- las procesos de adopcion se toman con informacion incompleta o sin condiserar factores de compatibilidad
+- El proceso de seguimiento es manual, lo que hace que la adopción sea lenta
+- las procesos de adopción se toman con información incompleta o sin condiserar factores de compatibilidad
 - Las familias no cuentan con herramientas que validen si su entorno (espacio, presupuesto, composición familiar) es compatible con la mascota que desean adoptar
 - Muchas familias adoptan mascotas basandose solamente en factores emocionales como la apariencia, la raza o el tamaño
-- Al realizar la adopcion muchas familias no cuentan con una guía clara sobre el esquema inicial de vacunación de la mascota, lo que dificulta realizar un seguimiento adecuado de las primeras vacunas poniendo en peligro la salud de las mascotas
+- Al realizar la adopción muchas familias no cuentan con una guía clara sobre el esquema inicial de vacunación de la mascota, lo que dificulta realizar un seguimiento adecuado de las primeras vacunas poniendo en peligro la salud de las mascotas
 
 Estas situaciones muestran que todavia faltan herramientas que ayuden a evaluar de manera adecuada si una mascota realmente es compatible con la familia que desea adoptarla. Como resultado, se presentan adopciones fallidas por ejemplo, se estima que alrededor del 20.7 % de los animales adoptados son devueltos a los refugios. Esta realidad evidencia la importancia de contar con soluciones que orienten mejor a las familias durante el proceso de adopción, permitiendo tomar decisiones más informadas y responsables, reduciendo el riesgo de devoluciones y garantizando un mayor bienestar para los animales que esperan encontrar un hogar definitivo.
 
@@ -30,7 +30,7 @@ Con base en estos datos, el sistema generará sugerencias de las mascotas que se
 | Usuario | Descripción |
 |---|---|
 | **Familia adoptante** | Hogares interesados en adoptar, con o sin experiencia previa |
-| **Refugio o Centros de Adopcion** | Organizaciones que admistran mascotas disponibles para adopción |
+| **Refugio o Centros de Adopción** | Organizaciones que administran mascotas disponibles para adopción |
 
 
 ## Objetivos del producto
@@ -41,7 +41,7 @@ Facilitar las adopciones responsables a traves de un sistema de emparejamiento e
 
 ### Objetivos Especificos
 
-- Reducir los procesos manuales en el proceso de adopcion en refugios, mediante un registro digital tanto de las mascotas como de los adoptantes
+- Reducir los procesos manuales en el proceso de adopción en refugios, mediante un registro digital tanto de las mascotas como de los adoptantes
 - Mejorar la compatibilidad entre los hogares y las mascotas, considerando datos como el tamaño del hogar, la presencia de niños y los ingresos familiares
 - Disminuir el numero de adopciones fallidas y devoluciones de las mascotas mediante recomendaciones de adopción más informadas
 - Generar un calendario inicial de vacunación que guie a los adoptantes sobre los cuidados de salud necesarios para las mascotas
@@ -52,7 +52,7 @@ Facilitar las adopciones responsables a traves de un sistema de emparejamiento e
 
 #### Registro de mascotas
 
-Los refugios podran registar mascotas con informacion basica de la mascota, como:
+Los refugios podran registar mascotas con información basica de la mascota, como:
 
 - Nombre
 - Especie (perro, gato, conejo, etc)
@@ -66,11 +66,11 @@ Los refugios podran registar mascotas con informacion basica de la mascota, como
 - Fotos/Videos
 - Historial de vacunas
 - Historia de la mascota (breve descripcion de su personalidad)
-- Informacion adicional necesaria para el seguimiento del veterinario (desparasitacion, esterilizacion, etc)
+- Información adicional necesaria para el seguimiento del veterinario (desparasitacion, esterilizacion, etc)
 
 ### Registro de las familias adoptantes
 
-Las familias podran registrar informacion basica, como:
+Las familias podran registrar información basica, como:
 
 - Nombre Completo
 - Cedula
@@ -92,7 +92,7 @@ Las familias podran registrar informacion basica, como:
 
 ### Sistema basico de matching
 
-El administrador del sistema revisará la información proporcionada por la familia adoptante y el estilo de vida, basado en estos datos, analizara la personalidad de las mascotas registradas en el sitema y le sugerira/asignara mascotas compatibles.
+El administrador del sistema revisará la información proporcionada por la familia adoptante y el estilo de vida, basado en estos datos, analizara la personalidad de las mascotas registradas en el sistema y le sugerira/asignara mascotas compatibles.
 
 Adicionalmente, las familias adoptantes podrán acceder a un panel de “Mascotas” donde podrán explorar las mascotas disponibles para adopción, consultar información relevante sobre cada una (como la edad,el tamaño y las características de comportamiento) y realizar una solicitud de interés de adopción para esa mascota específica.
 
@@ -105,7 +105,7 @@ El matching considerará criterios como:
 - compatibilidad con niños
 - costos estimados de cuidado vs gastos de la mascota
 
-### Confirmacion de adopcion
+### Confirmacion de adopción
 
 Cuando una familia elige una mascota y el refugio confirme que la adopción puede realizarse el sistema registrará el match como adopción exitosa. De esta manera, se reconoce que tanto la familia como el refugio han llegado a un acuerdo y que la mascota ha encontrado un nuevo hogar. Esto permitirá llevar un seguimiento más claro del proceso de adopción y de los casos que se concretan con éxito.
 
@@ -117,8 +117,8 @@ Además, las adopciones confirmadas podran visualizarse en una seccion denominad
 Una vez confirmada la adopción, el sistema generará automáticamente un calendario inicial de vacunación personalizado para la mascota. Este calendario se calculará considerando factores como: 
 
 - Especie (los protocolos para perros ( Parvovirus, Moquillo) son muy diferentes a los de gatos ( Panleucopenia, Calicivirus))
-- Edad Biologica (El sistema debe distinguir entre cachorro (requiere refuerzos frecuentes) o adulto (refuerzos anuales o trienales))
-- Historial de Vacunacion (el sistema debe conocer qué vacunas ya tiene la mascota al momento de la adopción)
+- Edad Biológica (El sistema debe distinguir entre cachorro (requiere refuerzos frecuentes) o adulto (refuerzos anuales o trienales))
+- Historial de Vacunación (el sistema debe conocer qué vacunas ya tiene la mascota al momento de la adopción)
 
 Esto, con el propósito de brindar apoyo a los adoptantes sobre los cuidados preventivos que deben realizarse en las etapas siguientes a la adopción. 
 
@@ -149,7 +149,7 @@ Existe un riesgo alto de que las familias que deseen adoptar proporcionen datos 
 
 Existe el riesgo de que la familia adoptante considere el calendario de vacunación generado por el sistema como un sustituto de la consulta con un veterinario profesional. Si ocurre una discrepancia con el criterio de un veterinario o si la mascota sufre una reacción que afecte su integridad, los usuarios podrían intentar responsabilizar legalmente a la plataforma por diagnósticos erróneos. Como mitigación, cada calendario generado incluirá un descargo y acuerdo de responsabilidad obligatorio, aclarando que la información es de carácter preventivo, mas no un diagnóstico clínico real, y que el usuario debe validar obligatoriamente la salud de la mascota con un médico veterinario de su preferencia.
 
-### 3.2 Riesgos Tecnicos
+### 3.2 Riesgos Técnicos
 
 **RT1: Condiciones de carrera (Race Conditions) en el proceso de emparejamiento**
 
@@ -157,9 +157,9 @@ Dado que múltiples familias pueden estar navegando y aplicando por la misma mas
 
 **RT2: Vulnerabilidad y exposición de datos de carácter personal**
 
-Debido a que la plataforma almacena información sensible de los adoptantes (identificación, direcciones residenciales y niveles de ingresos), existe el riesgo técnico de una filtración o acceso no autorizado a través de vulnerabilidades en las API. El uso indebido o la exposición de estos endpoints podría comprometer la privacidad de los usuarios y generar implicaciones legales por fuga de datos. Como mitigación, se implementarán mecanismos de autenticación y autorización robustos (como JWT) junto con el uso de HTTPS para proteger los datos en tránsito. Adicionalmente, para los datos en reposo, se aplicará cifrado en la base de datos para la información más sensible utilizando algoritmos estándar de la industria como AES-256 y RSA  asegurando así la integridad de la informacion.
+Debido a que la plataforma almacena información sensible de los adoptantes (identificación, direcciones residenciales y niveles de ingresos), existe el riesgo técnico de una filtración o acceso no autorizado a través de vulnerabilidades en las API. El uso indebido o la exposición de estos endpoints podría comprometer la privacidad de los usuarios y generar implicaciones legales por fuga de datos. Como mitigación, se implementarán mecanismos de autenticación y autorización robustos (como JWT) junto con el uso de HTTPS para proteger los datos en tránsito. Adicionalmente, para los datos en reposo, se aplicará cifrado en la base de datos para la información más sensible utilizando algoritmos estándar de la industria como AES-256 y RSA  asegurando así la integridad de la información.
 
 
 **RT3: Saturación del almacenamiento local y degradación del servidor por archivos multimedia**
 
-El sistema requiere que los refugios carguen múltiples fotografías y videos en alta resolución para cada animal que entre al proceso de adopcion , lo que genera un riesgo de saturación del almacenamiento local y el colapso del servidor donde este alojado la aplicacion. Como mitigación, se implementará una arquitectura desacoplada donde los archivos multimedia se alojarán en un proveedor de nube externo (como Amazon S3). En la base de datos solo se almacenará la URL de referencia de cada archivo. Esto garantiza que el servidor de aplicaciones no gestione archivos pesados y la base de datos se mantenga ligera
+El sistema requiere que los refugios carguen múltiples fotografías y videos en alta resolución para cada animal que entre al proceso de adopción , lo que genera un riesgo de saturación del almacenamiento local y el colapso del servidor aplicacion donde esté alojada la aplicación. Como mitigación, se implementará una arquitectura desacoplada donde los archivos multimedia se alojarán en un proveedor de nube externo (como Amazon S3). En la base de datos solo se almacenará la URL de referencia de cada archivo. Esto garantiza que el servidor de aplicaciones no gestione archivos pesados y la base de datos se mantenga ligera
