@@ -58,12 +58,48 @@
   - And informa que existen campos obligatorios faltantes
 
 #### Scenario: Validación de mayoría de edad
-  Given que la familia registra una edad menor a la permitida (+18)
-  When intenta completar el registro
-  Then el sistema rechaza el registro
-  And informa que debe ser mayor de edad
+  - Given que la familia registra una edad menor a la permitida (+18)
+  - When intenta completar el registro
+  - Then el sistema rechaza el registro
+  - And informa que debe ser mayor de edad
 
 ### Scenario: Consulta de información registrada
-  Given que la familia ha completado su registro
-  When accede a su perfil
-  Then puede visualizar su información personal, condiciones del hogar y experiencia registrada
+  - Given que la familia ha completado su registro
+  - When accede a su perfil
+  - Then puede visualizar su información personal, condiciones del hogar y experiencia registrada
+
+## Story Points HU-02
+
+
+# Épica 3: Visualización de Mascotas
+
+## HU-03 - Ver listado de mascotas
+
+- Como familia adoptante
+- Quiero visualizar el listado de mascotas y consultar el detalle de cada una
+- Para explorar opciones y conocer sus características antes de solicitar una adopción
+
+## Criterios de aceptacion
+
+### Feature: Consulta de mascotas disponibles
+
+#### Scenario: Visualización del listado de mascotas
+  - Given que existen mascotas registradas en el sistema
+  - When la familia accede a la sección de mascotas
+  - Then se muestra el listado de mascotas disponibles
+  - And cada mascota presenta su información básica
+
+#### Scenario: Visualización del detalle de una mascota
+  - Given que una mascota está disponible en el listado
+  - When la familia consulta el detalle de la mascota
+  - Then se muestra la información completa de la mascota
+  - And se visualizan sus fotos
+
+#### Scenario: Visualización según disponibilidad de la mascota
+  - Given que existen mascotas registradas con diferentes estados de disponibilidad
+  - When la familia accede al listado de mascotas
+  - Then se muestran únicamente las mascotas disponibles
+  - And las mascotas no disponibles no se presentan en el listado
+
+  ## Story Points HU-03
+
