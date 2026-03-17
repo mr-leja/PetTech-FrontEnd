@@ -266,3 +266,7 @@ Como familia adoptante
 **Given** que el usuario visualiza el historial de adopciones  
 **When** aplica un filtro por usuario  
 **Then** el sistema muestra únicamente las adopciones asociadas a ese usuario  
+
+## Story Points HU-07
+  - 5 puntos de estimacion
+    logica de filtro complejo + paginacion
