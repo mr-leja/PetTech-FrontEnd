@@ -185,3 +185,42 @@ Como familia adoptante
 ## Story Points HU-04
   - 5 puntos de estimacion
     Mayor complejidad , logica cruzada de diferentes tablas , logica de decision
+
+# Épica 5: Confirmación de Adopción
+
+## HU-06 – Confirmar adopción
+
+**Como** administrador  
+**Quiero** confirmar una adopción  
+**Para** registrar que la mascota ha encontrado una familia  
+
+---
+
+## Criterios de aceptación
+
+- Se puede cambiar el estado a “adopción exitosa”  
+- Se registra la fecha de adopción  
+- Se vincula la mascota con la familia  
+
+---
+
+## Feature: Confirmación de adopción
+
+### Scenario: Cambio de estado a adopción exitosa
+**Given** que existe una solicitud de adopción aprobada  
+**When** el administrador confirma la adopción  
+**Then** el estado de la solicitud cambia a "adopción exitosa"  
+
+---
+
+### Scenario: Registro de la fecha de adopción
+**Given** que el administrador confirma una adopción  
+**When** la adopción es registrada como exitosa  
+**Then** el sistema registra la fecha de la adopción  
+
+---
+
+### Scenario: Vinculación de mascota con familia
+**Given** que una adopción ha sido confirmada  
+**When** el sistema registra la adopción como exitosa  
+**Then** la mascota queda vinculada a la familia adoptante  
