@@ -181,3 +181,7 @@ Como familia adoptante
 **Given** que el administrador ha tomado una decisión sobre una solicitud  
 **When** la decisión es confirmada  
 **Then** la solicitud pasa a un estado de "aprobado" o "rechazado"
+
+## Story Points HU-04
+  - 5 puntos de estimacion
+    Mayor complejidad , logica cruzada de diferentes tablas , logica de decision
