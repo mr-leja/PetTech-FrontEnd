@@ -21,7 +21,7 @@ Estas situaciones muestran que todavia faltan herramientas que ayuden a evaluar 
 ### Solucion
 Para abordar los problemas identificados en el proceso de adopción, se propone el desarrollo de un sistema web llamado “PetTech: Matcher de Adopción y Cuidados”.
 
-Este sistema contará con un motor de emparejamiento que facilitará la adopción responsable entre mascotas disponibles y familias adoptantes. La solución permitirá analizar la información esencial tanto de las mascotas como de los posibles adoptantes, considerando factores como el tamaño del hogar, la presencia de niños y el ingreso familiar.
+Este sistema contará con un sistema de emparejamiento que facilitará la adopción responsable entre mascotas disponibles y familias adoptantes. La solución permitirá analizar la información esencial tanto de las mascotas como de los posibles adoptantes, considerando factores como el tamaño del hogar, la presencia de niños y el ingreso familiar.
 
 Con base en estos datos, el sistema generará sugerencias de las mascotas que sean más compatibles con la información de cada familia. Adicionalmente, una vez que la adopción sea exitosa, la plataforma generará automáticamente un calendario inicial de vacunación
 
@@ -42,8 +42,8 @@ Facilitar las adopciones responsables a traves de un sistema de emparejamiento e
 ### Obejtvos Especificos
 
 - Reducir los procesos manuales en el proceso de adpcion en refugios, mediante un registro digital tanto de las mascotas como de los adoptantes
-- Mejorar la compatibilidad entre los hogares y las mascotas, considerando datos como el tamaño del hogar, la presencai de niños y los ingresos familiares
-- Disminuir el numero de adopciones fallidas y devoluiones de las mascotas mediante recomendaciones de adopción más informadas
+- Mejorar la compatibilidad entre los hogares y las mascotas, considerando datos como el tamaño del hogar, la presencia de niños y los ingresos familiares
+- Disminuir el numero de adopciones fallidas y devoluciones de las mascotas mediante recomendaciones de adopción más informadas
 - Generar un calendario inicial de vacunación que guie a los adoptantes sobre los cuidados de salud necesarios para las mascotas
 
 ## Alcance del MVP
