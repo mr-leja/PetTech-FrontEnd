@@ -133,5 +133,6 @@ Como familia adoptante
 - Given que la familia adoptante ha enviado una solicitud de adopción
 - When la solicitud es registrada en el sistema
 - Then el estado de la solicitud queda como "pendiente"
-
-
+## Story Points HU-04
+  - 3 puntos de estimacion
+    Flujo CRUD sencillo: selección + registro + estado inicial+ validaciones simples.
