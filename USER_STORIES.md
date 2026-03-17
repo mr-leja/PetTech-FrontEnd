@@ -24,7 +24,7 @@
 
 ### Story Points HU-01
   - 5 puntos de estimacion
-    Funcionalidad principal: registro completo con validaciones y almacenamiento
+     registro completo con validaciones y almacenamiento en base de datos
 ----
 
 ## HU-02 - Subir fotos de la mascota
@@ -55,11 +55,11 @@ Para mejorar su visualización en la plataforma
 
 # Épica 2: Gestion de familias
 
-## HU-02 - Registro de Familias
+## HU-03 - Registro de informacion de las Familias
 
 - Como familia adoptante
-- Quiero crear mi perfil con información personal
-- Para poder participar en el proceso de adopción
+- Quiero registrar mi información personal
+- Para crear mi perfil en el sistema
 
 ## Criterios de aceptacion
 
@@ -83,13 +83,9 @@ Para mejorar su visualización en la plataforma
   - Then el sistema rechaza el registro
   - And informa que debe ser mayor de edad
 
-### Scenario: Consulta de información registrada
-  - Given que la familia ha completado su registro
-  - When accede a su perfil
-  - Then puede visualizar su información personal, condiciones del hogar y experiencia registrada
-
-## Story Points HU-02
-
+## Story Points HU-03
+  - 5 puntos
+   registro de información con validaciones (datos obligatorios y mayoría de edad) y almacenamiento en base de datos
 
 # Épica 3: Visualización de Mascotas
 
