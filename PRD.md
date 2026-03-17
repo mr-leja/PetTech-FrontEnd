@@ -21,7 +21,7 @@ Estas situaciones muestran que todavia faltan herramientas que ayuden a evaluar 
 ### Solucion
 Para abordar los problemas identificados en el proceso de adopción, se propone el desarrollo de un sistema web llamado “PetTech: Matcher de Adopción y Cuidados”.
 
-Este sistema contará con un sistema de emparejamiento que facilitará la adopción responsable entre mascotas disponibles y familias adoptantes. La solución permitirá analizar la información esencial tanto de las mascotas como de los posibles adoptantes, considerando factores como el tamaño del hogar, la presencia de niños y el ingreso familiar.
+Este sistema contará con un sistema de emparejamiento manual que facilitará la adopción responsable entre mascotas disponibles y familias adoptantes. La solución permitirá analizar la información esencial tanto de las mascotas como de los posibles adoptantes, considerando factores como el tamaño del hogar, la presencia de niños y el ingreso familiar.
 
 Con base en estos datos, el sistema generará sugerencias de las mascotas que sean más compatibles con la información de cada familia. Adicionalmente, una vez que la adopción sea exitosa, la plataforma generará automáticamente un calendario inicial de vacunación
 
