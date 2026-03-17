@@ -310,3 +310,7 @@ Como familia adoptante
 **Given** que el calendario de vacunación ha sido generado  
 **When** el sistema finaliza el proceso  
 **Then** el calendario queda asociado a la adopción  
+
+## Story Points HU-08
+  - 8 puntos de estimacion
+    logica de negocio importante
