@@ -48,11 +48,9 @@ Para mejorar su visualización en la plataforma
 - **When** intenta procesar el registro
 - **Then** el sistema debe notificar que el formato de archivo no es compatible
 
-
 ### Story Points HU-02
   - 3 puntos de estimacion
     Funcionalidad complementaria: carga y validación de imágenes
-
 ---
 
 # Épica 2: Gestion de familias
