@@ -145,7 +145,7 @@ las siguientes funcionalidades quedan fuera del alcance Inicial del proyecto:
 **RN1: Veracidad de la información declarada por el adoptante/familia adoptante**
 Existe un riesgo alto de que las familias que deseen adoptar proporcionen datos falsos en el formulario de registro con el objetivo de forzar un emparejamiento forzado con una mascota que les guste a primera vista, básicamente por ser bonito/a, pero que no es apta para su entorno real debido a situaciones como los ingresos familiares, el tamaño del hogar, etc. Esta situación provocaría que el abandono sea evidente a largo plazo, invalidando la efectividad del motor de reglas. Como mitigación, se incluirá una declaración de responsabilidad legal en formato PDF, la cual deberá ser firmada y entregada de manera presencial para formalizar la entrega de la mascota.
 
-**RN3: Responsabilidad legal sobre el calendario de vacunación automatizado**
+**RN2: Responsabilidad legal sobre el calendario de vacunación automatizado**
 Existe el riesgo de que la familia adoptante considere el calendario de vacunación generado por el sistema como un sustituto de la consulta con un veterinario profesional. Si ocurre una discrepancia con el criterio de un veterinario o si la mascota sufre una reacción que afecte su integridad, los usuarios podrían intentar responsabilizar legalmente a la plataforma por diagnósticos erróneos. Como mitigación, cada calendario generado incluirá un descargo y acuerdo de responsabilidad obligatorio, aclarando que la información es de carácter preventivo, mas no un diagnóstico clínico real, y que el usuario debe validar obligatoriamente la salud de la mascota con un médico veterinario de su preferencia.
 
 ### 3.1 Riesgos Tecnicos
