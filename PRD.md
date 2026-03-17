@@ -39,9 +39,9 @@ Con base en estos datos, el sistema generará sugerencias de las mascotas que se
 
 Facilitar las adopciones responsables a traves de un sistema de emparejamiento entre las mascotas y las familias adoptantes
 
-### Obejtvos Especificos
+### Objetivos Especificos
 
-- Reducir los procesos manuales en el proceso de adpcion en refugios, mediante un registro digital tanto de las mascotas como de los adoptantes
+- Reducir los procesos manuales en el proceso de adopcion en refugios, mediante un registro digital tanto de las mascotas como de los adoptantes
 - Mejorar la compatibilidad entre los hogares y las mascotas, considerando datos como el tamaño del hogar, la presencia de niños y los ingresos familiares
 - Disminuir el numero de adopciones fallidas y devoluciones de las mascotas mediante recomendaciones de adopción más informadas
 - Generar un calendario inicial de vacunación que guie a los adoptantes sobre los cuidados de salud necesarios para las mascotas
@@ -70,7 +70,7 @@ Los refugios podran registar mascotas con informacion basica de la mascota, como
 
 ### Registro de las familias adoptantes
 
-Las familias podran registrar indormacion basica, como:
+Las familias podran registrar informacion basica, como:
 
 - Nombre Completo
 - Cedula
@@ -82,17 +82,17 @@ Las familias podran registrar indormacion basica, como:
 - Tipo de vivienda (casa, apartamento, finca)
 - Propiedad (casa propia o alquilada?)
 - Cuantas personas viven en la casa
-- otras mascotas (si tiene mas mascotas, preguntra: cantidad, especie, edad y si estan vacunadas/esterilizadas)
+- otras mascotas (si tiene mas mascotas, pregunta: cantidad, especie, edad y si estan vacunadas/esterilizadas)
 - Tiempo solo ¿Cuántas horas al día pasara la mascota sin compañía?
 - Tamano del hogar
 - Presencia de ninos
-- Ingresos estiamdos para los cuidados de la mascota
+- Ingresos estimados para los cuidados de la mascota
 - experiencia previa con mascotas
 - Motivación ¿Por qué quiere adoptar una mascota en este momento?
 
 ### Sistema basico de matching
 
-El administrador del sistema revisará la información proporcionada por la familia adoptante y el estilo de vida, basado en estos datos, analizara la personalidad de las mascostas registradas en el sitema y le sugerira/asignara mascotas compatibles.
+El administrador del sistema revisará la información proporcionada por la familia adoptante y el estilo de vida, basado en estos datos, analizara la personalidad de las mascotas registradas en el sitema y le sugerira/asignara mascotas compatibles.
 
 Adicionalmente, las familias adoptantes podrán acceder a un panel de “Mascotas” donde podrán explorar las mascotas disponibles para adopción, consultar información relevante sobre cada una (como la edad,el tamaño y las características de comportamiento) y realizar una solicitud de interés de adopción para esa mascota específica.
 
@@ -116,9 +116,9 @@ Además, las adopciones confirmadas podran visualizarse en una seccion denominad
 
 Una vez confirmada la adopción, el sistema generará automáticamente un calendario inicial de vacunación personalizado para la mascota. Este calendario se calculará considerando factores como: 
 
-- Especie (los protocolos para perros ( Parvovirus, Moquillo) son muy difrentes a los de gatos ( Panleucopenia, Calicivirus))
+- Especie (los protocolos para perros ( Parvovirus, Moquillo) son muy diferentes a los de gatos ( Panleucopenia, Calicivirus))
 - Edad Biologica (El sistema debe distinguir entre cachorro (requiere refuerzos frecuentes) o adulto (refuerzos anuales o trienales))
-- Histotial de Vacunacion (el sistema debe conocer qué vacunas ya tiene la mascota al momento de la adopción)
+- Historial de Vacunacion (el sistema debe conocer qué vacunas ya tiene la mascota al momento de la adopción)
 
 Esto, con el propósito de brindar apoyo a los adoptantes sobre los cuidados preventivos que deben realizarse en las etapas siguientes a la adopción. 
 
@@ -137,24 +137,29 @@ las siguientes funcionalidades quedan fuera del alcance Inicial del proyecto:
 - Construccion para aplicativo movil
 
 
-#Riesgos (tecnicos, de calidad y de negocio)
-
-
 ## 3. Riesgos
+
 ### 3.1 Riesgos de Negocio 
+
 **RN1: Veracidad de la información declarada por el adoptante/familia adoptante**
+
 Existe un riesgo alto de que las familias que deseen adoptar proporcionen datos falsos en el formulario de registro con el objetivo de forzar un emparejamiento forzado con una mascota que les guste a primera vista, básicamente por ser bonito/a, pero que no es apta para su entorno real debido a situaciones como los ingresos familiares, el tamaño del hogar, etc. Esta situación provocaría que el abandono sea evidente a largo plazo, invalidando la efectividad del motor de reglas. Como mitigación, se incluirá una declaración de responsabilidad legal en formato PDF, la cual deberá ser firmada y entregada de manera presencial para formalizar la entrega de la mascota.
 
 **RN2: Responsabilidad legal sobre el calendario de vacunación automatizado**
+
 Existe el riesgo de que la familia adoptante considere el calendario de vacunación generado por el sistema como un sustituto de la consulta con un veterinario profesional. Si ocurre una discrepancia con el criterio de un veterinario o si la mascota sufre una reacción que afecte su integridad, los usuarios podrían intentar responsabilizar legalmente a la plataforma por diagnósticos erróneos. Como mitigación, cada calendario generado incluirá un descargo y acuerdo de responsabilidad obligatorio, aclarando que la información es de carácter preventivo, mas no un diagnóstico clínico real, y que el usuario debe validar obligatoriamente la salud de la mascota con un médico veterinario de su preferencia.
 
-### 3.1 Riesgos Tecnicos
+### 3.2 Riesgos Tecnicos
+
 **RT1: Condiciones de carrera (Race Conditions) en el proceso de emparejamiento**
+
 Dado que múltiples familias pueden estar navegando y aplicando por la misma mascota simultáneamente, existe el riesgo de que el sistema permita iniciar el flujo de adopción para el mismo animal a dos procesos distintos al mismo tiempo. Si las peticiones simultáneas no se gestionan de manera correcta, puede ocurrir una duplicidad de registros en la base de datos, provocando que el sistema de recomendaciones funcione de manera incorrecta. Para mitigar esto, se propone el uso de un servidor de colas para procesar las solicitudes de forma secuencial y asegurar la idempotencia del flujo en la base de datos. Adicionalmente, se implementará un bloqueo de registro mediante el manejo de sesiones: al ingresar la petición con menor latencia, el sistema bloqueará la mascota en la vista para otros usuarios, garantizando que un animal no pueda ser asignado a dos procesos de adopción activos simultáneamente.
 
 **RT2: Vulnerabilidad y exposición de datos de carácter personal**
+
 Debido a que la plataforma almacena información sensible de los adoptantes (identificación, direcciones residenciales y niveles de ingresos), existe el riesgo técnico de una filtración o acceso no autorizado a través de vulnerabilidades en las API. El uso indebido o la exposición de estos endpoints podría comprometer la privacidad de los usuarios y generar implicaciones legales por fuga de datos. Como mitigación, se implementarán mecanismos de autenticación y autorización robustos (como JWT) junto con el uso de HTTPS para proteger los datos en tránsito. Adicionalmente, para los datos en reposo, se aplicará cifrado en la base de datos para la información más sensible utilizando algoritmos estándar de la industria como AES-256 y RSA  asegurando así la integridad de la informacion.
 
 
 **RT3: Saturación del almacenamiento local y degradación del servidor por archivos multimedia**
+
 El sistema requiere que los refugios carguen múltiples fotografías y videos en alta resolución para cada animal que entre al proceso de adopcion , lo que genera un riesgo de saturación del almacenamiento local y el colapso del servidor donde este alojado la aplicacion. Como mitigación, se implementará una arquitectura desacoplada donde los archivos multimedia se alojarán en un proveedor de nube externo (como Amazon S3). En la base de datos solo se almacenará la URL de referencia de cada archivo. Esto garantiza que el servidor de aplicaciones no gestione archivos pesados y la base de datos se mantenga ligera
