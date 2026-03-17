@@ -270,3 +270,43 @@ Como familia adoptante
 ## Story Points HU-07
   - 5 puntos de estimacion
     logica de filtro complejo + paginacion
+
+
+# Épica 6: Calendario de Vacunación
+
+## HU-08 – Generar calendario de vacunas
+
+**Como** sistema  
+**Quiero** generar un calendario inicial de vacunación  
+**Para** orientar al adoptante en el cuidado de la mascota  
+
+---
+
+## Criterios de aceptación
+
+- Se consideran especie, edad e historial  
+- Se generan fechas sugeridas  
+- El calendario queda asociado a la adopción  
+
+---
+
+## Feature: Generación de calendario de vacunación
+
+### Scenario: Generación del calendario considerando características de la mascota
+**Given** que una adopción ha sido confirmada  
+**When** el sistema genera el calendario de vacunación  
+**Then** el sistema considera la especie, edad e historial de la mascota  
+
+---
+
+### Scenario: Generación de fechas sugeridas de vacunación
+**Given** que el sistema está generando el calendario de vacunación  
+**When** se calculan las vacunas correspondientes  
+**Then** el sistema establece fechas sugeridas para cada vacuna  
+
+---
+
+### Scenario: Asociación del calendario a la adopción
+**Given** que el calendario de vacunación ha sido generado  
+**When** el sistema finaliza el proceso  
+**Then** el calendario queda asociado a la adopción  
