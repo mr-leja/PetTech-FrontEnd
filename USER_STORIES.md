@@ -6,37 +6,54 @@
 - Quiero registrar una mascota incluyendo su información básica y estado de salud
 - Para almacenar su información en el sistema
 
-## Criterios de aceptacion
-
-- El sistema debe permitir ingresar datos obligatorios como historial de vacunas, especie y fecha de nacimiento
-- El sistema debe validar que los campos obligatorios no estén vacíos
-- Si falta algún dato obligatorio, el sistema debe mostrar un mensaje de error indicando los campos faltantes
-- Cuando los datos son válidos, el sistema debe guardar la información correctamente
-
+## Criterios de aceptacion gherkin
 ### Feature: Registro completo de mascotas
 
-#### Scenario: Registro exitoso con perfil completo
+#### Scenario: Registro exitoso
 
-- Given que el administrador del refugio completa los campos obligatorios
+- **Given**  que el administrador del refugio completa los campos obligatorios
 - And adjunta el historial de salud (vacunas y esterilización)
-- And selecciona una fotografía válida
-- When confirma el registro de la mascota
-- Then el sistema debe almacenar el perfil completo
-- And mostrar la mascota en la vista de adopción con su foto y su informacion
+- **When** confirma el registro de la mascota
+- **Then** el sistema almacena los datos de la mascota
 
-#### Scenario: Intento de registro sin datos obligatorios
-- Given que el administrador deja vacíos campos obligatorios (como la edad o la especie)
-- When intenta guardar la mascota
-- Then el sistema debe mostrar un mensaje de error destacando los campos faltantes
-- And no debe crear el registro en la base de datos
+#### Scenario: Validación de campos obligatorios
+- **Given** que el administrador deja vacíos campos obligatorios (como la edad o la especie)
+- **When** intenta guardar la mascota
+- **Then** el sistema debe mostrar un mensaje de error destacando los campos faltantes
+- **And** no debe crear el registro en la base de datos
+
+### Story Points HU-01
+  - 5 puntos de estimacion
+    Funcionalidad principal: registro completo con validaciones y almacenamiento
+----
+
+## HU-02 - Subir fotos de la mascota
+
+Como administrador
+Quiero subir una fotografía de la mascota
+Para mejorar su visualización en la plataforma
+
+## Criterios de aceptacion gherkin
+
+## Feature: Carga de fotografía de mascota
+
+#### Scenario: Carga de imagen válida
+
+- **Given**  que el administrador selecciona una imagen válida
+- **When** la carga en el formulario
+- **Then** el sistema la almacena correctamente
 
 #### Scenario: Validación de formato de imagen incorrecto
-- Given que el administrador intenta subir un archivo que no es una imagen (ej. un .pdf o .docx)
-- When intenta procesar el registro
-- Then el sistema debe notificar que el formato de archivo no es compatible
+- **Given**  que el administrador intenta subir un archivo que no es una imagen (ej. un .pdf o .docx)
+- **When** intenta procesar el registro
+- **Then** el sistema debe notificar que el formato de archivo no es compatible
 
-## Story Points HU-01
 
+### Story Points HU-02
+  - 3 puntos de estimacion
+    Funcionalidad complementaria: carga y validación de imágenes
+
+---
 
 # Épica 2: Gestion de familias
 
