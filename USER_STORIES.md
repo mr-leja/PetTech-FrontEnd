@@ -291,21 +291,13 @@ Como familia adoptante
 
 # Épica 6: Calendario de Vacunación
 
-## HU-08 – Generar calendario de vacunas
+## HU-10 – Generar calendario de vacunas
 
 **Como** sistema  
 **Quiero** generar un calendario inicial de vacunación  
 **Para** orientar al adoptante en el cuidado de la mascota  
 
----
-
 ## Criterios de aceptación
-
-- Se consideran especie, edad e historial  
-- Se generan fechas sugeridas  
-- El calendario queda asociado a la adopción  
-
----
 
 ## Feature: Generación de calendario de vacunación
 
@@ -314,25 +306,22 @@ Como familia adoptante
 **When** el sistema genera el calendario de vacunación  
 **Then** el sistema considera la especie, edad e historial de la mascota  
 
----
-
 ### Scenario: Generación de fechas sugeridas de vacunación
 **Given** que el sistema está generando el calendario de vacunación  
 **When** se calculan las vacunas correspondientes  
 **Then** el sistema establece fechas sugeridas para cada vacuna  
-
----
 
 ### Scenario: Asociación del calendario a la adopción
 **Given** que el calendario de vacunación ha sido generado  
 **When** el sistema finaliza el proceso  
 **Then** el calendario queda asociado a la adopción  
 
-## Story Points HU-08
+## Story Points HU-10
   - 8 puntos de estimacion
     logica de negocio importante
+    ---
 
-## HU-09 – Consultar calendario
+## HU-11 – Consultar calendario
 
 Como familia adoptante  
 Quiero ver el calendario de vacunación  
@@ -340,17 +329,14 @@ Para cumplir con los cuidados de salud de la mascota
 
 ## Criterios de aceptación
 
-El calendario es visible después de la adopción  
-
-Se muestran vacunas y fechas  
-
-La información es clara y ordenada  
-
 ## Feature: visualizacion del calendario de vacunación
+
 ### Scenario: Asociación del calendario a la adopción
+
 **Given** que la familia adoptante ha completado una adopción  
 **When** accede a la información de su mascota  
-**Then** el sistema muestra el calendario de vacunación con sus fechas correspondientes  
-## Story Points HU-09
+**Then** el sistema muestra el calendario de vacunación con sus fechas correspondientes 
+ 
+## Story Points HU-11
   - 3 puntos de estimacion
     Unicamente flujo de lectura no hay logica por detras
