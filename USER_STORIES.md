@@ -334,3 +334,6 @@ La información es clara y ordenada
 **Given** que la familia adoptante ha completado una adopción  
 **When** accede a la información de su mascota  
 **Then** el sistema muestra el calendario de vacunación con sus fechas correspondientes  
+## Story Points HU-09
+  - 3 puntos de estimacion
+    Unicamente flujo de lectura no hay logica por detras
