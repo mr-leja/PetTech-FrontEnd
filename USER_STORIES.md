@@ -136,3 +136,48 @@ Como familia adoptante
 ## Story Points HU-04
   - 3 puntos de estimacion
     Flujo CRUD sencillo: selección + registro + estado inicial+ validaciones simples.
+
+# HU-05 – Evaluar Compatibilidad
+
+**Como** administrador  
+**Quiero** revisar información de familia y mascota  
+**Para** validar la compatibilidad antes de aprobar o sugerir la adopción  
+
+---
+
+## Criterios de aceptación
+
+- Se puede visualizar información de ambas partes  
+- Se puede tomar decisión de aprobación o rechazo  
+- Se puede asignar una sugerencia de mascota a una familia  
+- La asignación queda registrada  
+
+---
+
+## Feature: Evaluación de compatibilidad
+
+### Scenario: Visualización de información de familia y mascota
+**Given** que el administrador está revisando una solicitud de adopción  
+**When** accede al detalle de la solicitud  
+**Then** el sistema muestra la información de la familia y de la mascota  
+
+---
+
+### Scenario: Toma de decisión sobre la solicitud
+**Given** que el administrador ha revisado la información de la familia y la mascota  
+**When** decide aprobar o rechazar la solicitud  
+**Then** el sistema permite registrar la asignación tomada  
+
+---
+
+### Scenario: Sugerencia de mascota a una familia
+**Given** que el administrador identifica una mejor opción de adopción  
+**When** asigna una mascota sugerida a una familia  
+**Then** el sistema registra la sugerencia de adopción  
+
+---
+
+### Scenario: Registro de la decisión
+**Given** que el administrador ha tomado una decisión sobre una solicitud  
+**When** la decisión es confirmada  
+**Then** la solicitud pasa a un estado de "aprobado" o "rechazado"
