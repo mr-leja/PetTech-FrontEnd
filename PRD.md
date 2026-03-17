@@ -114,7 +114,7 @@ Además, las adopciones confirmadas podran visualizarse en una seccion denominad
 
 ### Generacion del Calendario de vacunas
 
-Una vez confirmada la adopción, el sistema generará automáticamente un calendario inicial de vacunación para la mascota. Este calendario se calculará considerando factores como: 
+Una vez confirmada la adopción, el sistema generará automáticamente un calendario inicial de vacunación personalizado para la mascota. Este calendario se calculará considerando factores como: 
 
 - Especie (los protocolos para perros ( Parvovirus, Moquillo) son muy difrentes a los de gatos ( Panleucopenia, Calicivirus))
 - Edad Biologica (El sistema debe distinguir entre cachorro (requiere refuerzos frecuentes) o adulto (refuerzos anuales o trienales))
