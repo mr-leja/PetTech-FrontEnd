@@ -103,3 +103,35 @@
 
   ## Story Points HU-03
 
+---
+
+# Épica 4: Solicitud y Matching
+
+## HU-04 – Solicitar adopción
+
+Como familia adoptante
+ Quiero enviar una solicitud de adopción
+ Para expresar interés en una mascota
+
+## Criterios de aceptación:
+
+- Se puede seleccionar una mascota
+- Se envia la solicitud
+- El estado queda como “pendiente”
+
+## Gherkin
+
+## Feature: Solicitud de adopción
+
+#### Scenario: Selección de mascota para solicitud
+- Given que la familia adoptante está explorando mascotas disponibles
+- When selecciona una mascota y confirma el envio de la solicitud
+- Then el sistema permite iniciar una solicitud de adopción para esa mascota
+- and el sistema confirma y registra la solicitud de adopción
+
+#### Scenario: Estado inicial de la solicitud
+- Given que la familia adoptante ha enviado una solicitud de adopción
+- When la solicitud es registrada en el sistema
+- Then el estado de la solicitud queda como "pendiente"
+
+
