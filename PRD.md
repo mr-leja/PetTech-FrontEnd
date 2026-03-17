@@ -93,7 +93,7 @@ Las familias podran registrar indormacion basica, como:
 
 El administrador del sistema revisará la información proporcionada por la familia adoptante y el estilo de vida, basado en estos datos, analizara la personalidad de las mascostas registradas en el sitema y le sugerira/asignara mascotas compatibles.
 
-Adicionalmente, las familias adoptantes podrán acceder a un panel de “Mascotas” donde podrán explorar las mascotas disponibles para adopción, consultar información relevante sobre cada una (como la edad,el tamaño y las características de comportamiento) y realizar una solicitud de revisión o interés de adopción para esa mascota específica.
+Adicionalmente, las familias adoptantes podrán acceder a un panel de “Mascotas” donde podrán explorar las mascotas disponibles para adopción, consultar información relevante sobre cada una (como la edad,el tamaño y las características de comportamiento) y realizar una solicitud de interés de adopción para esa mascota específica.
 
 El matching considerará criterios como:
 
@@ -115,12 +115,12 @@ Además, las adopciones confirmadas podran visualizarse en una seccion denominad
 
 Una vez confirmada la adopción, el sistema generará automáticamente un calendario inicial de vacunación para la mascota. Este calendario se calculará considerando factores como: 
 
-- Especie (os protocolos para perros ( Parvovirus, Moquillo) son muy difrentes a los de gatos ( Panleucopenia, Calicivirus))
+- Especie (los protocolos para perros ( Parvovirus, Moquillo) son muy difrentes a los de gatos ( Panleucopenia, Calicivirus))
 - Edad Biologica (El sistema debe distinguir entre cachorro (requiere refuerzos frecuentes) o adulto (refuerzos anuales o trienales))
 - Histotial de Vacunacion (el sistema debe conocer qué vacunas ya tiene la mascota al momento de la adopción)
 - Peso de la mascota
 
-Esto, con el propósito de brindar apoyo a los adoptantes sobre los cuidados preventivos que deben realizarse en las etapas posteriores a la adopción. 
+Esto, con el propósito de brindar apoyo a los adoptantes sobre los cuidados preventivos que deben realizarse en las etapas siguientes a la adopción. 
 
 ### Funcionalidades fuera del MVP (OUT)
 
