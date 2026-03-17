@@ -228,3 +228,41 @@ Como familia adoptante
 ## Story Points HU-06
   - 3 puntos de estimacion
     Cambio de estado , manejo de fechas , relacion de dos tablas logica directa
+
+    
+# HU-07 – Visualizar adopciones realizadas
+
+**Como** usuario (refugio o familia)  
+**Quiero** ver el historial de adopciones  
+**Para** hacer seguimiento de adopciones exitosas  
+
+---
+
+## Criterios de aceptación
+
+- Existe la sección “Adopciones realizadas”  
+- Se muestran registros históricos  
+- Se puede filtrar por usuario  
+
+---
+
+## Feature: Visualización de adopciones realizadas
+
+### Scenario: Acceso a la sección de adopciones realizadas
+**Given** que el usuario accede al sistema  
+**When** navega a la sección "Adopciones realizadas"  
+**Then** el sistema muestra la sección de historial de adopciones  
+
+---
+
+### Scenario: Visualización de registros históricos
+**Given** que el usuario se encuentra en la sección de adopciones realizadas  
+**When** consulta el historial  
+**Then** el sistema muestra los registros de adopciones exitosas  
+
+---
+
+### Scenario: Filtrado de adopciones por usuario
+**Given** que el usuario visualiza el historial de adopciones  
+**When** aplica un filtro por usuario  
+**Then** el sistema muestra únicamente las adopciones asociadas a ese usuario  
