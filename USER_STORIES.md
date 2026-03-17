@@ -1,12 +1,17 @@
 # Épica 1: Gestion de Mascotas
 
-## HU-01 - Registrar mascota
+## HU-01 - Registrar información de la mascota
 
-- Como refugio
-- Quiero registrar una mascota incluyendo su información básica, estado de salud y su foto 
-- Para centralizar toda la información necesaria para su publicación y futuro proceso de adopción
+- Como administrador
+- Quiero registrar una mascota incluyendo su información básica y estado de salud
+- Para almacenar su información en el sistema
 
 ## Criterios de aceptacion
+
+- El sistema debe permitir ingresar datos obligatorios como historial de vacunas, especie y fecha de nacimiento
+- El sistema debe validar que los campos obligatorios no estén vacíos
+- Si falta algún dato obligatorio, el sistema debe mostrar un mensaje de error indicando los campos faltantes
+- Cuando los datos son válidos, el sistema debe guardar la información correctamente
 
 ### Feature: Registro completo de mascotas
 
