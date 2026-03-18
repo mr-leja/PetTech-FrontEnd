@@ -168,28 +168,25 @@
 
 ### Feature: Visualización del listado de mascotas disponibles
 
-### Scenario: Visualización de mascotas disponibles
-  - **Given**  que existen mascotas registradas en el sistema
-  - **When** la familia accede a la sección de mascotas
-  - **Then** se muestra el listado de mascotas disponibles
+ ### Scenario: Visualización de mascotas disponibles
+  **Given** que existen mascotas registradas en el sistema
+  **When** se consulta el listado de mascotas
+  **Then** el sistema muestra las mascotas disponibles para adopción
 
-### Scenario: Visualización según disponibilidad de la mascota
-  - **Given** que existen mascotas registradas con diferentes estados de disponibilidad
-  - **When** la familia accede a la sección de mascotas
-  - **Then** se muestran únicamente las mascotas disponibles
-  - **And** las mascotas no disponibles no se presentan en el listado
+  ### Scenario: Exclusión de mascotas no disponibles
+  **Given** que existen mascotas con diferentes estados de disponibilidad
+  **When** se consulta el listado de mascotas
+  **Then** el sistema incluye únicamente mascotas disponibles
 
-### Scenario: Información básica en el listado
+### Scenario: Información relevante en el listado
+  **Given** que existen mascotas disponibles para adopción
+  **When** se consulta el listado de mascotas
+  **Then** cada mascota presenta la información necesaria para su evaluación básica
 
- - **Given** que la familia visualiza el listado de mascotas
- - **When** observa cada mascota
- - **Then** cada una muestra su información completa
-
-### Scenario: Carga correcta del listado
-
- - **Given** que la familia accede a la sección de mascotas
- - **When** el sistema carga la información
- - **Then** el listado se muestra correctamente sin errores
+### Scenario: Ausencia de mascotas disponibles
+  **Given** que no existen mascotas disponibles para adopción
+  **When** se consulta el listado de mascotas
+  **Then** el sistema informa que no hay mascotas disponibles
 
   ### Story Points HU-06
     -3 puntos 
