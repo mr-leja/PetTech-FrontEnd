@@ -111,14 +111,34 @@ El administrador del sistema revisará la información proporcionada por la fami
 
 Adicionalmente, las familias adoptantes podrán acceder a un panel de “Mascotas” donde podrán explorar las mascotas disponibles para adopción, consultar información relevante sobre cada una (como la edad,el tamaño y las características de comportamiento) y realizar una solicitud de interés de adopción para esa mascota específica.
 
+El matching considerará criterios como:
 
+- tamaño de la mascota vs tamaño del hogar
+- Tiempo de soledad vs independencia de la mascota
+- experiencia previa vs complejidad de la mascota
+- Presencia de otras mascotas vs sociabilidad
+- compatibilidad con niños
+- costos estimados de cuidado vs gastos de la mascota
 
 ## Reglas de Matching
+
+### incompatibilidad
 
 - Si tamaño mascota > capacidad del hogar → incompatibilidad alta
 - Si tiempo solo > 6h y mascota requiere alta compañía → incompatibilidad
 - Si hay niños y mascota no es apta → bloqueo de sugerencia
-- Score de compatibilidad (0–100)
+- Si experiencia del adoptante < nivel requerido por la mascota → incompatibilidad alta
+- Si existen otras mascotas en el hogar y la nueva mascota tiene baja sociabilidad → incompatibilidad
+- Si los gastos estimados de la mascota > ingresos familiares declarados → incompatibilidad alta
+
+### compatibilidad
+
+- Si tamaño de la mascota ≤ capacidad del hogar → compatibilidad alta
+- Si el tiempo de soledad ≤ nivel de independencia de la mascota → compatibilidad
+- Si experiencia del adoptante ≥ nivel de experiencia requerido por la mascota → compatibilidad alta
+- Si existen otras mascotas y la nueva mascota tiene alta sociabilidad → compatibilidad
+- Si hay niños y la mascota es apta para convivencia con niños → compatibilidad alta
+- Si los ingresos economicos ≥ gastos estimados de la mascota → compatibilidad
 
 ### Confirmacion de adopción
 
