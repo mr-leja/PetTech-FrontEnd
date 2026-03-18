@@ -9,14 +9,14 @@
 ## Criterios de aceptacion 
 ### Feature: Registro completo de mascotas
 
-#### Scenario: Registro exitoso
+### Scenario: Registro exitoso
 
 - **Given**  que el administrador del refugio completa los campos obligatorios
 - And adjunta el historial de salud (vacunas y esterilización)
 - **When** confirma el registro de la mascota
 - **Then** el sistema almacena los datos de la mascota
 
-#### Scenario: Validación de campos obligatorios
+### Scenario: Validación de campos obligatorios
 - **Given** que el administrador deja vacíos campos obligatorios (como la edad o la especie)
 - **When** intenta guardar la mascota
 - **Then** el sistema debe mostrar un mensaje de error destacando los campos faltantes
@@ -35,22 +35,22 @@
 
 ## Criterios de aceptacion 
 
-## Feature: Carga de fotografía de mascota
+### Feature: Carga de fotografía de mascota
 
-#### Scenario: Carga de imagen válida
+### Scenario: Carga de imagen válida
 
 - **Given**  que el administrador selecciona una imagen válida
 - **When** la carga en el formulario
 - **Then** el sistema la almacena correctamente
 
-#### Scenario: Validación de formato de imagen incorrecto
+### Scenario: Validación de formato de imagen incorrecto
 - **Given**  que el administrador intenta subir un archivo que no es una imagen (ej. un .pdf o .docx)
 - **When** intenta procesar el registro
 - **Then** el sistema debe notificar que el formato de archivo no es compatible
 
 ### Story Points HU-02
   - 3 puntos de estimacion
-    Funcionalidad complementaria: carga y validación de imágenes
+     Funcionalidad complementaria: carga y validación de imágenes
 ---
 
 # Épica 2: Gestion de familias
@@ -65,27 +65,27 @@
 
 ### Feature: Registro completo de familia adoptante
 
-#### Scenario: Registro exitoso con información completa
+### Scenario: Registro exitoso con información completa
   - **Given** que la familia proporciona su información personal, condiciones del hogar y experiencia con mascotas
   - **When** se registra en el sistema
   - **Then** la información queda almacenada correctamente
   - **And** la familia queda habilitada para participar en procesos de adopción
 
-#### Scenario: Validación de datos obligatorios
+### Scenario: Validación de datos obligatorios
   - **Given** que la familia omite datos personales obligatorios (numero de identificacion o edad)
   - **When**  intenta registrarse
   - **Then**  el sistema rechaza el registro
   - **And** informa que existen campos obligatorios faltantes
 
-#### Scenario: Validación de mayoría de edad
+### Scenario: Validación de mayoría de edad
   - **Given**  que la familia registra una edad menor a la permitida (+18)
   - **When** intenta completar el registro
   - **Then** el sistema rechaza el registro
   - **And** nforma que debe ser mayor de edad
 
-## Story Points HU-03
+### Story Points HU-03
   - 5 puntos
-   registro de información con validaciones (datos obligatorios y mayoría de edad) y almacenamiento en base de datos
+     registro de información con validaciones (datos obligatorios y mayoría de edad) y almacenamiento en base de datos
 
 ---
 
@@ -101,31 +101,31 @@
 
 ### Feature: Visualización del listado de mascotas disponibles
 
-#### Scenario: Visualización de mascotas disponibles
+### Scenario: Visualización de mascotas disponibles
   - **Given**  que existen mascotas registradas en el sistema
   - **When** la familia accede a la sección de mascotas
   - **Then** se muestra el listado de mascotas disponibles
 
-#### Scenario: Visualización según disponibilidad de la mascota
+### Scenario: Visualización según disponibilidad de la mascota
   - **Given** que existen mascotas registradas con diferentes estados de disponibilidad
   - **When** la familia accede a la sección de mascotas
   - **Then** se muestran únicamente las mascotas disponibles
   - **And** las mascotas no disponibles no se presentan en el listado
 
-#### Scenario: Información básica en el listado
+### Scenario: Información básica en el listado
 
  - **Given** que la familia visualiza el listado de mascotas
  - **When** observa cada mascota
  - **Then** cada una muestra su información completa
 
-#### Scenario: Carga correcta del listado
+### Scenario: Carga correcta del listado
 
- - **Given* que la familia accede a la sección de mascotas
+ - **Given** que la familia accede a la sección de mascotas
  - **When** el sistema carga la información
  - **Then** el listado se muestra correctamente sin errores
 
-  ## Story Points HU-04
-     -3 puntos 
+  ### Story Points HU-04
+    -3 puntos 
      Visualización de listado con filtro por disponibilidad
 ---
 
@@ -135,9 +135,9 @@
 - **Quiero** ver el detalle de una mascota
 - **Para** conocer sus características antes de solicitar adopción
 
-### Criterios de aceptación:
+## Criterios de aceptación:
 
-## Feature: Visualización de la Informacion de una mascota
+### Feature: Visualización de la Informacion de una mascota
 
 ### Scenario: Visualización del detalle de una mascota
 
@@ -157,9 +157,9 @@
  - **When** la mascota tiene información de salud registrada
  - **Then** el sistema muestra su historial básico
 
- ## Story Points HU-05
+ ### Story Points HU-05
     -5 puntos
-     Visualización de detalle con más información (datos, fotos e historial). Mayor alcance que el listado
+    Visualización de detalle con más información (datos, fotos e historial). Mayor alcance que el listado
 ---
 
 # Épica 4: Solicitud y Matching
@@ -172,26 +172,26 @@
 
 ## Criterios de aceptación
 
-## Feature: Solicitud de adopción
+### Feature: Solicitud de adopción
 
-#### Scenario: Selección de mascota para solicitud
+### Scenario: Selección de mascota para solicitud
 - **Given** que la familia adoptante está explorando mascotas disponibles
 - **When** selecciona una mascota y confirma el envio de la solicitud
 - **Then** el sistema permite iniciar una solicitud de adopción para esa mascota
 - **and** el sistema confirma y registra la solicitud de adopción
 
-#### Scenario: Estado inicial de la solicitud
+### Scenario: Estado inicial de la solicitud
 - **Given** que la familia adoptante ha enviado una solicitud de adopción
 - **When** la solicitud es registrada en el sistema
 - **Then** el estado de la solicitud queda como "pendiente"
 
-## Story Points HU-06
+### Story Points HU-06
   - 3 puntos de estimacion
     Flujo CRUD sencillo: selección + registro + estado inicial+ validaciones simples.
 
    --- 
 
-# HU-07 – Evaluar Compatibilidad
+## HU-07 – Evaluar Compatibilidad
 
 **Como** administrador  
 **Quiero** revisar información de familia y mascota  
@@ -199,7 +199,7 @@
 
 ## Criterios de aceptación
 
-## Feature: Evaluación de compatibilidad
+### Feature: Evaluación de compatibilidad
 
 ### Scenario: Visualización de información de familia y mascota
 **Given** que el administrador está revisando una solicitud de adopción  
@@ -221,7 +221,7 @@
 **When** la decisión es confirmada  
 **Then** la solicitud pasa a un estado de "aprobado" o "rechazado"
 
-## Story Points HU-07
+### Story Points HU-07
   - 5 puntos de estimacion
     Mayor complejidad , logica cruzada de diferentes tablas , logica de decision
 
@@ -237,7 +237,7 @@
 
 ## Criterios de aceptación
 
-## Feature: Confirmación de adopción
+### Feature: Confirmación de adopción
 
 ### Scenario: Cambio de estado a adopción exitosa
 **Given** que existe una solicitud de adopción aprobada  
@@ -254,12 +254,12 @@
 **When** el sistema registra la adopción como exitosa  
 **Then** la mascota queda vinculada a la familia adoptante  
 
-## Story Points HU-08
+### Story Points HU-08
   - 3 puntos de estimacion
     Cambio de estado , manejo de fechas , relacion de dos tablas logica directa
 ---
     
-# HU-09 – Visualizar adopciones realizadas
+## HU-09 – Visualizar adopciones realizadas
 
 **Como** usuario (refugio o familia)  
 **Quiero** ver el historial de adopciones  
@@ -267,7 +267,7 @@
 
 ## Criterios de aceptación
 
-## Feature: Visualización de adopciones realizadas
+### Feature: Visualización de adopciones realizadas
 
 ### Scenario: Acceso a la sección de adopciones realizadas
 **Given** que el usuario accede al sistema  
@@ -284,7 +284,7 @@
 **When** aplica un filtro por usuario  
 **Then** el sistema muestra únicamente las adopciones asociadas a ese usuario  
 
-## Story Points HU-09
+### Story Points HU-09
   - 5 puntos de estimacion
     logica de filtro complejo + paginacion
 
@@ -300,7 +300,7 @@
 
 ## Criterios de aceptación
 
-## Feature: Generación de calendario de vacunación
+### Feature: Generación de calendario de vacunación
 
 ### Scenario: Generación del calendario considerando características de la mascota
 **Given** que una adopción ha sido confirmada  
@@ -317,7 +317,7 @@
 **When** el sistema finaliza el proceso  
 **Then** el calendario queda asociado a la adopción  
 
-## Story Points HU-10
+### Story Points HU-10
   - 8 puntos de estimacion
     logica de negocio importante
     ---
@@ -330,7 +330,7 @@
 
 ## Criterios de aceptación
 
-## Feature: visualizacion del calendario de vacunación
+### Feature: visualizacion del calendario de vacunación
 
 ### Scenario: Asociación del calendario a la adopción
 
@@ -338,6 +338,6 @@
 **When** accede a la información de su mascota  
 **Then** el sistema muestra el calendario de vacunación con sus fechas correspondientes 
 
-## Story Points HU-11
+### Story Points HU-11
   - 3 puntos de estimacion
     Unicamente flujo de lectura no hay logica por detras
