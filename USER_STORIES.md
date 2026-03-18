@@ -268,6 +268,9 @@
 **When** el administrador accede a su detalle  
 **Then** el sistema muestra la información de la familia y de la mascota  
 
+### Story Points HU-09
+  - 3 puntos de estimacion
+    Flujo unicamente de visualizacion no incluye logica compleya mas que manejo de sesiones
 
 ---
 
