@@ -53,10 +53,18 @@
 ## HU-04 - Registrar información básica de familia 
 
 ### Tareas de DEV
-- [ ] DEV-n: [Escribe aquí tu subtarea técnica]
+-DEV-04-1: Diseñar y crear tabla familias_adoptantes con los campos: nombre_completo, cedula, edad, direccion, telefono, correo, redes_sociales (opcional)
+- DEV-04-2: Crear entidad/modelo FamiliaAdoptante con restricciones de unicidad en cédula y correo
+- DEV-04-3: Crear DTO de entrada RegistrarFamiliaDTO con validaciones: campos obligatorios presentes, edad >= 18, formato de correo válido
+- DEV-04-4: Exponer endpoint POST /familias que reciba el DTO, valide y persista el registro
+- DEV-04-5: Implementar regla de negocio que rechaza el registro cuando la edad ingresada es menor a 18 años, retornando un mensaje descriptivo
 
 ### Tareas de QA
-- [ ] QA-n: [Escribe aquí qué probar o automatizar]
+-QA-04-1: Diseñar matriz de datos de prueba: registro válido completo, campos obligatorios vacíos (cédula, nombre, dirección), edad = 17, edad = 18, cédula duplicada, correo con formato inválido
+- QA-04-2: Automatizar escenario: registro exitoso con todos los datos personales válidos — perfil creado con estado activo
+- QA-04-3: Automatizar escenario: campos obligatorios vacíos — sistema rechaza y señala los campos faltantes
+- QA-04-4: Automatizar escenario: edad = 17 — sistema rechaza registro con mensaje de mayoría de edad requerida
+- QA-04-5: Ejecutar prueba exploratoria sobre el endpoint verificando respuesta ante cédula ya existente y correo duplicado
 
 ---
 
