@@ -76,7 +76,7 @@
 
 # Épica 2: Gestion de familias
 
-## HU-04 - Registro de informacion de las Familias
+## HU-04 - Registrar información básica de familia
 
 - **Como** familia adoptante
 - **Quiero** registrar mi información personal
@@ -84,25 +84,25 @@
 
 ## Criterios de aceptacion
 
-### Feature: Registro completo de familia adoptante
+### Feature: Registro exitoso de familia adoptante
 
 ### Scenario: Registro exitoso con información completa
-  - **Given** que la familia proporciona su información personal, condiciones del hogar y experiencia con mascotas
-  - **When** se registra en el sistema
+  - **Given** que la familia ingresa datos válidos
+  - **When** completa el registro
   - **Then** la información queda almacenada correctamente
-  - **And** la familia queda habilitada para participar en procesos de adopción
+
 
 ### Scenario: Validación de datos obligatorios
   - **Given** que la familia omite datos personales obligatorios (numero de identificacion o edad)
   - **When**  intenta registrarse
   - **Then**  el sistema rechaza el registro
-  - **And** informa que existen campos obligatorios faltantes
+  - **And** muestra los campos faltantes
 
 ### Scenario: Validación de mayoría de edad
-  - **Given**  que la familia registra una edad menor a la permitida (+18)
+  - **Given**  que la familia ingresa una edad menor a 18
   - **When** intenta completar el registro
   - **Then** el sistema rechaza el registro
-  - **And** nforma que debe ser mayor de edad
+  - **And** informa que debe ser mayor de edad
 
 ### Story Points HU-04
   - 5 puntos
@@ -110,9 +110,30 @@
 
 ---
 
+## HU-05 - Registrar condiciones del hogar y experiencia
+
+- **Como** familia adoptante
+- **Quiero** registrar las condiciones de mi hogar y mi experiencia con mascotas
+- **Para** facilitar el proceso de evaluación para adopción
+
+## Criterios de aceptacion
+
+### Feature: Registro exitoso de experiencia y condiciones del hogar
+
+### Scenario: Registro de condiciones del hogar
+  - **Given** que la familia ingresa información del hogar y experiencia
+  - **When** guarda los datos
+  - **Then** el sistema almacena la información correctamente
+
+### Story Points HU-05
+  -  3 puntos
+     Registro de condiciones del hogar y experiencia con almacenamiento. Funcionalidad específica, con validaciones básicas y baja complejidad
+
+---
+
 # Épica 3: Visualización de Mascotas
 
-## HU-05 - Ver listado de mascotas
+## HU-06 - Ver listado de mascotas
 
 - **Como** familia adoptante
 - **Quiero** ver las mascotas disponibles
@@ -145,12 +166,12 @@
  - **When** el sistema carga la información
  - **Then** el listado se muestra correctamente sin errores
 
-  ### Story Points HU-05
+  ### Story Points HU-06
     -3 puntos 
      Visualización de listado con filtro por disponibilidad
 ---
 
-## HU-05 – Ver detalle de mascota
+## HU-07 – Ver detalle de mascota
 
 - **Como** familia adoptante
 - **Quiero** ver el detalle de una mascota
@@ -178,14 +199,14 @@
  - **When** la mascota tiene información de salud registrada
  - **Then** el sistema muestra su historial básico
 
- ### Story Points HU-05
+ ### Story Points HU-07
     -5 puntos
     Visualización de detalle con más información (datos, fotos e historial). Mayor alcance que el listado
 ---
 
 # Épica 4: Solicitud y Matching
 
-## HU-06 – Solicitar adopción
+## HU-08 – Solicitar adopción
 
  - **Como** familia adoptante
  - **Quiero** enviar una solicitud de adopción
@@ -206,13 +227,13 @@
 - **When** la solicitud es registrada en el sistema
 - **Then** el estado de la solicitud queda como "pendiente"
 
-### Story Points HU-06
+### Story Points HU-08
   - 3 puntos de estimacion
     Flujo CRUD sencillo: selección + registro + estado inicial+ validaciones simples.
 
    --- 
 
-## HU-07 – Evaluar Compatibilidad
+## HU-09 – Evaluar Compatibilidad
 
 **Como** administrador  
 **Quiero** revisar información de familia y mascota  
@@ -242,7 +263,7 @@
 **When** la decisión es confirmada  
 **Then** la solicitud pasa a un estado de "aprobado" o "rechazado"
 
-### Story Points HU-07
+### Story Points HU-09
   - 5 puntos de estimacion
     Mayor complejidad , logica cruzada de diferentes tablas , logica de decision
 
@@ -250,7 +271,7 @@
 
 # Épica 5: Confirmación de Adopción
 
-## HU-08 – Confirmar adopción
+## HU-10 – Confirmar adopción
 
 **Como** administrador  
 **Quiero** confirmar una adopción  
@@ -275,12 +296,12 @@
 **When** el sistema registra la adopción como exitosa  
 **Then** la mascota queda vinculada a la familia adoptante  
 
-### Story Points HU-08
+### Story Points HU-10
   - 3 puntos de estimacion
     Cambio de estado , manejo de fechas , relacion de dos tablas logica directa
 ---
     
-## HU-09 – Visualizar adopciones realizadas
+## HU-11 – Visualizar adopciones realizadas
 
 **Como** usuario (refugio o familia)  
 **Quiero** ver el historial de adopciones  
@@ -305,7 +326,7 @@
 **When** aplica un filtro por usuario  
 **Then** el sistema muestra únicamente las adopciones asociadas a ese usuario  
 
-### Story Points HU-09
+### Story Points HU-11
   - 5 puntos de estimacion
     logica de filtro complejo + paginacion
 
@@ -313,7 +334,7 @@
 
 # Épica 6: Calendario de Vacunación
 
-## HU-10 – Generar calendario de vacunas
+## HU-12 – Generar calendario de vacunas
 
 **Como** sistema  
 **Quiero** generar un calendario inicial de vacunación  
@@ -338,12 +359,12 @@
 **When** el sistema finaliza el proceso  
 **Then** el calendario queda asociado a la adopción  
 
-### Story Points HU-10
+### Story Points HU-12
   - 8 puntos de estimacion
     logica de negocio importante
     ---
 
-## HU-11 – Consultar calendario
+## HU-13 – Consultar calendario
 
  - **Como** familia adoptante  
  - **Quiero** ver el calendario de vacunación  
@@ -359,6 +380,6 @@
 **When** accede a la información de su mascota  
 **Then** el sistema muestra el calendario de vacunación con sus fechas correspondientes 
 
-### Story Points HU-11
+### Story Points HU-13
   - 3 puntos de estimacion
     Unicamente flujo de lectura no hay logica por detras
