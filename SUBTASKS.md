@@ -87,10 +87,15 @@
 ## HU-06 - Ver listado de mascotas 
 
 ### Tareas de DEV
-- [ ] DEV-n: [Escribe aquí tu subtarea técnica]
-
+-DEV-06-1: Exponer endpoint GET /mascotas que retorne únicamente las mascotas con estado disponible
+- DEV-06-2: Configurar DTO de respuesta del listado con los campos: nombre, especie, raza, edad, foto_url (primera foto asociada)
+- DEV-06-3: Implementar filtro de estado disponible en la consulta a la base de datos (no traer mascotas en proceso o adoptadas)
+- DEV-06-4: Implementar respuesta vacía con mensaje descriptivo cuando no existe ninguna mascota disponible
 ### Tareas de QA
-- [ ] QA-n: [Escribe aquí qué probar o automatizar]
+-QA-06-1: Diseñar matriz de datos de prueba: sistema con mascotas disponibles, sistema con mascotas en proceso y adoptadas, sistema sin ninguna mascota registrada
+- QA-06-2: Automatizar escenario: respuesta incluye solo mascotas con estado "disponible" — verificar que las de otros estados no aparecen
+- QA-06-3: Automatizar escenario: mascotas con estado "en proceso" o "adoptada" no están presentes en el listado
+- QA-06-4: Automatizar escenario: cuando no hay mascotas disponibles el endpoint retorna la respuesta vacía con el mensaje correspondiente
 
 ---
 
