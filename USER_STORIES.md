@@ -405,6 +405,20 @@
 **When** accede a la información de su mascota  
 **Then** el sistema muestra el calendario de vacunación con sus fechas correspondientes 
 
+
+### Scenario: Consulta de calendario para una adopción no confirmada
+  **Given** que la familia adoptante tiene una solicitud de adopción en estado "pendiente"
+  **And** la mascota no ha sido entregada a la familia
+  **When** se consulta la información de la mascota
+  **Then** el sistema no muestra el calendario de vacunación
+
+### Scenario: Acceso a calendario sin tener una adopción registrada
+  **Given** que el usuario no tiene una adopción registrada
+  **When** intenta acceder a la información de una mascota
+  **When** el sistema deniega el acceso al calendario de vacunación
+
+
+
 ### Story Points HU-13
   - 3 puntos de estimacion
     Unicamente flujo de lectura no hay logica por detras
