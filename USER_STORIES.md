@@ -2,11 +2,11 @@
 
 ## HU-01 - Registrar información de la mascota
 
-- Como administrador
-- Quiero registrar una mascota incluyendo su información básica y estado de salud
-- Para almacenar su información en el sistema
+- **Como** administrador
+- **Quiero** registrar una mascota incluyendo su información básica y estado de salud
+- **Para** almacenar su información en el sistema
 
-## Criterios de aceptacion gherkin
+## Criterios de aceptacion 
 ### Feature: Registro completo de mascotas
 
 #### Scenario: Registro exitoso
@@ -29,11 +29,11 @@
 
 ## HU-02 - Subir fotos de la mascota
 
-Como administrador
-Quiero subir una fotografía de la mascota
-Para mejorar su visualización en la plataforma
+- **Como** administrador
+- **Quiero** subir una fotografía de la mascota
+- **Para** mejorar su visualización en la plataforma
 
-## Criterios de aceptacion gherkin
+## Criterios de aceptacion 
 
 ## Feature: Carga de fotografía de mascota
 
@@ -57,31 +57,31 @@ Para mejorar su visualización en la plataforma
 
 ## HU-03 - Registro de informacion de las Familias
 
-- Como familia adoptante
-- Quiero registrar mi información personal
-- Para crear mi perfil en el sistema
+- **Como** familia adoptante
+- **Quiero** registrar mi información personal
+- **Para** crear mi perfil en el sistema
 
 ## Criterios de aceptacion
 
 ### Feature: Registro completo de familia adoptante
 
 #### Scenario: Registro exitoso con información completa
-  - Given que la familia proporciona su información personal, condiciones del hogar y experiencia con mascotas
-  - When se registra en el sistema
-  - Then la información queda almacenada correctamente
-  - And la familia queda habilitada para participar en procesos de adopción
+  - **Given** que la familia proporciona su información personal, condiciones del hogar y experiencia con mascotas
+  - **When** se registra en el sistema
+  - **Then** la información queda almacenada correctamente
+  - **And** la familia queda habilitada para participar en procesos de adopción
 
 #### Scenario: Validación de datos obligatorios
-  - Given que la familia omite datos personales obligatorios (numero de identificacion o edad)
-  - When intenta registrarse
-  - Then el sistema rechaza el registro
-  - And informa que existen campos obligatorios faltantes
+  - **Given** que la familia omite datos personales obligatorios (numero de identificacion o edad)
+  - **When**  intenta registrarse
+  - **Then**  el sistema rechaza el registro
+  - **And** informa que existen campos obligatorios faltantes
 
 #### Scenario: Validación de mayoría de edad
-  - Given que la familia registra una edad menor a la permitida (+18)
-  - When intenta completar el registro
-  - Then el sistema rechaza el registro
-  - And informa que debe ser mayor de edad
+  - **Given**  que la familia registra una edad menor a la permitida (+18)
+  - **When** intenta completar el registro
+  - **Then** el sistema rechaza el registro
+  - **And** nforma que debe ser mayor de edad
 
 ## Story Points HU-03
   - 5 puntos
@@ -93,36 +93,36 @@ Para mejorar su visualización en la plataforma
 
 ## HU-04 - Ver listado de mascotas
 
-- Como familia adoptante
-- Quiero ver las mascotas disponibles
-- Para explorar opciones de adopción
+- **Como** familia adoptante
+- **Quiero** ver las mascotas disponibles
+- **Para** explorar opciones de adopción
 
 ## Criterios de aceptacion
 
 ### Feature: Visualización del listado de mascotas disponibles
 
 #### Scenario: Visualización de mascotas disponibles
-  - Given que existen mascotas registradas en el sistema
-  - When la familia accede a la sección de mascotas
-  - Then se muestra el listado de mascotas disponibles
+  - **Given**  que existen mascotas registradas en el sistema
+  - **When** la familia accede a la sección de mascotas
+  - **Then** se muestra el listado de mascotas disponibles
 
 #### Scenario: Visualización según disponibilidad de la mascota
-  - Given que existen mascotas registradas con diferentes estados de disponibilidad
-  - When la familia accede a la sección de mascotas
-  - Then se muestran únicamente las mascotas disponibles
-  - And las mascotas no disponibles no se presentan en el listado
+  - **Given** que existen mascotas registradas con diferentes estados de disponibilidad
+  - **When** la familia accede a la sección de mascotas
+  - **Then** se muestran únicamente las mascotas disponibles
+  - **And** las mascotas no disponibles no se presentan en el listado
 
 #### Scenario: Información básica en el listado
 
- - Given que la familia visualiza el listado de mascotas
- - When observa cada mascota
- - Then cada una muestra su información completa
+ - **Given** que la familia visualiza el listado de mascotas
+ - **When** observa cada mascota
+ - **Then** cada una muestra su información completa
 
 #### Scenario: Carga correcta del listado
 
- - Given que la familia accede a la sección de mascotas
- - When el sistema carga la información
- - Then el listado se muestra correctamente sin errores
+ - **Given* que la familia accede a la sección de mascotas
+ - **When** el sistema carga la información
+ - **Then** el listado se muestra correctamente sin errores
 
   ## Story Points HU-04
      -3 puntos 
@@ -131,9 +131,9 @@ Para mejorar su visualización en la plataforma
 
 ## HU-05 – Ver detalle de mascota
 
-- Como familia adoptante
-- Quiero ver el detalle de una mascota
-- Para conocer sus características antes de solicitar adopción
+- **Como** familia adoptante
+- **Quiero** ver el detalle de una mascota
+- **Para** conocer sus características antes de solicitar adopción
 
 ### Criterios de aceptación:
 
@@ -141,21 +141,21 @@ Para mejorar su visualización en la plataforma
 
 ### Scenario: Visualización del detalle de una mascota
 
- - Given que la familia selecciona una mascota del listado
- - When accede a su detalle
- - Then el sistema muestra la información completa de la mascota
+ - **Given** que la familia selecciona una mascota del listado
+ - **When** accede a su detalle
+ - **Then** el sistema muestra la información completa de la mascota
 
 ### Scenario: Visualización de fotografías
 
- - Given que la familia accede al detalle de una mascota
- - When existen imágenes asociadas
- - Then el sistema muestra las fotos de la mascota
+ - **Given** que la familia accede al detalle de una mascota
+ - **When** existen imágenes asociadas
+ - **Then** el sistema muestra las fotos de la mascota
 
 ### Scenario: Visualización del historial básico
 
- - Given que la familia accede al detalle de una mascota
- - When la mascota tiene información de salud registrada
- - Then el sistema muestra su historial básico
+ - **Given** que la familia accede al detalle de una mascota
+ - **When** la mascota tiene información de salud registrada
+ - **Then** el sistema muestra su historial básico
 
  ## Story Points HU-05
     -5 puntos
@@ -166,24 +166,25 @@ Para mejorar su visualización en la plataforma
 
 ## HU-06 – Solicitar adopción
 
-Como familia adoptante
- Quiero enviar una solicitud de adopción
- Para expresar interés en una mascota
+ - **Como** familia adoptante
+ - **Quiero** enviar una solicitud de adopción
+ - **Para** expresar interés en una mascota
 
 ## Criterios de aceptación
 
 ## Feature: Solicitud de adopción
 
 #### Scenario: Selección de mascota para solicitud
-- Given que la familia adoptante está explorando mascotas disponibles
-- When selecciona una mascota y confirma el envio de la solicitud
-- Then el sistema permite iniciar una solicitud de adopción para esa mascota
-- and el sistema confirma y registra la solicitud de adopción
+- **Given** que la familia adoptante está explorando mascotas disponibles
+- **When** selecciona una mascota y confirma el envio de la solicitud
+- **Then** el sistema permite iniciar una solicitud de adopción para esa mascota
+- **and** el sistema confirma y registra la solicitud de adopción
 
 #### Scenario: Estado inicial de la solicitud
-- Given que la familia adoptante ha enviado una solicitud de adopción
-- When la solicitud es registrada en el sistema
-- Then el estado de la solicitud queda como "pendiente"
+- **Given** que la familia adoptante ha enviado una solicitud de adopción
+- **When** la solicitud es registrada en el sistema
+- **Then** el estado de la solicitud queda como "pendiente"
+
 ## Story Points HU-06
   - 3 puntos de estimacion
     Flujo CRUD sencillo: selección + registro + estado inicial+ validaciones simples.
@@ -323,9 +324,9 @@ Como familia adoptante
 
 ## HU-11 – Consultar calendario
 
-Como familia adoptante  
-Quiero ver el calendario de vacunación  
-Para cumplir con los cuidados de salud de la mascota  
+ - **Como** familia adoptante  
+ - **Quiero** ver el calendario de vacunación  
+ - **Para** cumplir con los cuidados de salud de la mascota  
 
 ## Criterios de aceptación
 
@@ -336,7 +337,7 @@ Para cumplir con los cuidados de salud de la mascota
 **Given** que la familia adoptante ha completado una adopción  
 **When** accede a la información de su mascota  
 **Then** el sistema muestra el calendario de vacunación con sus fechas correspondientes 
- 
+
 ## Story Points HU-11
   - 3 puntos de estimacion
     Unicamente flujo de lectura no hay logica por detras
