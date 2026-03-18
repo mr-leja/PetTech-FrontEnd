@@ -319,7 +319,7 @@
 
 # Épica 5: Confirmación de Adopción
 
-## HU-10 – Confirmar adopción
+## HU-12 – Confirmar adopción
 
 **Como** administrador  
 **Quiero** confirmar una adopción  
@@ -344,12 +344,12 @@
 **When** el sistema registra la adopción como exitosa  
 **Then** la mascota queda vinculada a la familia adoptante  
 
-### Story Points HU-10
+### Story Points HU-12
   - 3 puntos de estimacion
     Cambio de estado , manejo de fechas , relacion de dos tablas logica directa
 ---
     
-## HU-11 – Visualizar adopciones realizadas
+## HU-13 – Visualizar adopciones realizadas
 
 **Como** usuario (refugio o familia)  
 **Quiero** ver el historial de adopciones  
@@ -374,7 +374,7 @@
 **When** aplica un filtro por usuario  
 **Then** el sistema muestra únicamente las adopciones asociadas a ese usuario  
 
-### Story Points HU-11
+### Story Points HU-13
   - 5 puntos de estimacion
     logica de filtro complejo + paginacion
 
@@ -382,7 +382,7 @@
 
 # Épica 6: Calendario de Vacunación
 
-## HU-12 – Generar calendario de vacunas
+## HU-14 – Generar calendario de vacunas
 
 **Como** sistema  
 **Quiero** generar un calendario inicial de vacunación  
@@ -407,12 +407,12 @@
 **When** el sistema finaliza el proceso  
 **Then** el calendario queda asociado a la adopción  
 
-### Story Points HU-12
+### Story Points HU-14
   - 8 puntos de estimacion
     logica de negocio importante
     ---
 
-## HU-13 – Consultar calendario
+## HU-15 – Consultar calendario
 
  - **Como** familia adoptante  
  - **Quiero** ver el calendario de vacunación  
@@ -442,6 +442,6 @@
 
 
 
-### Story Points HU-13
+### Story Points HU-15
   - 3 puntos de estimacion
     Unicamente flujo de lectura no hay logica por detras
