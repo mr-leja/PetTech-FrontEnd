@@ -255,41 +255,55 @@
 
    --- 
 
-## HU-09 – Evaluar Compatibilidad
+## HU -09 – Consultar detalle de solicitud de adopción
 
 **Como** administrador  
-**Quiero** revisar información de familia y mascota  
-**Para** validar la compatibilidad antes de aprobar o sugerir la adopción  
+**Quiero** visualizar la información de la familia y la mascota en una solicitud  
+**Para** analizar la viabilidad de la adopción  
 
-## Criterios de aceptación
+## Feature: Consulta de solicitud de adopción
 
-### Feature: Evaluación de compatibilidad
-
-### Scenario: Visualización de información de familia y mascota
-**Given** que el administrador está revisando una solicitud de adopción  
-**When** accede al detalle de la solicitud  
+### Scenario: Visualización de información completa  
+**Given** que existe una solicitud de adopción  
+**When** el administrador accede a su detalle  
 **Then** el sistema muestra la información de la familia y de la mascota  
 
-### Scenario: Toma de decisión sobre la solicitud
-**Given** que el administrador ha revisado la información de la familia y la mascota  
-**When** decide aprobar o rechazar la solicitud  
-**Then** el sistema permite registrar la asignación tomada  
 
-### Scenario: Sugerencia de mascota a una familia
-**Given** que el administrador identifica una mejor opción de adopción  
-**When** asigna una mascota sugerida a una familia  
+---
+
+## HU-10– Registrar decisión sobre solicitud
+
+**Como** administrador  
+**Quiero** aprobar o rechazar una solicitud de adopción  
+**Para** controlar el proceso de asignación de mascotas  
+
+## Feature: Gestión de decisión de solicitud  
+
+### Scenario: Aprobación de solicitud  
+**Given** que el administrador ha revisado la solicitud  
+**When** decide aprobarla  
+**Then** el sistema registra la solicitud como "aprobada"  
+
+### Scenario: Rechazo de solicitud  
+**Given** que el administrador ha revisado la solicitud  
+**When** decide rechazarla  
+**Then** el sistema registra la solicitud como "rechazada"  
+
+
+---
+
+## HU-11 – Sugerir alternativa de adopción
+
+**Como** administrador  
+**Quiero** sugerir una mascota alternativa a una familia  
+**Para** mejorar la probabilidad de éxito en la adopción  
+
+## Feature: Sugerencia de mascota alternativa  
+
+### Scenario: Registro de sugerencia  
+**Given** que el administrador identifica una mejor opción  
+**When** asigna una mascota sugerida a la familia  
 **Then** el sistema registra la sugerencia de adopción  
-
-### Scenario: Registro de la decisión
-**Given** que el administrador ha tomado una decisión sobre una solicitud  
-**When** la decisión es confirmada  
-**Then** la solicitud pasa a un estado de "aprobado" o "rechazado"
-
-### Story Points HU-09
-  - 5 puntos de estimacion
-    Mayor complejidad , logica cruzada de diferentes tablas , logica de decision
-
-    ---
 
 # Épica 5: Confirmación de Adopción
 
