@@ -138,6 +138,18 @@
   - **When** guarda los datos
   - **Then** el sistema almacena la información correctamente
 
+#### Scenario: Intento de registro sin campos obligatorios
+- **Given** que la familia no selecciona el tipo de vivienda o no indica el tamaño del hogar
+- **When** intenta guardar la información
+- **Then** el sistema muestra un mensaje con el siguinte texto: falta informacion faltante
+- **And** no actualiza el perfil con información incompleta
+
+#### Scenario: Registro con campos ya existentens a
+- **Given** que la familia intenta registrar nuevamente los campos
+- **When** intententa registrar la informacion
+- **Then** el sistema arroja un mensaje de alerta 
+- **And** no permite el registro
+
 ### Story Points HU-05
   -  3 puntos
      Registro de condiciones del hogar y experiencia con almacenamiento. Funcionalidad específica, con validaciones básicas y baja complejidad
