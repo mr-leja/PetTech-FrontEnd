@@ -50,9 +50,9 @@ Facilitar las adopciones responsables a traves de un sistema de emparejamiento e
 
 ### Funcionalidades Incluidas (IN)
 
-#### Registro de mascotas
+#### Registro de mascotas 
 
-Los refugios podran registar mascotas con información basica de la mascota, como:
+Los administradores podran registar mascotas con información basica de la mascota, como:
 
 - Nombre
 - Especie (perro, gato, conejo, etc)
@@ -67,6 +67,14 @@ Los refugios podran registar mascotas con información basica de la mascota, com
 - Historial de vacunas
 - Historia de la mascota (breve descripcion de su personalidad)
 - Información adicional necesaria para el seguimiento del veterinario (desparasitacion, esterilizacion, etc)
+
+## Roles y permisos
+
+### Admin
+- Crear/editar mascotas
+- Aprobar/rechazar solicitudes
+- Validar emparejamientos
+- Gestionar adopciones
 
 ### Registro de las familias adoptantes
 
@@ -90,20 +98,27 @@ Las familias podran registrar información basica, como:
 - experiencia previa con mascotas
 - Motivación ¿Por qué quiere adoptar una mascota en este momento?
 
+## Roles y permisos
+
+### Familia adoptante
+- Ver mascotas
+- Aplicar a adopción
+- Ver historial
+
 ### Sistema basico de matching
 
 El administrador del sistema revisará la información proporcionada por la familia adoptante y el estilo de vida, basado en estos datos, analizara la personalidad de las mascotas registradas en el sistema y le sugerira/asignara mascotas compatibles.
 
 Adicionalmente, las familias adoptantes podrán acceder a un panel de “Mascotas” donde podrán explorar las mascotas disponibles para adopción, consultar información relevante sobre cada una (como la edad,el tamaño y las características de comportamiento) y realizar una solicitud de interés de adopción para esa mascota específica.
 
-El matching considerará criterios como:
 
-- tamaño de la mascota vs tamaño del hogar
-- Tiempo de soledad vs independencia de la mascota
-- experiencia previa vs complejidad de la mascota
-- Presencia de otras mascotas vs sociabilidad
-- compatibilidad con niños
-- costos estimados de cuidado vs gastos de la mascota
+
+## Reglas de Matching
+
+- Si tamaño mascota > capacidad del hogar → incompatibilidad alta
+- Si tiempo solo > 6h y mascota requiere alta compañía → incompatibilidad
+- Si hay niños y mascota no es apta → bloqueo de sugerencia
+- Score de compatibilidad (0–100)
 
 ### Confirmacion de adopción
 
