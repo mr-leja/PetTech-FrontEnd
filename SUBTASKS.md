@@ -133,13 +133,17 @@
 
 ---
 
-## HU-09 – Evaluar Compatibilidad 
+## HU-09 – Consultar detalle de solicitud de adopción (3 SP)
 
 ### Tareas de DEV
-- [ ] DEV-n: [Escribe aquí tu subtarea técnica]
-
+- DEV-09-1: Exponer endpoint GET /solicitudes/{id} que retorne la información consolidada de la solicitud en formato json
+- DEV-09-2: Realizar JOIN entre la tabla solicitudes_adopcion, familias_adoptantes y mascotas para armar la respuesta en un objeto aplanado
+- DEV-09-3: Implementar respuesta 404 con mensaje el cual pueda ser de facil entendimiento desde el frontend
+- DEV-09-4: Implementar la vista para que solo el adminsitrador pueda ver las solicitudes correspondientes
 ### Tareas de QA
-- [ ] QA-n: [Escribe aquí qué probar o automatizar]
+- QA-09-1: Diseñar matriz de datos: solicitud existente con informacion completa de la  familia y mascota, entre otros datos relevantes
+- QA-09-2: Automatizar escenario: consulta exitosa — respuesta contiene información de la familia y de la mascota correctamente aplanada
+- QA-09-3: Automatizar escenario: ID inexistente — sistema retorna 404 con mensaje de facil entendimiento
 
 ---
 
