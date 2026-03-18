@@ -120,10 +120,16 @@
 ## HU-08 – Solicitar adopción 
 
 ### Tareas de DEV
-- [ ] DEV-n: [Escribe aquí tu subtarea técnica]
+-DEV-08-1: Diseñar y crear tabla solicitudes_adopcion con los campos: id_familia (FK), id_mascota (FK), estado (pendiente por defecto), fecha_solicitud
+- DEV-08-2: Exponer endpoint POST /solicitudes que valide las precondiciones y cree el registro de solicitud con estado "pendiente"
+- DEV-08-3: Implementar validación de precondiciones: la familia debe tener condiciones del hogar registradas y la mascota debe estar en estado "disponible"
+- DEV-08-4: Actualizar el estado de la mascota de "disponible" a "en proceso de adopción" de forma atómica al crear la solicitud exitosamente
 
 ### Tareas de QA
-- [ ] QA-n: [Escribe aquí qué probar o automatizar]
+-QA-08-1: Diseñar matriz de datos de prueba: familia con perfil completo + mascota disponible, familia sin condiciones del hogar, mascota en estado "en proceso", ID de mascota inexistente
+- QA-08-2: Automatizar escenario: solicitud exitosa — registro creado con estado "pendiente" y mascota cambia a "en proceso de adopción"
+- QA-08-3: Automatizar escenario: familia sin condiciones del hogar — sistema bloquea la solicitud con mensaje descriptivo
+- QA-08-4: Automatizar escenario: mascota ya en proceso — sistema rechaza la segunda solicitud e informa que no está disponible
 
 ---
 
