@@ -43,7 +43,20 @@
 - **When** guarda la información
 - **Then** el sistema la almacena correctamente
 
-### Story Points HU-01
+#### Scenario: Intento de registro sin seleccionar el estado de vacunación de la mascota
+- **Given** que el administrador  deja el campo de historial de vacunas sin completar
+- **When** intenta guardar la información de salud
+- **Then** el sistema muestra un mensaje indicando que el historial de vacunación es un dato requerido
+- **And** no almacena el registro incompleto
+
+#### Scenario: Registro de mascota ya esterilizada
+- **Given** que el administrador  marca la mascota como esterilizada
+- **When** guarda la información de salud
+- **Then** el sistema registra la condición de esterilización de la mascota
+- **And** este dato queda disponible como referencia en el proceso de adopción
+
+
+### Story Points HU-02
   - 3 puntos de estimacion
      Registro de información de salud con almacenamiento
  ---    
