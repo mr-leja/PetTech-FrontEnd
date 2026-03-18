@@ -102,10 +102,18 @@
 ## HU-07 – Ver detalle de mascota 
 
 ### Tareas de DEV
-- [ ] DEV-n: [Escribe aquí tu subtarea técnica]
+-DEV-07-1: Exponer endpoint GET /mascotas/{id} que retorne la información completa de la mascota identificada
+- DEV-07-2: Configurar DTO de respuesta con todos los campos: información general, lista de URLs de fotografías e historial de salud
+- DEV-07-3: Realizar JOIN entre la tabla mascotas, salud_mascota y los registros de fotos para consolidar la respuesta en un solo objeto
+- DEV-07-4: Implementar comportamiento cuando la mascota no tiene fotografías cargadas: retornar URL de imagen de reemplazo predeterminada
+- DEV-07-5: Implementar respuesta 404 con mensaje descriptivo cuando el ID de mascota solicitado no existe en el sistema
 
 ### Tareas de QA
-- [ ] QA-n: [Escribe aquí qué probar o automatizar]
+-QA-07-1: Diseñar matriz de datos de prueba: mascota con todos los datos, mascota sin fotos, mascota sin historial de salud, ID de mascota inexistente
+- QA-07-2: Automatizar escenario: detalle completo — respuesta contiene información general, fotos e historial de salud correctamente consolidados
+- QA-07-3: Automatizar escenario: mascota con fotografías registradas — lista de URLs presente en la respuesta y accesibles
+- QA-07-4: Automatizar escenario: mascota sin fotografías — campo de foto retorna la URL de imagen de reemplazo predeterminada
+- QA-07-5: Automatizar escenario: ID inexistente — sistema retorna respuesta 404 con mensaje descriptivo
 
 ---
 
