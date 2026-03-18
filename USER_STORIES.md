@@ -1,18 +1,18 @@
 # Épica 1: Gestion de Mascotas
 
-## HU-01 - Registrar información de la mascota
+## HU-01 - Registrar información basica de la mascota
 
 - **Como** administrador
-- **Quiero** registrar una mascota incluyendo su información básica y estado de salud
+- **Quiero** registrar los datos básicos de una mascota
 - **Para** almacenar su información en el sistema
 
 ## Criterios de aceptacion 
-### Feature: Registro completo de mascotas
+
+### Feature: Registro de información básica de mascota
 
 ### Scenario: Registro exitoso
 
 - **Given**  que el administrador del refugio completa los campos obligatorios
-- And adjunta el historial de salud (vacunas y esterilización)
 - **When** confirma el registro de la mascota
 - **Then** el sistema almacena los datos de la mascota
 
@@ -27,7 +27,28 @@
      registro completo con validaciones y almacenamiento en base de datos
 ----
 
-## HU-02 - Subir fotos de la mascota
+## HU-02 – Registrar información de salud
+
+ - **Como** administrador
+ - **Quiero** registrar el estado de salud de la mascota
+ - **Para** tener control sobre vacunas y esterilización
+
+## Criterios de aceptación
+
+### feature: Registro de informacion médica de la mascota
+
+### Scenario: Registro de información de salud
+
+- **Given** que el administrador ingresa datos de salud
+- **When** guarda la información
+- **Then** el sistema la almacena correctamente
+
+### Story Points HU-01
+  - 3 puntos de estimacion
+     Registro de información de salud con almacenamiento
+ ---    
+
+## HU-03 - Subir fotos de la mascota
 
 - **Como** administrador
 - **Quiero** subir una fotografía de la mascota
@@ -48,14 +69,14 @@
 - **When** intenta procesar el registro
 - **Then** el sistema debe notificar que el formato de archivo no es compatible
 
-### Story Points HU-02
+### Story Points HU-03
   - 3 puntos de estimacion
      Funcionalidad complementaria: carga y validación de imágenes
 ---
 
 # Épica 2: Gestion de familias
 
-## HU-03 - Registro de informacion de las Familias
+## HU-04 - Registro de informacion de las Familias
 
 - **Como** familia adoptante
 - **Quiero** registrar mi información personal
@@ -83,7 +104,7 @@
   - **Then** el sistema rechaza el registro
   - **And** nforma que debe ser mayor de edad
 
-### Story Points HU-03
+### Story Points HU-04
   - 5 puntos
      registro de información con validaciones (datos obligatorios y mayoría de edad) y almacenamiento en base de datos
 
@@ -91,7 +112,7 @@
 
 # Épica 3: Visualización de Mascotas
 
-## HU-04 - Ver listado de mascotas
+## HU-05 - Ver listado de mascotas
 
 - **Como** familia adoptante
 - **Quiero** ver las mascotas disponibles
@@ -124,7 +145,7 @@
  - **When** el sistema carga la información
  - **Then** el listado se muestra correctamente sin errores
 
-  ### Story Points HU-04
+  ### Story Points HU-05
     -3 puntos 
      Visualización de listado con filtro por disponibilidad
 ---
