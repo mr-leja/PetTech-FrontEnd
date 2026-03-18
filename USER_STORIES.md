@@ -312,6 +312,11 @@
 **When** asigna una mascota sugerida a la familia  
 **Then** el sistema registra la sugerencia de adopción  
 
+### Story Points HU-11
+  - 3 puntos de estimacion
+    Logica no incluye tablas adyacentes unicamente incluye un registro en una tabla como sugerencia
+
+
 # Épica 5: Confirmación de Adopción
 
 ## HU-10 – Confirmar adopción
