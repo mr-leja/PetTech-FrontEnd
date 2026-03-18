@@ -293,6 +293,10 @@
 **Then** el sistema registra la solicitud como "rechazada"  
 
 
+### Story Points HU-10
+  - 5 puntos de estimacion
+    Logica de de cambio de estado de solicitud incluye ver datos de tablas con datos existentes
+
 ---
 
 ## HU-11 – Sugerir alternativa de adopción
