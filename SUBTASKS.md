@@ -37,10 +37,16 @@
 ## HU-03 - Subir fotos de la mascota    
 
 ### Tareas de DEV
-- [ ] DEV-n: [Escribe aquí tu subtarea técnica]
+- DEV-03-1: Configurar integración con proveedor de almacenamiento externo (Amazon S3 o equivalente) para la carga de archivos multimedia
+- DEV-03-2: Exponer endpoint POST /mascotas/{id}/fotos que reciba el archivo, lo valide y lo suba al proveedor externo
+- DEV-03-3: Implementar validación de formato de archivo (solo JPG y PNG permitidos) y tamaño máximo (5 MB)
+- DEV-03-4: Almacenar únicamente la URL de referencia del archivo en la tabla mascotas (nunca el archivo en el servidor de aplicaciones)
 
-### Tareas de QA
-- [ ] QA-n: [Escribe aquí qué probar o automatizar]
+ ### Tareas de QA
+- QA-03-1: Diseñar matriz de datos de prueba: imagen JPG válida (<5 MB), imagen PNG válida (<5 MB), archivo .pdf, archivo .docx, imagen JPG >5 MB, solicitud sin archivo adjunto
+-  QA-03-2: Automatizar escenario: carga de imagen JPG y PNG válidas — verificar que se almacena la URL y el archivo es accesible
+-  QA-03-3: Automatizar escenario: intento de carga con formato no permitido (.pdf, .docx) — verificar mensaje de error y no almacenamiento
+-  QA-03-4: Automatizar escenario: intento de carga de imagen superior a 5 MB — verificar que el sistema rechaza con mensaje de tamaño máximo
 
 ---
 
