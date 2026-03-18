@@ -71,10 +71,16 @@
 ## HU-05 - Registrar condiciones del hogar y experiencia 
 
 ### Tareas de DEV
-- [ ] DEV-n: [Escribe aquí tu subtarea técnica]
+-DEV-05-1: Crear tabla condiciones_hogar con los campos: id_familia (FK), tipo_vivienda, tamaño_hogar, presencia_ninos, horas_sola_mascota, ingresos_estimados, experiencia_previa, motivacion
+- DEV-05-2: Crear DTO de entrada CondicionesHogarDTO con validaciones de campos obligatorios (tipo_vivienda, tamaño_hogar, horas_sola_mascota, ingresos_estimados)
+- DEV-05-3: Exponer endpoint PUT /familias/{id}/hogar para registrar o actualizar las condiciones del hogar de la familia
+- DEV-05-4: Implementar sub-estructura opcional para mascotas existentes en el hogar (especie, edad, estado de vacunación)
 
 ### Tareas de QA
-- [ ] QA-n: [Escribe aquí qué probar o automatizar]
+-QA-05-1: Diseñar matriz de datos de prueba: hogar completo sin mascotas previas, hogar con mascotas existentes registradas, campos obligatorios del hogar vacíos, ID de familia inexistente
+- QA-05-2: Automatizar escenario: registro exitoso de condiciones del hogar — datos asociados al perfil de la familia
+- QA-05-3: Automatizar escenario: campos obligatorios del hogar vacíos — sistema rechaza y notifica campos faltantes
+- QA-05-4: Automatizar escenario: registro con información de mascotas existentes — datos guardados en la sub-estructura
 
 ---
 
