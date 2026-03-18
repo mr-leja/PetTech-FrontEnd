@@ -20,11 +20,17 @@
 
 ## HU-02 – Registrar información de salud (3 SP)
 
-### Tareas de DEV
-- [ ] DEV-n: [Escribe aquí tu subtarea técnica]
+ ### Tareas de DEV
+- DEV-02-1: Crear tabla salud_mascota con los campos: id_mascota (FK), estado_vacunacion, esterilizada (booleano), desparasitada (booleano), observaciones
+-  DEV-02-2: Crear DTO de entrada RegistrarSaludDTO con validación del campo estado_vacunacion como obligatorio
+-  DEV-02-3: Exponer endpoint POST /mascotas/{id}/salud que reciba el DTO y asocie los datos de salud a la mascota identificada
+-  DEV-02-4: Implementar respuesta de error cuando se intenta registrar salud para una mascota que no existe en el sistema
 
-### Tareas de QA
-- [ ] QA-n: [Escribe aquí qué probar o automatizar]
+ ### Tareas de QA
+- QA-02-1: Diseñar matriz de datos de prueba: salud completa, campo estado_vacunacion vacío, mascota marcada como esterilizada, ID de mascota inexistente
+-  QA-02-2: Automatizar escenario: registro exitoso de información de salud — datos asociados correctamente a la mascota
+-  QA-02-3: Automatizar escenario: intento sin campo estado_vacunacion — verificar que el sistema rechaza y no persiste
+-  QA-02-4: Automatizar escenario: mascota marcada como esterilizada queda con ese dato disponible en su perfil
 
 ---
 
