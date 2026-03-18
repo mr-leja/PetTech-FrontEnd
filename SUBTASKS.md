@@ -1,14 +1,20 @@
 # Tasking (Subtareas) - PetTech MVP
 
----
-
 ## HU-01 - Registrar información básica de la mascota (5 SP)
 
 ### Tareas de DEV
-- [ ] DEV-n: [Escribe aquí tu subtarea técnica]
+- DEV-01-1: Diseñar y crear tabla mascotas en la base de datos con los campos: nombre, especie, raza, edad, fecha_nacimiento, tamaño, peso, sexo, nivel_energia, historia, estado (disponible por defecto)
+-  DEV-01-2: Crear entidad/modelo Mascota con sus atributos y restricciones de validación a nivel de modelo
+-  DEV-01-3: Crear DTO de entrada RegistrarMascotaDTO con validaciones de campos obligatorios (nombre, especie, edad, sexo, nivel de energía)
+-  DEV-01-4: Exponer endpoint POST /mascotas que reciba el DTO, valide y persista el registro
+-  DEV-01-5: Implementar validación de especie contra un listado de valores permitidos (perro, gato, conejo, etc.) retornando error descriptivo ante valor no reconocido
 
 ### Tareas de QA
-- [ ] QA-n: [Escribe aquí qué probar o automatizar]
+- QA-01-1: Diseñar matriz de datos de prueba contemplando: registro completo válido, campos obligatorios vacíos (por separado), especie fuera del listado permitido y valores en límites de longitud
+-  QA-01-2: Automatizar escenario: registro exitoso — todos los campos obligatorios completos y respuesta con estado "disponible"
+-  QA-01-3: Automatizar escenario: campos obligatorios vacíos — verificar que el sistema retorna error descriptivo y no crea el registro
+-  QA-01-4: Automatizar escenario: especie no reconocida — verificar mensaje de error descriptivo
+-  QA-01-5: Ejecutar prueba exploratoria sobre el endpoint de registro buscando comportamientos inesperados con datos de borde (cadenas vacías, caracteres especiales, valores negativos en edad)
 
 ---
 
