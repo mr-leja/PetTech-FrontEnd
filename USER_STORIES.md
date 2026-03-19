@@ -181,7 +181,7 @@ Una historia de usuario se considera terminada cuando:
 #### Scenario: Intento de registro sin campos obligatorios
 - **Given** que la familia no selecciona el tipo de vivienda o no indica el tamaño del hogar
 - **When** intenta guardar la información
-- **Then** el sistema muestra un mensaje con el siguiente texto: Los campos de tipo vivienda son obligatorios
+- **Then** el sistema informa que los campos de tipo de vivienda y tamaño del hogar son obligatorios
 - **And** no actualiza el perfil con información incompleta
 
 ### Scenario: Registro duplicado
@@ -269,7 +269,7 @@ Una historia de usuario se considera terminada cuando:
  - **Then** el sistema muestra su historial básico
 
  ### Story Points HU-07
-    -5 puntos
+    - 5 puntos
     Visualización de detalle con más información (datos, fotos e historial). Mayor alcance que el listado
 ---
 
@@ -330,7 +330,7 @@ Una historia de usuario se considera terminada cuando:
 ### Scenario: Intento de acceso a una solicitud inexistente  
 **Given** que un administrador intenta acceder al detalle de una solicitud mediante un ID que no existe  
 **When** el sistema procesa la peticion 
-**Then** el sistema muestra un mensaje informativo: "La solicitud consultada no existe o ha sido eliminada permanentemente"  
+**Then** el sistema informa que la solicitud consultada no existe en el sistema  
 
 ### Story Points HU-09
   - 3 puntos de estimacion
