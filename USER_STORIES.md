@@ -1,3 +1,24 @@
+# Historias de Usuario
+## Definition of Ready (DoR)
+
+Una historia de usuario está lista para entrar a un sprint cuando:
+
+- Está redactada en formato **Como / Quiero / Para**
+- Tiene **criterios de aceptación en Gherkin**, incluyendo:
+  - al menos un escenario de flujo exitoso (happy path)
+  - escenarios de validación de datos o reglas de negocio
+  - al menos un escenario edge case (cuando aplique)
+- El objetivo de negocio es claro
+- Los datos requeridos están definidos (ej: edad, especie, estado, etc.)
+- Las reglas de negocio son claras, por ejemplo:
+ - validar disponibilidad de mascota
+  - no permitir duplicados
+  - requerir mayoría de edad
+- El flujo funcional está claro (inicio → acción → resultado)
+- Tiene una estimación en Story Points
+- Tiene un tamaño adecuado (puede completarse dentro de un sprint)
+---
+
 # Épica 1: Gestion de Mascotas
 
 ## HU-01 - Registrar información basica de la mascota
