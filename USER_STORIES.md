@@ -424,7 +424,7 @@ Una historia de usuario se considera terminada cuando:
     
 ## HU-13 – Visualizar adopciones realizadas
 
-**Como** usuario (refugio o familia)  
+**Como** administrador 
 **Quiero** ver el historial de adopciones  
 **Para** hacer seguimiento de adopciones exitosas  
 
@@ -433,17 +433,17 @@ Una historia de usuario se considera terminada cuando:
 ### Feature: Visualización de adopciones realizadas
 
 ### Scenario: Acceso a la sección de adopciones realizadas
-**Given** que el usuario accede al sistema  
+**Given** que el administrador accede al sistema  
 **When** navega a la sección "Adopciones realizadas"  
 **Then** el sistema muestra la sección de historial de adopciones  
 
 ### Scenario: Visualización de registros históricos
-**Given** que el usuario se encuentra en la sección de adopciones realizadas  
+**Given** que el administrador se encuentra en la sección de adopciones realizadas  
 **When** consulta el historial  
 **Then** el sistema muestra los registros de adopciones exitosas  
 
 ### Scenario: Filtrado de adopciones por usuario
-**Given** que el usuario visualiza el historial de adopciones  
+**Given** que el administrador visualiza el historial de adopciones  
 **When** aplica un filtro por usuario  
 **Then** el sistema muestra únicamente las adopciones asociadas a ese usuario  
 
