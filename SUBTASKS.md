@@ -128,6 +128,15 @@
 - DEV-06-2: Configurar DTO de respuesta del listado con los campos: nombre, especie, raza, edad, foto_url (primera foto asociada)
 - DEV-06-3: Implementar filtro de estado disponible en la consulta a la base de datos (no traer mascotas en proceso o adoptadas)
 - DEV-06-4: Implementar respuesta vacía con mensaje descriptivo cuando no existe ninguna mascota disponible
+
+### Tareas de FRONT
+
+- FRONT-06-1: Crear vista de listado de mascotas (grid o cards)
+- FRONT-06-2: Consumir endpoint GET /mascotas
+- FRONT-06-3: Mostrar información resumida: nombre, especie, edad, foto principal
+- FRONT-06-4: Implementar estado vacío (empty state) cuando no hay mascotas disponibles
+- FRONT-06-5: Implementar navegación hacia detalle de mascota
+
 ### Tareas de QA
 -QA-06-1: Diseñar matriz de datos de prueba: sistema con mascotas disponibles, sistema con mascotas en proceso y adoptadas, sistema sin ninguna mascota registrada
 - QA-06-2: Automatizar escenario: respuesta incluye solo mascotas con estado "disponible" — verificar que las de otros estados no aparecen
