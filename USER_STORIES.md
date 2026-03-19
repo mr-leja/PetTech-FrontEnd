@@ -291,10 +291,11 @@ Una historia de usuario se considera terminada cuando:
 - **Then** el sistema permite iniciar una solicitud de adopción para esa mascota
 - **and** el sistema confirma y registra la solicitud de adopción
 
-### Scenario: Estado inicial de la solicitud
+### Scenario: La solicitud no se aprueba automáticamente
 - **Given** que la familia adoptante ha enviado una solicitud de adopción
 - **When** la solicitud es registrada en el sistema
 - **Then** el estado de la solicitud queda como "pendiente"
+- **And** la solicitud no debe estar ni en estado aprobado ni rechazado
 
 ### Scenario: Intento de solicitud sobre una mascota no disponible
 
