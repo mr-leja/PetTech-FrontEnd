@@ -144,7 +144,7 @@
 - **Then** el sistema muestra un mensaje con el siguinte texto: Los campos de tipo vivienda son obligatorios
 - **And** no actualiza el perfil con información incompleta
 
-#### Scenario: Registro con campos ya existentens a
+#### Scenario: Registro con campos ya registrados
 - **Given** que la familia intenta registrar nuevamente los campos
 - **When** intententa registrar la informacion
 - **Then** el sistema arroja un mensaje de alerta 
