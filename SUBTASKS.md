@@ -105,6 +105,14 @@
 - DEV-05-3: Exponer endpoint PUT /familias/{id}/hogar para registrar o actualizar las condiciones del hogar de la familia
 - DEV-05-4: Implementar sub-estructura opcional para mascotas existentes en el hogar (especie, edad, estado de vacunación)
 
+### Tareas de FRONT
+
+- FRONT-05-1: Crear formulario de condiciones del hogar
+- FRONT-05-2: Implementar inputs estructurados (select, radio buttons, numéricos) para mejorar calidad de datos
+- FRONT-05-3: Permitir agregar dinámicamente mascotas existentes (sub-formulario dinámico)
+- FRONT-05-4: Validar campos obligatorios antes de enviar
+- FRONT-05-5: Integrar con endpoint PUT /familias/{id}/hogar
+
 ### Tareas de QA
 -QA-05-1: Diseñar matriz de datos de prueba: hogar completo sin mascotas previas, hogar con mascotas existentes registradas, campos obligatorios del hogar vacíos, ID de familia inexistente
 - QA-05-2: Automatizar escenario: registro exitoso de condiciones del hogar — datos asociados al perfil de la familia
