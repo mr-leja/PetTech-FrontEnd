@@ -106,7 +106,6 @@
 - DEV-05-4: Implementar sub-estructura opcional para mascotas existentes en el hogar (especie, edad, estado de vacunación)
 
 ### Tareas de FRONT
-
 - FRONT-05-1: Crear formulario de condiciones del hogar
 - FRONT-05-2: Implementar inputs estructurados (select, radio buttons, numéricos) para mejorar calidad de datos
 - FRONT-05-3: Permitir agregar dinámicamente mascotas existentes (sub-formulario dinámico)
@@ -130,7 +129,6 @@
 - DEV-06-4: Implementar respuesta vacía con mensaje descriptivo cuando no existe ninguna mascota disponible
 
 ### Tareas de FRONT
-
 - FRONT-06-1: Crear vista de listado de mascotas (grid o cards)
 - FRONT-06-2: Consumir endpoint GET /mascotas
 - FRONT-06-3: Mostrar información resumida: nombre, especie, edad, foto principal
@@ -153,6 +151,13 @@
 - DEV-07-3: Realizar JOIN entre la tabla mascotas, salud_mascota y los registros de fotos para consolidar la respuesta en un solo objeto
 - DEV-07-4: Implementar comportamiento cuando la mascota no tiene fotografías cargadas: retornar URL de imagen de reemplazo predeterminada
 - DEV-07-5: Implementar respuesta 404 con mensaje descriptivo cuando el ID de mascota solicitado no existe en el sistema
+
+### Tareas de FRONT
+- FRONT-07-1: Crear vista de detalle de mascota
+- FRONT-07-2: Consumir endpoint GET /mascotas/{id}
+- FRONT-07-3: Renderizar galería de imágenes (carousel o lista)
+- FRONT-07-4: Mostrar información completa: datos generales + salud
+- FRONT-07-5: Manejar estados: loading, error (404), y fallback de imagen por defecto
 
 ### Tareas de QA
 -QA-07-1: Diseñar matriz de datos de prueba: mascota con todos los datos, mascota sin fotos, mascota sin historial de salud, ID de mascota inexistente
