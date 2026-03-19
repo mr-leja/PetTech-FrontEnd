@@ -140,7 +140,7 @@ Una historia de usuario se considera terminada cuando:
 ### Feature: Registro exitoso de familia adoptante
 
 ### Scenario: Registro exitoso con información completa
-  - **Given** que la familia ingresa datos válidos
+  - **Given** que la familia ingresa datos personales válidos y completos como nombre, apellido, número de identificación y edad
   - **When** completa el registro
   - **Then** la información queda almacenada correctamente
 
