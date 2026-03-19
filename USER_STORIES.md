@@ -397,12 +397,6 @@ Una historia de usuario está lista para entrar a un sprint cuando:
 **When** el sistema registra la adopción como exitosa  
 **Then** la mascota queda vinculada a la familia adoptante 
 
-### Scenario: Generación automática del calendario de vacunación 
-- **Given** que existe una solicitud de adopción aprobada
-- **When** la adopción es confirmada y registrada como exitosa
-- **Then** el sistema genera el calendario de vacunación correspondiente a la mascota
-- **And** asocia el calendario a la adopción confirmada
-
 ### Story Points HU-12
   - 3 puntos de estimacion
     Cambio de estado , manejo de fechas , relacion de dos tablas logica directa
