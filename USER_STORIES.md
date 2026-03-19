@@ -268,6 +268,11 @@
 **When** el administrador accede a su detalle  
 **Then** el sistema muestra la información de la familia y de la mascota  
 
+### Scenario: Intento de acceso a una solicitud inexistente  
+**Given** que un administrador intenta acceder al detalle de una solicitud mediante un ID que no existe  
+**When** el sistema procesa la peticion 
+**Then** el sistema muestra un mensaje informativo: "La solicitud consultada no existe o ha sido eliminada permanentemente"  
+
 ### Story Points HU-09
   - 3 puntos de estimacion
     Flujo unicamente de visualizacion no incluye logica compleya mas que manejo de sesiones
