@@ -190,12 +190,18 @@
 
 ---
 
-## HU-13 – Consultar calendario 
+## HU-13 – Visualizar adopciones realizadas (5 SP)
 
 ### Tareas de DEV
-- [ ] DEV-n: [Escribe aquí tu subtarea técnica]
+- DEV-13-1: Crear endpoint  de tipo GET /adopciones que nos devuelva el listado de adopciones con estado "adopción exitosa"
+- DEV-13-3: Configurar DTO de respuesta con los datos necesarios: nombre de la mascota, especie, fecha de adopción y nombre de la familia
+- DEV-13-4: Implementar paginación en el endpoint para que el sistema solo traiga los 10 primeros de cada pagina esto debido a que es mejor traer parte por parte que todo el resultado
+- DEV-13-5: Si la respuesta  es  vacía se debe retornar con mensaje informativo cuando el usuario no tiene adopciones en proceso
 
 ### Tareas de QA
-- [ ] QA-n: [Escribe aquí qué probar o automatizar]
+- QA-13-1: Diseñar matriz de datos: usuario con múltiples adopciones, usuario sin ninguna adopción, filtro aplicado a un usuario específico, listado general sin filtro
+- QA-13-2: Automatizar escenario: listado general — solo aparecen adopciones con estado "adopción exitosa"
+- QA-13-4: Automatizar escenario: usuario sin adopciones — sistema retorna respuesta vacía con mensaje informativo
+- QA-13-5: Verificar que la paginación funciona mediante una prueba exploratoria para que se muestre  el historial con 10 registros por limite
 
 ---
