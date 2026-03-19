@@ -261,6 +261,8 @@
 **Quiero** visualizar la información de la familia y la mascota en una solicitud  
 **Para** analizar la viabilidad de la adopción  
 
+## Criterios de aceptacion
+
 ## Feature: Consulta de solicitud de adopción
 
 ### Scenario: Visualización de información completa  
@@ -268,7 +270,7 @@
 **When** el administrador accede a su detalle  
 **Then** el sistema muestra la información de la familia y de la mascota  
 
-## Criterios de aceptacion
+
 
 ### Scenario: Intento de acceso a una solicitud inexistente  
 **Given** que un administrador intenta acceder al detalle de una solicitud mediante un ID que no existe  
@@ -345,7 +347,6 @@
 **When** el administrador confirma la adopción  
 **Then** el estado de la solicitud cambia a "adopción exitosa"  
 
-## Criterios de aceptacion
 
 ### Scenario: Registro de la fecha de adopción
 **Given** que el administrador confirma una adopción  
