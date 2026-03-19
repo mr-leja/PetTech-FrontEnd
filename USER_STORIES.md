@@ -268,6 +268,8 @@
 **When** el administrador accede a su detalle  
 **Then** el sistema muestra la información de la familia y de la mascota  
 
+## Criterios de aceptacion
+
 ### Scenario: Intento de acceso a una solicitud inexistente  
 **Given** que un administrador intenta acceder al detalle de una solicitud mediante un ID que no existe  
 **When** el sistema procesa la peticion 
@@ -284,6 +286,8 @@
 **Como** administrador  
 **Quiero** aprobar o rechazar una solicitud de adopción  
 **Para** controlar el proceso de asignación de mascotas  
+
+## Criterios de aceptacion
 
 ## Feature: Gestión de decisión de solicitud  
 
@@ -309,6 +313,8 @@
 **Como** administrador  
 **Quiero** sugerir una mascota alternativa a una familia  
 **Para** mejorar la probabilidad de éxito en la adopción  
+
+## Criterios de aceptacion
 
 ## Feature: Sugerencia de mascota alternativa  
 
@@ -338,6 +344,8 @@
 **Given** que existe una solicitud de adopción aprobada  
 **When** el administrador confirma la adopción  
 **Then** el estado de la solicitud cambia a "adopción exitosa"  
+
+## Criterios de aceptacion
 
 ### Scenario: Registro de la fecha de adopción
 **Given** que el administrador confirma una adopción  
