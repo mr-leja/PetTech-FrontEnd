@@ -366,7 +366,6 @@
 **When** el administrador confirma la adopción  
 **Then** el estado de la solicitud cambia a "adopción exitosa"  
 
-
 ### Scenario: Registro de la fecha de adopción
 **Given** que el administrador confirma una adopción  
 **When** la adopción es registrada como exitosa  
@@ -375,7 +374,13 @@
 ### Scenario: Vinculación de mascota con familia
 **Given** que una adopción ha sido confirmada  
 **When** el sistema registra la adopción como exitosa  
-**Then** la mascota queda vinculada a la familia adoptante  
+**Then** la mascota queda vinculada a la familia adoptante 
+
+### Scenario: Generación automática del calendario de vacunación 
+- **Given** que existe una solicitud de adopción aprobada
+- **When** la adopción es confirmada y registrada como exitosa
+- **Then** el sistema genera el calendario de vacunación correspondiente a la mascota
+- **And** asocia el calendario a la adopción confirmada
 
 ### Story Points HU-12
   - 3 puntos de estimacion
