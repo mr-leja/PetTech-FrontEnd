@@ -35,7 +35,6 @@
 -  DEV-02-4: Implementar respuesta de error cuando se intenta registrar salud para una mascota que no existe en el sistema
 
 ### Tareas de FRONT
-
 - FRONT-02-1: Crear formulario de salud asociado a mascota (estado de vacunación, esterilización, desparasitación, observaciones)
 - FRONT-02-2: Validar campo obligatorio estado de vacunación antes del envío
 - FRONT-02-3: Integrar con endpoint POST /mascotas/{id}/salud
@@ -59,7 +58,6 @@
 - DEV-03-4: Almacenar únicamente la URL de referencia del archivo en la tabla mascotas (nunca el archivo en el servidor de aplicaciones)
 
 ### Tareas de FRONT
-
 -FRONT-03-1: Implementar componente de carga de archivos (input tipo file con preview)
 -FRONT-03-2: Validar en cliente formato (JPG/PNG) y tamaño máximo (5MB) antes de enviar
 -FRONT-03-3: Integrar con endpoint POST /mascotas/{id}/fotos usando multipart/form-data
@@ -82,6 +80,13 @@
 - DEV-04-3: Crear DTO de entrada RegistrarFamiliaDTO con validaciones: campos obligatorios presentes, edad >= 18, formato de correo válido
 - DEV-04-4: Exponer endpoint POST /familias que reciba el DTO, valide y persista el registro
 - DEV-04-5: Implementar regla de negocio que rechaza el registro cuando la edad ingresada es menor a 18 años, retornando un mensaje descriptivo
+
+### Tareas de FRONT
+- FRONT-04-1: Crear formulario de registro de familia adoptante
+- FRONT-04-2: Implementar validaciones: campos obligatorios, formato de correo, edad >= 18
+- FRONT-04-3: Integrar con endpoint POST /familias
+- FRONT-04-4: Manejar errores de negocio (edad inválida, duplicidad de cédula/correo) mostrando mensajes claros
+- FRONT-04-5: Mostrar confirmación de registro exitoso y redirección opcional
 
 ### Tareas de QA
 -QA-04-1: Diseñar matriz de datos de prueba: registro válido completo, campos obligatorios vacíos (cédula, nombre, dirección), edad = 17, edad = 18, cédula duplicada, correo con formato inválido
