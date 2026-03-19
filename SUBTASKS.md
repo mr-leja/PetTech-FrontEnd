@@ -146,14 +146,18 @@
 - QA-09-3: Automatizar escenario: ID inexistente — sistema retorna 404 con mensaje de facil entendimiento
 
 ---
-
-## HU-10 – Confirmar adopción 
+## HU-10 – Registrar decisión sobre solicitud (5 SP)
 
 ### Tareas de DEV
-- [ ] DEV-n: [Escribe aquí tu subtarea técnica]
-
+- DEV-10-1: Realizar el endpoint PUT /solicitudes/{id}/decision que reciba la decisión (aprobada o rechazada) y actualice el estado en la tabla correspondiente
+- DEV-10-3: Cuando la decisión es "aprobada", actualizar el registro la columna estado de la mascota a "en proceso de adopción" junto con la actualizacion  de la columna de solicitud
+- DEV-10-4: Cuando la decisión es "rechazada", devolver la columna estado de la mascota a "disponible" para que pueda recibir nuevas solicitudes
+- DEV-10-5: Retornar error 500 por parte del servidor si se intenta cambiar la decisión de una solicitud que ya fue aprobada debido a que asi es la logica
 ### Tareas de QA
-- [ ] QA-n: [Escribe aquí qué probar o automatizar]
+- QA-10-1: Diseñar matriz de datos: solicitud pendiente aprobada, solicitud pendiente rechazada, solicitud ya aprobada que intenta cambiar de estado, ID de solicitud inexistente
+- QA-10-2: Automatizar con serenity el escenario: aprobación de solicitud pendiente — estado cambia a "aprobada" y mascota pasa a "en proceso"
+- QA-10-3: Automatizar con serenity el escenario: rechazo de solicitud pendiente — estado cambia a "rechazada" y mascota vuelve a "disponible"
+- QA-10-4: Ejecutar una prueba exploratoria manual verificando que los estados de solicitud y mascota sigan el flujo correcto
 
 ---
 
