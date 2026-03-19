@@ -266,8 +266,8 @@
 ### Tareas de QA
 - QA-13-1: Diseñar matriz de datos: usuario con múltiples adopciones, usuario sin ninguna adopción, filtro aplicado a un usuario específico, listado general sin filtro
 - QA-13-2: Automatizar escenario: listado general — solo aparecen adopciones con estado "adopción exitosa"
-- QA-13-4: Automatizar escenario: usuario sin adopciones — sistema retorna respuesta vacía con mensaje informativo
-- QA-13-5: Verificar que la paginación funciona mediante una prueba exploratoria para que se muestre  el historial con 10 registros por limite
+- QA-13-3: Automatizar escenario: usuario sin adopciones — sistema retorna respuesta vacía con mensaje informativo
+- QA-13-4: Verificar que la paginación funciona mediante una prueba exploratoria para que se muestre  el historial con 10 registros por limite
 
 ---
 
