@@ -235,7 +235,7 @@
 ### Tareas de QA
 - QA-15-1: Diseñar matriz de datos: adopción confirmada con calendario generado, adopción en estado pendiente, usuario sin adopciones, ID de adopción inexistente
 - QA-15-2: Automatizar escenario: consulta exitosa — sistema retorna el calendario con las fechas sugeridas de vacunación
-- QA-15-3: Automatizar escenario: adopción en estado pendiente — sistema no muestra el calendario y 
+- QA-15-3: Automatizar escenario: adopción en estado pendiente — sistema no muestra el calendario con mensaje informativo
 - QA-15-4: Automatizar escenario: usuario sin adopción registrada — sistema deniega el acceso con mensaje que se entienda
 
 ---
