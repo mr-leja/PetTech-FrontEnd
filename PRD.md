@@ -1,5 +1,14 @@
 # PRD — PetTech: Matcher de Adopción y Cuidados
 
+
+| Campo | Descripción |
+|-----|-------------|
+| Nombre del Producto | PetTech: Matcher de Adopción y Cuidados |
+| Versión | 1.0 |
+| Fecha | 2026-03-19 |
+| Autor | Elia Condor Alejandra Marin |
+| Estado | Borrador |
+
 ---
 
 ## 1. Visión y Objetivos
