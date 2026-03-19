@@ -176,6 +176,14 @@
 - DEV-08-3: Implementar validación de precondiciones: la familia debe tener condiciones del hogar registradas y la mascota debe estar en estado "disponible"
 - DEV-08-4: Actualizar el estado de la mascota de "disponible" a "en proceso de adopción" de forma atómica al crear la solicitud exitosamente
 
+### Tareas de FRONT
+
+- FRONT-08-1: Implementar botón "Solicitar adopción" en vista de detalle
+- FRONT-08-2: Validar en UI que el usuario tenga perfil completo antes de habilitar acción
+- FRONT-08-3: Integrar con endpoint POST /solicitudes
+- FRONT-08-4: Mostrar confirmación de solicitud enviada
+- FRONT-08-5: Deshabilitar acción si la mascota ya no está disponible (estado en proceso/adoptada)
+
 ### Tareas de QA
 -QA-08-1: Diseñar matriz de datos de prueba: familia con perfil completo + mascota disponible, familia sin condiciones del hogar, mascota en estado "en proceso", ID de mascota inexistente
 - QA-08-2: Automatizar escenario: solicitud exitosa — registro creado con estado "pendiente" y mascota cambia a "en proceso de adopción"
