@@ -445,20 +445,21 @@ Una historia de usuario está lista para entrar a un sprint cuando:
 
 ### Feature: Generación de calendario de vacunación
 
-### Scenario: Generación del calendario considerando características de la mascota
-**Given** que una adopción ha sido confirmada  
-**When** el sistema genera el calendario de vacunación  
-**Then** el sistema considera la especie, edad e historial de la mascota  
+### Scenario: Generación de calendario de vacunación al confirmar una adopción
+- **Given** que existe una adopción confirmada
+- **When** la adopción es registrada como exitosa
+- **Then** el sistema genera un calendario de vacunación para la mascota
+- **And** asocia el calendario a la adopción correspondiente
 
-### Scenario: Generación de fechas sugeridas de vacunación
-**Given** que el sistema está generando el calendario de vacunación  
-**When** se calculan las vacunas correspondientes  
-**Then** el sistema establece fechas sugeridas para cada vacuna  
+### Scenario: Generación de calendario basada en características de la mascota
+- **Given** que una mascota adoptada tiene información de especie, edad e historial de salud
+- **When** se genera el calendario de vacunación
+- **Then** el sistema define las vacunas correspondientes según dichas características
 
-### Scenario: Asociación del calendario a la adopción
-**Given** que el calendario de vacunación ha sido generado  
-**When** el sistema finaliza el proceso  
-**Then** el calendario queda asociado a la adopción  
+### Scenario: Asignación de fechas sugeridas en el calendario de vacunación
+- **Given** que existen vacunas definidas para una mascota adoptada
+- **When** el calendario de vacunación es generado
+- **Then** el sistema asigna fechas sugeridas para cada vacuna
 
 ### Story Points HU-14
   - 8 puntos de estimacion
