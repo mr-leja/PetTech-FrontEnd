@@ -175,13 +175,18 @@
 
 ---
 
-## HU-12 – Generar calendario de vacunas 
+## HU-12 – Confirmar adopción (3 SP)
 
 ### Tareas de DEV
-- [ ] DEV-n: [Escribe aquí tu subtarea técnica]
+- DEV-12-1: Crear tabla adopciones con los campos: id_solicitud (FK), id_familia (FK), id_mascota (FK), fecha_adopcion, estado
+- DEV-12-2: Crear endpoint de tipo POST /adopciones que tome una solicitud en estado "aprobada"
+- DEV-12-3: Actualizar el estado de la solicitud a "adopción exitosa" y el estado de la mascota a "adoptada"
+- DEV-12-4: Retornar error si se intenta confirmar una adopción para una solicitud que no esté en estado "aprobada"
 
 ### Tareas de QA
-- [ ] QA-n: [Escribe aquí qué probar o automatizar]
+- QA-12-1: Diseñar matriz de datos: solicitud aprobada lista para confirmar, solicitud en estado "pendiente"
+- QA-12-2: Automatizar escenario: confirmación exitosa — registro en tabla adopciones con fecha, mascota pasa a "adoptada" y solicitud a "adopción exitosa"
+- QA-12-3: Automatizar escenario: intento de confirmar solicitud pendiente — sistema rechaza la operación con mensaje que entienda el administrador
 
 ---
 
