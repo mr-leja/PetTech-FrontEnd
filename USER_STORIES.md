@@ -325,6 +325,11 @@
 **When** asigna una mascota sugerida a la familia  
 **Then** el sistema registra la sugerencia de adopción  
 
+### Scenario: Intento de sugerir una mascota no disponible
+**Given** que el administrador selecciona una mascota que ya está en proceso de adopción
+**When** registra la sugerencia para esa familia
+**Then** el sistema invalida la operación y manda un mensaje informativo: "La mascota seleccionada no se encuentra disponible para adopción"
+
 ### Story Points HU-11
   - 3 puntos de estimacion
     Logica no incluye tablas adyacentes unicamente incluye un registro en una tabla como sugerencia
