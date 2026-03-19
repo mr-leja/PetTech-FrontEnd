@@ -438,7 +438,7 @@
 ### Scenario: Acceso a calendario sin tener una adopción registrada
   **Given** que el usuario no tiene una adopción registrada
   **When** intenta acceder a la información de una mascota
-  **When** el sistema deniega el acceso al calendario de vacunación
+  **Then** el sistema deniega el acceso al calendario de vacunación
 
 
 
