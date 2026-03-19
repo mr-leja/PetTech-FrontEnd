@@ -34,6 +34,14 @@
 -  DEV-02-3: Exponer endpoint POST /mascotas/{id}/salud que reciba el DTO y asocie los datos de salud a la mascota identificada
 -  DEV-02-4: Implementar respuesta de error cuando se intenta registrar salud para una mascota que no existe en el sistema
 
+### Tareas de FRONT
+
+- FRONT-02-1: Crear formulario de salud asociado a mascota (estado de vacunación, esterilización, desparasitación, observaciones)
+- FRONT-02-2: Validar campo obligatorio estado de vacunación antes del envío
+- FRONT-02-3: Integrar con endpoint POST /mascotas/{id}/salud
+- FRONT-02-4: Mostrar feedback visual de éxito/error al registrar información de salud
+- FRONT-02-5: Bloquear acceso al formulario si no existe ID de mascota válido
+
  ### Tareas de QA
 - QA-02-1: Diseñar matriz de datos de prueba: salud completa, campo estado_vacunacion vacío, mascota marcada como esterilizada, ID de mascota inexistente
 -  QA-02-2: Automatizar escenario: registro exitoso de información de salud — datos asociados correctamente a la mascota
