@@ -9,6 +9,14 @@
 -  DEV-01-4: Exponer endpoint POST /mascotas que reciba el DTO, valide y persista el registro
 -  DEV-01-5: Implementar validación de especie contra un listado de valores permitidos (perro, gato, conejo, etc.) retornando error descriptivo ante valor no reconocido
 
+### Tareas de FRONT
+
+- FRONT-01-1: Crear formulario de registro de mascota con campos: nombre, especie (select), raza, edad, fecha de nacimiento, tamaño, peso, sexo (select), nivel de energía (select), historia
+- FRONT-01-2: Implementar validaciones en cliente (campos obligatorios, formatos, valores mínimos) antes del envío
+- FRONT-01-3: Integrar formulario con endpoint POST /mascotas mediante servicio HTTP
+- FRONT-01-4: Manejar estados de UI: loading, éxito (mensaje de confirmación) y error (mostrar mensaje del backend)
+- FRONT-01-5: Implementar control de lista desplegable para especie basado en valores permitidos (evitar input libre)
+
 ### Tareas de QA
 - QA-01-1: Diseñar matriz de datos de prueba contemplando: registro completo válido, campos obligatorios vacíos (por separado), especie fuera del listado permitido y valores en límites de longitud
 -  QA-01-2: Automatizar escenario: registro exitoso — todos los campos obligatorios completos y respuesta con estado "disponible"
