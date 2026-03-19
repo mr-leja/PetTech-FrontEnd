@@ -181,7 +181,7 @@ Una historia de usuario se considera terminada cuando:
 #### Scenario: Intento de registro sin campos obligatorios
 - **Given** que la familia no selecciona el tipo de vivienda o no indica el tamaño del hogar
 - **When** intenta guardar la información
-- **Then** el sistema muestra un mensaje con el siguinte texto: Los campos de tipo vivienda son obligatorios
+- **Then** el sistema muestra un mensaje con el siguiente texto: Los campos de tipo vivienda son obligatorios
 - **And** no actualiza el perfil con información incompleta
 
 ### Scenario: Registro duplicado
@@ -236,7 +236,7 @@ Una historia de usuario se considera terminada cuando:
   **Then** el sistema informa que no hay mascotas disponibles
 
   ### Story Points HU-06
-    -3 puntos 
+    3 puntos 
      Visualización de listado con filtro por disponibilidad
 ---
 
