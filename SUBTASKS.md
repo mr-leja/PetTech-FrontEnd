@@ -223,3 +223,19 @@
 - QA-14-5: Verificar que el calendario queda correctamente asociado al id_adopcion y no a otro registro
 
 ---
+
+## HU-15 – Consultar calendario de vacunación (3 SP)
+
+### Tareas de DEV
+- DEV-15-1: Crear el  endpoint de tipo GET /adopciones/{id}/calendario que retorne el calendario asociado a una adopción en formato pdf
+- DEV-15-2: Validar que la adopción referenciada exista y tenga estado "adopción exitosa" antes de retornar el calendario
+- DEV-15-3: Retornar mensaje renderizado en el frontend falta procesos por aprobar cuando la adopción está en estado "pendiente" o "aprobada" 
+- DEV-15-4: Retornar 404 con mensaje renderizado en el frontend cuando el usuario adoptante no tiene ninguna adopción registrada en el sistema
+
+### Tareas de QA
+- QA-15-1: Diseñar matriz de datos: adopción confirmada con calendario generado, adopción en estado pendiente, usuario sin adopciones, ID de adopción inexistente
+- QA-15-2: Automatizar escenario: consulta exitosa — sistema retorna el calendario con las fechas sugeridas de vacunación
+- QA-15-3: Automatizar escenario: adopción en estado pendiente — sistema no muestra el calendario y 
+- QA-15-4: Automatizar escenario: usuario sin adopción registrada — sistema deniega el acceso con mensaje que se entienda
+
+---
