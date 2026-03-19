@@ -205,3 +205,21 @@
 - QA-13-5: Verificar que la paginación funciona mediante una prueba exploratoria para que se muestre  el historial con 10 registros por limite
 
 ---
+
+## HU-14 – Generar calendario de vacunas (8 SP)
+
+### Tareas de DEV
+- DEV-14-1: Crear tabla calendario_vacunacion con los campos: id_adopcion (FK), vacuna, fecha_sugerida, especie, estado
+- DEV-14-2: Implementar la lógica de negocio que define el protocolo de vacunación por especie: perros (Parvovirus, Moquillo, Rabia) y gatos (Panleucopenia, Calicivirus, Rabia)
+- DEV-14-3: Implementar la distinción por etapa de vida: cachorro (vacunas con refuerzos cada 3-4 semanas) vs adulto (refuerzos anuales o trianuales)
+- DEV-14-4: Considerar el historial de vacunación registrado en salud_mascota para no re-agendar vacunas ya aplicadas
+- DEV-14-5: Disparar la generación del calendario automáticamente al confirmar una adopción 
+
+### Tareas de QA
+- QA-14-1: Diseñar matriz de datos: perro cachorro sin ninguna vacuna, perro adulto con vacunas parciales, gato sin historial, mascota con historial completo de vacunas, especie no reconocida por el sistema
+- QA-14-2: Automatizar escenario: perro cachorro sin vacunas — calendario incluye protocolo completo con fechas de refuerzo correctas
+- QA-14-3: Automatizar escenario: mascota con vacunas ya aplicadas — el sistema no duplica las vacunas existentes en el calendario
+- QA-14-4: Automatizar escenario: gato sin historial — calendario incluye el protocolo felino correspondiente
+- QA-14-5: Verificar que el calendario queda correctamente asociado al id_adopcion y no a otro registro
+
+---
