@@ -384,7 +384,7 @@
 
 ## HU-14 – Generar calendario de vacunas
 
-**Como** sistema  
+**Como** administrador  
 **Quiero** generar un calendario inicial de vacunación  
 **Para** orientar al adoptante en el cuidado de la mascota  
 
