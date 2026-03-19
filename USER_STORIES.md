@@ -452,7 +452,7 @@ Una historia de usuario está lista para entrar a un sprint cuando:
 - **And** asocia el calendario a la adopción correspondiente
 
 ### Scenario: Generación de calendario basada en características de la mascota
-- **Given** que una mascota adoptada tiene información de especie, edad e historial de salud
+- **Given** que una mascota adoptada tiene información de especie, edad e historial de Vacunación
 - **When** se genera el calendario de vacunación
 - **Then** el sistema define las vacunas correspondientes según dichas características
 
