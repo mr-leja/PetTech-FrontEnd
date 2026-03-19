@@ -202,7 +202,8 @@ Las siguientes funcionalidades quedan fuera del alcance inicial del proyecto:
 
 ## Criterios de Éxito
 Que consideremos exitoso el MVP:
-- La plataforma sea capaz de gestionar el ciclo de vida completo de una mascota desde su registro hasta su adopción exitosa
-- El motor de reglas con la ayuda del administrador pueda recomendar mascotas a las familias adoptantes
+- La plataforma sea capaz de gestionar el ciclo de vida completo de una mascota desde su registro hasta su adopción exitosa en un 95% de los casos
+- El motor de reglas con la ayuda del administrador pueda recomendar mascotas a las familias adoptantes en un 80% de los casos
 - El calendario de vacunación sea capaz de generar calendarios de vacunación personalizados para las mascotas
-- La plataforma sea capaz de gestionar el proceso de adopción de manera eficiente y segura
+
+- La plataforma sea capaz de gestionar el proceso de adopción de manera eficiente y segura en un 95% de los casos
