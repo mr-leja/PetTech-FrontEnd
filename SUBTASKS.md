@@ -161,13 +161,17 @@
 
 ---
 
-## HU-11 – Visualizar adopciones realizadas 
+## HU-11 – Sugerir alternativa de adopción (3 SP)
 
 ### Tareas de DEV
-- [ ] DEV-n: [Escribe aquí tu subtarea técnica]
+- DEV-11-1: Crear tabla sugerencias_adopcion con los campos: id_solicitud (FK), id_mascota_sugerida (FK), fecha_sugerencia, motivo
+- DEV-11-2: Crear endpoint  de tipo POST /solicitudes/{id}/sugerencia que registre la mascota alternativa
+- DEV-11-3: Validar que la mascota sugerida exista en el sistema y esté en estado "disponible" antes de registrar la sugerencia caso contrario mandar un error que sea entendido por el administrador
 
 ### Tareas de QA
-- [ ] QA-n: [Escribe aquí qué probar o automatizar]
+- QA-11-1: Diseñar matriz de datos: solicitud existente con mascota disponible sugerida, mascota sugerida en estado "en proceso", ID de mascota sugerida que no existe, ID de solicitud inexistente
+- QA-11-2: Automatizar escenario: sugerencia exitosa — registro creado con los datos correctos de la solicitud y la mascota sugerida por el administrador
+- QA-11-3: Automatizar escenario: mascota sugerida no disponible — sistema rechaza el registro e informa el motivo con un mensaje que entienda el administrador
 
 ---
 
