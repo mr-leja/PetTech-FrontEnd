@@ -58,6 +58,14 @@
 - DEV-03-3: Implementar validación de formato de archivo (solo JPG y PNG permitidos) y tamaño máximo (5 MB)
 - DEV-03-4: Almacenar únicamente la URL de referencia del archivo en la tabla mascotas (nunca el archivo en el servidor de aplicaciones)
 
+### Tareas de FRONT
+
+-FRONT-03-1: Implementar componente de carga de archivos (input tipo file con preview)
+-FRONT-03-2: Validar en cliente formato (JPG/PNG) y tamaño máximo (5MB) antes de enviar
+-FRONT-03-3: Integrar con endpoint POST /mascotas/{id}/fotos usando multipart/form-data
+-FRONT-03-4: Mostrar preview de la imagen antes de subirla
+-FRONT-03-5: Mostrar estado de carga (progress/loading) y resultado (éxito/error)
+
  ### Tareas de QA
 - QA-03-1: Diseñar matriz de datos de prueba: imagen JPG válida (<5 MB), imagen PNG válida (<5 MB), archivo .pdf, archivo .docx, imagen JPG >5 MB, solicitud sin archivo adjunto
 -  QA-03-2: Automatizar escenario: carga de imagen JPG y PNG válidas — verificar que se almacena la URL y el archivo es accesible
