@@ -216,6 +216,11 @@
 - DEV-10-2: Cuando la decisión es "aprobada", actualizar únicamente el estado de la tabla solicitudes_adopcion a "aprobada". La mascota ya se encuentra en estado "en proceso de adopción" desde que la solicitud fue creada en HU-08, por lo tanto no se modifica su estado en este punto
 - DEV-10-3: Cuando la decisión es "rechazada", actualizar el estado de la tabla solicitudes_adopcion a "rechazada" y devolver el estado de la mascota de "en proceso de adopción" a "disponible", para que pueda recibir nuevas solicitudes de otras familias
 - DEV-10-4: Retornar error 409 (Conflict) cuando se intenta cambiar la decisión de una solicitud que ya tiene estado "aprobada" o "rechazada", retornando un mensaje descriptivo: "La decisión sobre esta solicitud ya fue registrada y no puede modificarse"
+### Tareas de FRONT
+- FRONT-10-1: Implementar vista de decisión de solicitud
+- FRONT-10-2: Integrar con endpoint PUT /solicitudes/{id}/decision
+- FRONT-10-3: Mostrar mensaje de confirmación de decisión
+- FRONT-10-4: Mostrar mensaje de error cuando la decisión no puede ser registrada
 ### Tareas de QA
 - QA-10-1: Diseñar matriz de datos: solicitud pendiente aprobada, solicitud pendiente rechazada, solicitud ya aprobada que intenta cambiar de estado, ID de solicitud inexistente
 - QA-10-2: Automatizar con serenity el escenario: aprobación de solicitud pendiente — estado cambia a "aprobada" y mascota pasa a "en proceso"
