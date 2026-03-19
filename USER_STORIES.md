@@ -483,7 +483,7 @@ Una historia de usuario se considera terminada cuando:
 
 ### Story Points HU-14
   - 8 puntos de estimacion
-    logica de negocio importante
+    logica de negocio importante filtro de vacunas disparo de eventos se debe probar el flujo con diferentes datos como especie, edad, nivel de energia, sexo, etc
     ---
 
 ## HU-15 – Consultar calendario
