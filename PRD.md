@@ -2,7 +2,7 @@
 
 ## Visión y Objetivos
 
-PetTech es una plataforma que facilita la adopcion responsable de mascotas, ayudando a emparejar mascotas disponibles con familias adecuadas segun sus caracteristicas y condiciones de vida. 
+PetTech es una plataforma que facilita la adopción responsable de mascotas, ayudando a emparejar mascotas disponibles con familias adecuadas según sus características y condiciones de vida. 
 
 ---
 
@@ -20,7 +20,7 @@ Actualmente muchas adopciones fracasan porque:
 Estas situaciones muestran que todavia faltan herramientas que ayuden a evaluar de manera adecuada si una mascota realmente es compatible con la familia que desea adoptarla. Como resultado, se presentan adopciones fallidas por ejemplo, se estima que alrededor del 20.7 % de los animales adoptados son devueltos a los refugios. Esta realidad evidencia la importancia de contar con soluciones que orienten mejor a las familias durante el proceso de adopción, permitiendo tomar decisiones más informadas y responsables, reduciendo el riesgo de devoluciones y garantizando un mayor bienestar para los animales que esperan encontrar un hogar definitivo.
 
 
-### solución
+### Solución
 Para abordar los problemas identificados en el proceso de adopción, se propone el desarrollo de un sistema web llamado “PetTech: Matcher de Adopción y Cuidados”.
 
 Este sistema contará con un sistema de emparejamiento manual que facilitará la adopción responsable entre mascotas disponibles y familias adoptantes. La solución permitirá analizar la información esencial tanto de las mascotas como de los posibles adoptantes, considerando factores como el tamaño del hogar, la presencia de niños y el ingreso familiar.
@@ -39,13 +39,13 @@ Con base en estos datos, el sistema generará sugerencias de las mascotas que se
 
 ### Objetivo General
 
-Facilitar las adopciones responsables a traves de un sistema de emparejamiento entre las mascotas y las familias adoptantes
+Facilitar las adopciones responsables a través  de un sistema de emparejamiento entre las mascotas y las familias adoptantes
 
-### Objetivos Especificos
+### Objetivos Específicos
 
 - Reducir los procesos manuales en el proceso de adopción en refugios, mediante un registro digital tanto de las mascotas como de los adoptantes
 - Mejorar la compatibilidad entre los hogares y las mascotas, considerando datos como el tamaño del hogar, la presencia de niños y los ingresos familiares
-- Disminuir el numero de adopciones fallidas y devoluciones de las mascotas mediante recomendaciones de adopción más informadas
+- Disminuir el número  de adopciones fallidas y devoluciones de las mascotas mediante recomendaciones de adopción más informadas
 - Generar un calendario inicial de vacunación que guie a los adoptantes sobre los cuidados de salud necesarios para las mascotas
 
 ## Alcance del MVP
@@ -54,7 +54,7 @@ Facilitar las adopciones responsables a traves de un sistema de emparejamiento e
 
 #### Registro de mascotas 
 
-Los administradores podran registar mascotas con información basica de la mascota, como:
+Los administradores podrán registrar mascotas con información básica  de la mascota, como:
 
 - Nombre
 - Especie (perro, gato, conejo, etc)
@@ -62,9 +62,9 @@ Los administradores podran registar mascotas con información basica de la masco
 - Edad
 - Fecha de Nacimiento
 - Tamaño
-- peso
+- Peso
 - Sexo
-- Nivel de energia
+- Nivel de energía
 - Fotos/Videos
 - Historial de vacunas
 - Historia de la mascota (breve descripcion de su personalidad)
@@ -85,12 +85,12 @@ Los administradores podran registar mascotas con información basica de la masco
 
 ### Registro de las familias adoptantes
 
-Las familias podran registrar información basica, como:
+Las familias podrán  registrar información básica, como:
 
 - Nombre Completo
-- Cedula
+- Cédula
 - Edad (debe ser mayor de edad)
-- Direccion de residencia
+- Dirección  de residencia
 - Telefono
 - Correo electronico
 - Redes sociales (opcional)
@@ -99,8 +99,8 @@ Las familias podran registrar información basica, como:
 - Cuantas personas viven en la casa
 - otras mascotas (si tiene mas mascotas, pregunta: cantidad, especie, edad y si estan vacunadas/esterilizadas)
 - Tiempo solo ¿Cuántas horas al día pasara la mascota sin compañía?
-- Tamano del hogar
-- Presencia de ninos
+- Tamaño  del hogar
+- Presencia de niños
 - Ingresos estimados para los cuidados de la mascota
 - experiencia previa con mascotas
 - Motivación ¿Por qué quiere adoptar una mascota en este momento?
@@ -141,14 +141,14 @@ El matching considerará criterios como:
 - Si hay niños y la mascota es apta para convivencia con niños → compatibilidad alta
 - Si los ingresos economicos ≥ gastos estimados de la mascota → compatibilidad
 
-### Confirmacion de adopción
+### Confirmación  de adopción
 
 Cuando una familia elige una mascota y el refugio confirme que la adopción puede realizarse el sistema registrará el match como adopción exitosa. De esta manera, se reconoce que tanto la familia como el refugio han llegado a un acuerdo y que la mascota ha encontrado un nuevo hogar. Esto permitirá llevar un seguimiento más claro del proceso de adopción y de los casos que se concretan con éxito.
 
-Además, las adopciones confirmadas podran visualizarse en una seccion denominada “Adopciones realizadas”, donde se almacenará el historial de adopciones completadas filtrado por usuarios.
+Además, las adopciones confirmadas podrán  visualizarse en una sección  denominada “Adopciones realizadas”, donde se almacenará el historial de adopciones completadas filtrado por usuarios.
 
 
-### Generacion del Calendario de vacunas
+### Generación  del Calendario de vacunas
 
 Una vez confirmada la adopción, el sistema generará automáticamente un calendario inicial de vacunación personalizado para la mascota. Este calendario se calculará considerando factores como: 
 
@@ -160,17 +160,17 @@ Esto, con el propósito de brindar apoyo a los adoptantes sobre los cuidados pre
 
 ### Funcionalidades fuera del MVP (OUT)
 
-las siguientes funcionalidades quedan fuera del alcance Inicial del proyecto: 
+las siguientes funcionalidades quedan fuera del alcance inicial  del proyecto: 
 
 - Pasarela de Pagos
-- seguimiento veterinario
-- historial médico completo de la mascota
-- chat entre adoptante y refugio
+- Seguimiento  veterinario
+- Historial  médico completo de la mascota
+- Chat  entre adoptante y refugio
 - Funcionalidades de Red social o comunidad (sistema de me gusta, comentarios, compartir, chat interno entre usarios)
 - Envío automático de correos, sistemas de notificaciones o integraciones con servicios como WhatsApp Business API.
 - Matching Avanzado con Inteligencia Artificial
 - Integración con otros Sistemas Veterinarios
-- Construccion para aplicativo movil
+- Construcción  para aplicativo móvil
 
 
 ## 3. Riesgos
