@@ -151,6 +151,12 @@
 - **Then** el sistema rechaza el registro por duplicidad
 - **And** se informa que el registro ya existe
 
+### Scenario: Edición de condiciones del hogar y experiencia
+
+- **Given** que la familia adoptante esta previamente registrada
+- **When** modifica la información existente
+- **Then** el sistema actualiza correctamente la información del perfil
+
 ### Story Points HU-05
   -  3 puntos
      Registro de condiciones del hogar y experiencia con almacenamiento. Funcionalidad específica, con validaciones básicas y baja complejidad
