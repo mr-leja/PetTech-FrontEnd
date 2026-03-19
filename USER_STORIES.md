@@ -19,6 +19,25 @@ Una historia de usuario está lista para entrar a un sprint cuando:
 - Tiene un tamaño adecuado (puede completarse dentro de un sprint)
 ---
 
+# Definition of Done (DoD)
+
+Una historia de usuario se considera terminada cuando:
+
+- Cumple completamente todos los **criterios de aceptación definidos**
+- El flujo funcional es ejecutable de inicio a fin sin errores
+- Las reglas de negocio se respetan correctamente, por ejemplo:
+  - no se permiten registros duplicados
+  - no se pueden crear solicitudes inválidas
+  - los estados (pendiente, aprobada, adopción exitosa) se manejan correctamente
+- La información se almacena correctamente en base de datos
+- Las relaciones entre entidades están correctamente implementadas:
+  - mascota ↔ familia
+  - solicitud ↔ estado
+  - adopción ↔ calendario
+- Se manejan correctamente los errores y validaciones, mostrando mensajes claros al usuario
+- El código ha sido revisado (code review)
+- La historia cumple el objetivo de negocio definido inicialmente
+
 # Épica 1: Gestion de Mascotas
 
 ## HU-01 - Registrar información basica de la mascota
