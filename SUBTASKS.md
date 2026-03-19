@@ -150,9 +150,9 @@
 
 ### Tareas de DEV
 - DEV-10-1: Realizar el endpoint PUT /solicitudes/{id}/decision que reciba la decisión (aprobada o rechazada) y actualice el estado en la tabla correspondiente
-- DEV-10-3: Cuando la decisión es "aprobada", actualizar el registro de la columna estado de la tabla mascotas a "en proceso de adopción" junto con la actualizacion  de la columna estado de la tabla solicitudes_adopcion
-- DEV-10-4: Cuando la decisión es "rechazada", devolver la columna estado de la tabla mascotas a "disponible" para que pueda recibir nuevas solicitudes
-- DEV-10-5: Retornar error 409 por parte del servidor si se intenta cambiar la decisión de una solicitud que ya fue aprobada debido a que asi es la logica
+- DEV-10-2: Cuando la decisión es "aprobada", actualizar el registro de la columna estado de la tabla mascotas a "en proceso de adopción" junto con la actualizacion  de la columna estado de la tabla solicitudes_adopcion
+- DEV-10-3: Cuando la decisión es "rechazada", devolver la columna estado de la tabla mascotas a "disponible" para que pueda recibir nuevas solicitudes
+- DEV-10-4: Retornar error 409 por parte del servidor si se intenta cambiar la decisión de una solicitud que ya fue aprobada debido a que asi es la logica
 ### Tareas de QA
 - QA-10-1: Diseñar matriz de datos: solicitud pendiente aprobada, solicitud pendiente rechazada, solicitud ya aprobada que intenta cambiar de estado, ID de solicitud inexistente
 - QA-10-2: Automatizar con serenity el escenario: aprobación de solicitud pendiente — estado cambia a "aprobada" y mascota pasa a "en proceso"
