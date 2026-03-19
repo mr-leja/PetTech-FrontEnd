@@ -141,7 +141,7 @@
 #### Scenario: Intento de registro sin campos obligatorios
 - **Given** que la familia no selecciona el tipo de vivienda o no indica el tamaño del hogar
 - **When** intenta guardar la información
-- **Then** el sistema muestra un mensaje con el siguinte texto: falta informacion faltante
+- **Then** el sistema muestra un mensaje con el siguinte texto: Los campos de tipo vivienda son obligatorios
 - **And** no actualiza el perfil con información incompleta
 
 #### Scenario: Registro con campos ya existentens a
