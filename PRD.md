@@ -1,4 +1,6 @@
- ## Visión y Objetivos
+# PRD — PetTech: Matcher de Adopción y Cuidados
+
+## Visión y Objetivos
 
 PetTech es una plataforma que facilita la adopcion responsable de mascotas, ayudando a emparejar mascotas disponibles con familias adecuadas segun sus caracteristicas y condiciones de vida. 
 
@@ -8,11 +10,11 @@ PetTech es una plataforma que facilita la adopcion responsable de mascotas, ayud
 
 Actualmente muchas adopciones fracasan porque:
 - las familias no conocen las condiciones reales de la mascota
-- los refugios de mascotas no tiene las herramientas necesarias para evaluar la compatibilidad con las familias que desean adoptar
+- los refugios de mascotas no tienen las herramientas necesarias para evaluar la compatibilidad con las familias que desean adoptar
 - El proceso de seguimiento es manual, lo que hace que la adopción sea lenta
-- las procesos de adopción se toman con información incompleta o sin condiserar factores de compatibilidad
+- los procesos de adopción se toman con información incompleta o sin considerar factores de compatibilidad
 - Las familias no cuentan con herramientas que validen si su entorno (espacio, presupuesto, composición familiar) es compatible con la mascota que desean adoptar
-- Muchas familias adoptan mascotas basandose solamente en factores emocionales como la apariencia, la raza o el tamaño
+- Muchas familias adoptan mascotas basándose solamente en factores emocionales como la apariencia, la raza o el tamaño
 - Al realizar la adopción muchas familias no cuentan con una guía clara sobre el esquema inicial de vacunación de la mascota, lo que dificulta realizar un seguimiento adecuado de las primeras vacunas poniendo en peligro la salud de las mascotas
 
 Estas situaciones muestran que todavia faltan herramientas que ayuden a evaluar de manera adecuada si una mascota realmente es compatible con la familia que desea adoptarla. Como resultado, se presentan adopciones fallidas por ejemplo, se estima que alrededor del 20.7 % de los animales adoptados son devueltos a los refugios. Esta realidad evidencia la importancia de contar con soluciones que orienten mejor a las familias durante el proceso de adopción, permitiendo tomar decisiones más informadas y responsables, reduciendo el riesgo de devoluciones y garantizando un mayor bienestar para los animales que esperan encontrar un hogar definitivo.
@@ -68,13 +70,18 @@ Los administradores podran registar mascotas con información basica de la masco
 - Historia de la mascota (breve descripcion de su personalidad)
 - Información adicional necesaria para el seguimiento del veterinario (desparasitacion, esterilizacion, etc)
 
-## Roles y permisos
+## Roles y Permisos
 
 ### Admin
 - Crear/editar mascotas
 - Aprobar/rechazar solicitudes
 - Validar emparejamientos
 - Gestionar adopciones
+
+### Familia Adoptante
+- Ver mascotas
+- Aplicar a adopción
+- Ver historial
 
 ### Registro de las familias adoptantes
 
@@ -98,12 +105,6 @@ Las familias podran registrar información basica, como:
 - experiencia previa con mascotas
 - Motivación ¿Por qué quiere adoptar una mascota en este momento?
 
-## Roles y permisos
-
-### Familia adoptante
-- Ver mascotas
-- Aplicar a adopción
-- Ver historial
 
 ### Sistema basico de matching
 
