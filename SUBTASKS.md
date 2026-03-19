@@ -34,7 +34,7 @@
 
 ---
 
-## HU-03 - Subir fotos de la mascota    
+## HU-03 - Subir fotos de la mascota (3 SP)
 
 ### Tareas de DEV
 - DEV-03-1: Configurar integración con proveedor de almacenamiento externo (Amazon S3 o equivalente) para la carga de archivos multimedia
@@ -50,7 +50,7 @@
 
 ---
 
-## HU-04 - Registrar información básica de familia 
+## HU-04 - Registrar información básica de familia (5 SP)
 
 ### Tareas de DEV
 -DEV-04-1: Diseñar y crear tabla familias_adoptantes con los campos: nombre_completo, cedula, edad, direccion, telefono, correo, redes_sociales (opcional)
@@ -68,7 +68,7 @@
 
 ---
 
-## HU-05 - Registrar condiciones del hogar y experiencia 
+## HU-05 - Registrar condiciones del hogar y experiencia (3 SP)
 
 ### Tareas de DEV
 -DEV-05-1: Crear tabla condiciones_hogar con los campos: id_familia (FK), tipo_vivienda, tamaño_hogar, presencia_ninos, horas_sola_mascota, ingresos_estimados, experiencia_previa, motivacion
@@ -84,7 +84,7 @@
 
 ---
 
-## HU-06 - Ver listado de mascotas 
+## HU-06 - Ver listado de mascotas (3 SP)
 
 ### Tareas de DEV
 -DEV-06-1: Exponer endpoint GET /mascotas que retorne únicamente las mascotas con estado disponible
@@ -99,7 +99,7 @@
 
 ---
 
-## HU-07 – Ver detalle de mascota 
+## HU-07 – Ver detalle de mascota (5 SP)
 
 ### Tareas de DEV
 -DEV-07-1: Exponer endpoint GET /mascotas/{id} que retorne la información completa de la mascota identificada
@@ -117,7 +117,7 @@
 
 ---
 
-## HU-08 – Solicitar adopción 
+## HU-08 – Solicitar adopción (3 SP)
 
 ### Tareas de DEV
 -DEV-08-1: Diseñar y crear tabla solicitudes_adopcion con los campos: id_familia (FK), id_mascota (FK), estado (pendiente por defecto), fecha_solicitud
@@ -150,9 +150,9 @@
 
 ### Tareas de DEV
 - DEV-10-1: Realizar el endpoint PUT /solicitudes/{id}/decision que reciba la decisión (aprobada o rechazada) y actualice el estado en la tabla correspondiente
-- DEV-10-2: Cuando la decisión es "aprobada", actualizar el registro de la columna estado de la tabla mascotas a "en proceso de adopción" junto con la actualizacion  de la columna estado de la tabla solicitudes_adopcion
-- DEV-10-3: Cuando la decisión es "rechazada", devolver la columna estado de la tabla mascotas a "disponible" para que pueda recibir nuevas solicitudes
-- DEV-10-4: Retornar error 409 por parte del servidor si se intenta cambiar la decisión de una solicitud que ya fue aprobada debido a que asi es la logica
+- DEV-10-2: Cuando la decisión es "aprobada", actualizar únicamente el estado de la tabla solicitudes_adopcion a "aprobada". La mascota ya se encuentra en estado "en proceso de adopción" desde que la solicitud fue creada en HU-08, por lo tanto no se modifica su estado en este punto
+- DEV-10-3: Cuando la decisión es "rechazada", actualizar el estado de la tabla solicitudes_adopcion a "rechazada" y devolver el estado de la mascota de "en proceso de adopción" a "disponible", para que pueda recibir nuevas solicitudes de otras familias
+- DEV-10-4: Retornar error 409 (Conflict) cuando se intenta cambiar la decisión de una solicitud que ya tiene estado "aprobada" o "rechazada", retornando un mensaje descriptivo: "La decisión sobre esta solicitud ya fue registrada y no puede modificarse"
 ### Tareas de QA
 - QA-10-1: Diseñar matriz de datos: solicitud pendiente aprobada, solicitud pendiente rechazada, solicitud ya aprobada que intenta cambiar de estado, ID de solicitud inexistente
 - QA-10-2: Automatizar con serenity el escenario: aprobación de solicitud pendiente — estado cambia a "aprobada" y mascota pasa a "en proceso"
