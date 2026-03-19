@@ -144,11 +144,12 @@
 - **Then** el sistema muestra un mensaje con el siguinte texto: Los campos de tipo vivienda son obligatorios
 - **And** no actualiza el perfil con información incompleta
 
-#### Scenario: Registro con campos ya registrados
-- **Given** que la familia intenta registrar nuevamente los campos
-- **When** intententa registrar la informacion
-- **Then** el sistema arroja un mensaje de alerta 
-- **And** no permite el registro
+### Scenario: Registro duplicado
+
+- **Given** que la familia adoptante ya tiene registrada su información
+- **When** intenta registrar nuevamente esta información como un nuevo registro
+- **Then** el sistema rechaza el registro por duplicidad
+- **And** se informa que el registro ya existe
 
 ### Story Points HU-05
   -  3 puntos
