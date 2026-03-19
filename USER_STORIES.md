@@ -256,6 +256,13 @@
 - **When** la solicitud es registrada en el sistema
 - **Then** el estado de la solicitud queda como "pendiente"
 
+### Scenario: Intento de solicitud sobre una mascota no disponible
+
+- **Given** una mascota con estado no disponible para adopción
+- **When** la familia adoptante intenta enviar una solicitud de adopción
+- **Then** el sistema rechaza la solicitud
+- **And** notifica que la mascota no está disponible para adopción
+
 ### Story Points HU-08
   - 3 puntos de estimacion
     Flujo CRUD sencillo: selección + registro + estado inicial+ validaciones simples.
