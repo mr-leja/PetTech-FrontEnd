@@ -52,7 +52,7 @@ Una historia de usuario se considera terminada cuando:
 
 ### Scenario: Registro exitoso
 
-- **Given**  que el administrador del refugio completa los campos obligatorios
+- **Given**  que el administrador del refugio completa los campos obligatorios como nombre, especie, edad, sexo, nivel de energía
 - **When** confirma el registro de la mascota
 - **Then** el sistema almacena los datos de la mascota
 
