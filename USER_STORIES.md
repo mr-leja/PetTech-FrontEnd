@@ -108,7 +108,7 @@ Una historia de usuario se considera terminada cuando:
 
 ## Criterios de aceptacion 
 
-### Feature: Carga de fotografía de mascota
+### feature: Carga de fotografía de mascota
 
 ### Scenario: Carga de imagen válida
 - **Given**  que el administrador selecciona una imagen válida
@@ -135,7 +135,7 @@ Una historia de usuario se considera terminada cuando:
 
 ## Criterios de aceptacion
 
-### Feature: Registro exitoso de familia adoptante
+### feature: Registro exitoso de familia adoptante
 
 ### Scenario: Registro exitoso con información completa
   - **Given** que la familia ingresa datos personales válidos y completos como nombre, apellido, número de identificación y edad
@@ -168,7 +168,7 @@ Una historia de usuario se considera terminada cuando:
 
 ## Criterios de aceptacion
 
-### Feature: Registro exitoso de experiencia y condiciones del hogar
+### feature: Registro exitoso de experiencia y condiciones del hogar
 
 ### Scenario: Registro de condiciones del hogar
   - **Given** que la familia ingresa información del hogar y experiencia
@@ -200,7 +200,7 @@ Una historia de usuario se considera terminada cuando:
 
 # Épica 3: Visualización de Mascotas
 
-## HU-06 - Ver listado de mascotas
+## HU-06   - Ver listado de mascotas
 
 - **Como** familia adoptante
 - **Quiero** ver las mascotas disponibles
@@ -208,27 +208,27 @@ Una historia de usuario se considera terminada cuando:
 
 ## Criterios de aceptacion
 
-### Feature: Visualización del listado de mascotas disponibles
+### feature: Visualización del listado de mascotas disponibles
 
  ### Scenario: Visualización de mascotas disponibles
-  **Given** que existen mascotas registradas en el sistema
-  **When** se consulta el listado de mascotas
-  **Then** el sistema muestra las mascotas disponibles para adopción
+  - **Given** que existen mascotas registradas en el sistema
+  - **When** se consulta el listado de mascotas
+  - **Then** el sistema muestra las mascotas disponibles para adopción
 
   ### Scenario: Exclusión de mascotas no disponibles
-  **Given** que existen mascotas con diferentes estados de disponibilidad
-  **When** se consulta el listado de mascotas
-  **Then** el sistema incluye únicamente mascotas disponibles
+  - **Given** que existen mascotas con diferentes estados de disponibilidad
+    - **When** se consulta el listado de mascotas
+  - **Then** el sistema incluye únicamente mascotas disponibles
 
 ### Scenario: Información relevante en el listado
-  **Given** que existen mascotas disponibles para adopción
-  **When** se consulta el listado de mascotas
+  - **Given** que existen mascotas disponibles para adopción
+  - **When** se consulta el listado de mascotas
   **Then** cada mascota presenta la información necesaria para su evaluación básica
 
 ### Scenario: Visualización cuando no hay mascotas disponibles
-  **Given** que no existen mascotas disponibles para adopción
-  **When** se consulta el listado de mascotas
-  **Then** el sistema informa que no hay mascotas disponibles
+  - **Given** que no existen mascotas disponibles para adopción
+  - **When** se consulta el listado de mascotas
+  - **Then** el sistema informa que no hay mascotas disponibles
 
   ### Story Points HU-06
     3 puntos 
@@ -243,7 +243,7 @@ Una historia de usuario se considera terminada cuando:
 
 ## Criterios de aceptación:
 
-### Feature: Visualización de la Informacion de una mascota
+### feature: Visualización de la Informacion de una mascota
 
 ### Scenario: Visualización del detalle de una mascota
  - **Given** que la familia selecciona una mascota del listado
@@ -255,7 +255,7 @@ Una historia de usuario se considera terminada cuando:
  - **When** existen imágenes asociadas
  - **Then** el sistema muestra las fotos de la mascota
 
-### Scenario: Visualización de la informacion de la mascota
+### Scenario: Visualización de la informacion de salud de la mascota
  - **Given** que la familia accede al detalle de una mascota
  - **When** la mascota tiene información de salud registrada
  - **Then** el sistema muestra su historial básico
@@ -275,7 +275,7 @@ Una historia de usuario se considera terminada cuando:
 
 ## Criterios de aceptación
 
-### Feature: Solicitud de adopción
+### feature: Solicitud de adopción
 
 ### Scenario: Selección de mascota para solicitud
 - **Given** que la familia adoptante está explorando mascotas disponibles
@@ -399,7 +399,7 @@ Una historia de usuario se considera terminada cuando:
 
 ## Criterios de aceptación
 
-### Feature: Confirmación de adopción
+### feature: Confirmación de adopción
 
 ### Scenario: Confirmación exitosa de adopción
 **Given** que existe una solicitud de adopción con estado aprobada  
@@ -434,7 +434,7 @@ Una historia de usuario se considera terminada cuando:
 
 ## Criterios de aceptación
 
-### Feature: Visualización de adopciones realizadas
+### feature: Visualización de adopciones realizadas
 
 ### Scenario: Acceso a la sección de adopciones realizadas
 **Given** que el administrador accede al sistema  
@@ -467,7 +467,7 @@ Una historia de usuario se considera terminada cuando:
 
 ## Criterios de aceptación
 
-### Feature: Generación de calendario de vacunación
+### feature: Generación de calendario de vacunación
 
 ### Scenario: Generación de calendario de vacunación al confirmar una adopción
 - **Given** que existe una adopción confirmada
@@ -499,7 +499,7 @@ Una historia de usuario se considera terminada cuando:
 
 ## Criterios de aceptación
 
-### Feature: visualizacion del calendario de vacunación
+### feature: visualizacion del calendario de vacunación
 
 ### Scenario: Asociación del calendario a la adopción
 **Given** que la familia adoptante ha completado una adopción  
