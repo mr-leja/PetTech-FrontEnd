@@ -201,8 +201,10 @@
 - DEV-09-3: Implementar respuesta 404 con mensaje el cual pueda ser de facil entendimiento desde el frontend
 - DEV-09-4: Implementar la vista para que solo el adminsitrador pueda ver las solicitudes correspondientes
 ### Tareas de FRONT
-- FRONT-09-1: Implementar vista de detalle de solicitud
+- FRONT-09-1: Implementar vista de detalle de solicitud con la información de la familia y la mascota
 - FRONT-09-2: Integrar con endpoint GET /solicitudes/{id}
+- FRONT-09-3: Mostrar mensaje de error cuando el ID de la solicitud no existe o no fue encontrado
+- FRONT-09-4: Restringir el acceso a esta vista solo para el rol administrador, redirigiendo al usuario si no tiene permisos
 
 ### Tareas de QA
 - QA-09-1: Diseñar matriz de datos: solicitud existente con informacion completa de la  familia y mascota, entre otros datos relevantes
