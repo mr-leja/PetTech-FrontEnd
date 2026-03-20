@@ -89,11 +89,12 @@ Una historia de usuario se considera terminada cuando:
 - **Then** el sistema muestra un mensaje indicando que el historial de vacunación es un dato requerido
 - **And** no almacena el registro incompleto
 
-#### Scenario: Registro de mascota ya esterilizada
-- **Given** que el administrador  marca la mascota como esterilizada
-- **When** guarda la información de salud
-- **Then** el sistema registra la condición de esterilización de la mascota
-- **And** este dato queda disponible como referencia en el proceso de adopción
+### Scenario: Registro con fecha de vacunación futura
+- **Given** que el administrador ingresa información de salud de la mascota
+- **And** registra una fecha de vacunación mayor a la fecha actual
+- **When** intenta guardar la información
+- **Then** el sistema rechaza la operación
+- **And** muestra un mensaje indicando que la fecha de vacunación no puede ser futura
 
 
 ### Story Points HU-02
