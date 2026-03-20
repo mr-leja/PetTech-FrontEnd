@@ -199,7 +199,7 @@
 - DEV-09-1: Exponer endpoint GET /solicitudes/{id} que retorne la información consolidada de la solicitud en formato json
 - DEV-09-2: Realizar JOIN entre la tabla solicitudes_adopcion, familias_adoptantes y mascotas para armar la respuesta en un objeto aplanado
 - DEV-09-3: Implementar respuesta 404 con mensaje el cual pueda ser de facil entendimiento desde el frontend
-- DEV-09-4: Implementar la vista para que solo el adminsitrador pueda ver las solicitudes correspondientes
+- DEV-09-4: Implementar la vista para que solo el administrador pueda ver las solicitudes correspondientes
 ### Tareas de FRONT
 - FRONT-09-1: Implementar vista de detalle de solicitud con la información de la familia y la mascota
 - FRONT-09-2: Integrar con endpoint GET /solicitudes/{id}
