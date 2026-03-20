@@ -42,7 +42,7 @@ El sistema permite registrar y analizar la información de las mascotas y las fa
 
 ### Objetivo General
 
-Facilitar las adopciones responsables a través de un sistema de emparejamiento entre las mascotas y las familias adoptantes.
+Facilitar la adopción responsable de mascotas mediante un sistema que permita evaluar la compatibilidad entre las mascotas y las familias adoptantes.
 
 ### Objetivos Específicos
 
