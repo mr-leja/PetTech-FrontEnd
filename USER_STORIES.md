@@ -81,7 +81,7 @@ Una historia de usuario se considera terminada cuando:
 - **When** guarda la información
 - **Then** el sistema la almacena correctamente
 
-#### Scenario: Intento de registro sin seleccionar el estado de vacunación de la mascota
+### Scenario: Intento de registro sin seleccionar el estado de vacunación de la mascota
 - **Given** que el administrador  deja el campo de historial de vacunas sin completar
 - **When** intenta guardar la información de salud
 - **Then** el sistema muestra un mensaje indicando que el historial de vacunación es un dato requerido
@@ -175,7 +175,7 @@ Una historia de usuario se considera terminada cuando:
   - **When** guarda los datos
   - **Then** el sistema almacena la información correctamente
 
-#### Scenario: Intento de registro sin campos obligatorios
+### Scenario: Intento de registro sin campos obligatorios
 - **Given** que la familia no selecciona el tipo de vivienda o no indica el tamaño del hogar
 - **When** intenta guardar la información
 - **Then** el sistema informa que los campos de tipo de vivienda y tamaño del hogar son obligatorios
