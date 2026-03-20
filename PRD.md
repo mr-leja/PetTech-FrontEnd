@@ -33,11 +33,9 @@ Estas situaciones muestran que todavía faltan herramientas que ayuden a evaluar
 
 ### Solución
 
-Para abordar los problemas identificados en el proceso de adopción, se propone el desarrollo de un sistema web llamado "PetTech: Matcher de Adopción y Cuidados".
+Para abordar los problemas del proceso de adopción, se propone desarrollar una plataforma web llamada “PetTech: Matcher de Adopción y Cuidados”.
 
-Este sistema contará con un sistema de emparejamiento manual que facilitará la adopción responsable entre mascotas disponibles y familias adoptantes. La solución permitirá analizar la información esencial tanto de las mascotas como de los posibles adoptantes, considerando factores como el tamaño del hogar, la presencia de niños y el ingreso familiar.
-
-Con base en estos datos, el administrador generará sugerencias de las mascotas que sean más compatibles con la información de cada familia. Adicionalmente, una vez que la adopción sea exitosa, la plataforma generará automáticamente un calendario inicial de vacunación.
+El sistema permite registrar y analizar la información de las mascotas y las familias adoptantes, considerando factores como el entorno del hogar y sus condiciones. Con base en estos datos, el administrador puede identificar y sugerir qué mascotas encajan mejor con cada familia y sugerir las opciones más adecuadas, ayudando a tomar decisiones más conscientes. Además, una vez que la adopción sea exitosa, la plataforma genera automáticamente un calendario inicial de vacunación, facilitando el cuidado de la mascota despues del proceso de adopción.
 ---
 
 ## 3. Objetivos del Producto
@@ -55,7 +53,7 @@ Facilitar las adopciones responsables a través de un sistema de emparejamiento 
 
 ---
 
-### 4. Usuarios Objetivo
+### 4. Usuarios que utilizaran la plataforma
 
 | Usuario | Descripción |
 |---|---|
