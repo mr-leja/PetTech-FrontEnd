@@ -65,7 +65,7 @@ Una historia de usuario se considera terminada cuando:
 ### Story Points HU-01
   - 5 puntos de estimacion
      registro completo con validaciones y almacenamiento en base de datos
-----
+---
 
 ## HU-02 – Registrar información de salud
 
@@ -310,7 +310,7 @@ Una historia de usuario se considera terminada cuando:
 
    --- 
 
-## HU -09 – Consultar detalle de solicitud de adopción
+## HU-09 – Consultar detalle de solicitud de adopción
 
 **Como** administrador  
 **Quiero** visualizar la información de la familia y la mascota en una solicitud  
@@ -318,7 +318,7 @@ Una historia de usuario se considera terminada cuando:
 
 ## Criterios de aceptacion
 
-## feature: Consulta de solicitud de adopción
+### feature: Consulta de solicitud de adopción
 
 ### Scenario: Visualización de información completa  
 **Given** que existe una solicitud de adopción  
@@ -348,7 +348,7 @@ Una historia de usuario se considera terminada cuando:
 
 ## Criterios de aceptacion
 
-## feature: Gestión de decisión de solicitud  
+### feature: Gestión de decisión de solicitud  
 
 ### Scenario: Aprobación de solicitud  
 **Given** que el administrador ha revisado la solicitud  
@@ -509,7 +509,8 @@ Una historia de usuario se considera terminada cuando:
 ### Story Points HU-14
   - 8 puntos de estimacion
     logica de negocio importante filtro de vacunas disparo de eventos se debe probar el flujo con diferentes datos como especie, edad, nivel de energia, 
-    ---
+
+--- 
 
 ## HU-15 – Consultar calendario
 
