@@ -279,6 +279,7 @@
 - FRONT-13-1: Maquetar la tabla de historial con columnas para Mascota, Familia y Fecha de Adopción
 - FRONT-13-2: Consumir la lista de adopciones desde el API
 - FRONT-13-3: Agregar un  filtro para poder filtrar por el nombre del adoptante
+- FRONT-13-4: Implementar paginacion para la tabla de adopciones
 
 ### Tareas de QA
 - QA-13-1: Diseñar matriz de datos: usuario con múltiples adopciones, usuario sin ninguna adopción, filtro aplicado a un usuario específico, listado general sin filtro
