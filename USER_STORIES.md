@@ -51,7 +51,6 @@ Una historia de usuario se considera terminada cuando:
 ### feature: Registro de información básica de mascota
 
 ### Scenario: Registro exitoso
-
 - **Given**  que el administrador completa los campos obligatorios como nombre, especie, edad, sexo, nivel de energía
 - **When** confirma el registro de la mascota
 - **Then** el sistema almacena los datos de la mascota
@@ -78,7 +77,6 @@ Una historia de usuario se considera terminada cuando:
 ### feature: Registro de informacion médica de la mascota
 
 ### Scenario: Registro de información de salud
-
 - **Given** que el administrador ingresa datos de salud
 - **When** guarda la información
 - **Then** el sistema la almacena correctamente
@@ -113,7 +111,6 @@ Una historia de usuario se considera terminada cuando:
 ### Feature: Carga de fotografía de mascota
 
 ### Scenario: Carga de imagen válida
-
 - **Given**  que el administrador selecciona una imagen válida
 - **When** la carga en el formulario
 - **Then** el sistema la almacena correctamente
@@ -144,7 +141,6 @@ Una historia de usuario se considera terminada cuando:
   - **Given** que la familia ingresa datos personales válidos y completos como nombre, apellido, número de identificación y edad
   - **When** completa el registro
   - **Then** la información queda almacenada correctamente
-
 
 ### Scenario: Validación de datos obligatorios
   - **Given** que la familia omite datos personales obligatorios (numero de identificacion o edad)
@@ -250,19 +246,16 @@ Una historia de usuario se considera terminada cuando:
 ### Feature: Visualización de la Informacion de una mascota
 
 ### Scenario: Visualización del detalle de una mascota
-
  - **Given** que la familia selecciona una mascota del listado
  - **When** accede a su detalle
  - **Then** el sistema muestra la información completa de la mascota
 
 ### Scenario: Visualización de fotografías
-
  - **Given** que la familia accede al detalle de una mascota
  - **When** existen imágenes asociadas
  - **Then** el sistema muestra las fotos de la mascota
 
 ### Scenario: Visualización de la informacion de la mascota
-
  - **Given** que la familia accede al detalle de una mascota
  - **When** la mascota tiene información de salud registrada
  - **Then** el sistema muestra su historial básico
@@ -297,7 +290,6 @@ Una historia de usuario se considera terminada cuando:
 - **And** la solicitud no debe estar ni en estado aprobado ni rechazado
 
 ### Scenario: Intento de solicitud sobre una mascota no disponible
-
 - **Given** una mascota con estado no disponible para adopción
 - **When** la familia adoptante intenta enviar una solicitud de adopción
 - **Then** el sistema rechaza la solicitud
@@ -324,14 +316,10 @@ Una historia de usuario se considera terminada cuando:
 **When** el administrador accede a su detalle  
 **Then** el sistema muestra la información de la familia y de la mascota  
 
-
-
 ### Scenario: Intento de acceso a una solicitud inexistente  
 **Given** que un administrador intenta acceder al detalle de una solicitud mediante un ID que no existe  
 **When** el sistema procesa la peticion 
 **Then** el sistema informa que la solicitud consultada no existe en el sistema  
-
-
 
 ### Story Points HU-09
   - 3 puntos de estimacion
@@ -359,18 +347,17 @@ Una historia de usuario se considera terminada cuando:
 **When** decide rechazarla  
 **Then** el sistema registra la solicitud como "rechazada"  
 
-  ### Scenario: Intento de cambiar una solicitud ya finalizada
-  **Given** que existe una solicitud con estado "aprobada" o "rechazada"  
-  **When** el administrador intenta realizar una acción sobre la solicitud  
-  **Then** el sistema rechaza la operación  
-  **And** muestra un mensaje indicando que la solicitud ya tiene una decisión final
+### Scenario: Intento de cambiar una solicitud ya finalizada
+**Given** que existe una solicitud con estado "aprobada" o "rechazada"  
+**When** el administrador intenta realizar una acción sobre la solicitud  
+**Then** el sistema rechaza la operación  
+**And** muestra un mensaje indicando que la solicitud ya tiene una decisión final
 
 ### Story Points HU-10
   - 5 puntos de estimacion
     Logica de de cambio de estado de solicitud incluye ver datos de tablas con datos existentes
 
 ---
-
 ## HU-11 – Sugerir alternativa de adopción
 
 **Como** administrador  
@@ -421,7 +408,6 @@ Una historia de usuario se considera terminada cuando:
 **And** el sistema registra automáticamente la fecha de adopción  
 **And** la mascota queda vinculada a la familia en el registro de adopciones  
 **And** el estado de la mascota se actualiza a adoptada  
-
 
 ### Scenario: Intento de confirmar una solicitud que no está aprobada
 **Given** que existe una solicitud con estado pendiente o rechazada  
@@ -516,11 +502,9 @@ Una historia de usuario se considera terminada cuando:
 ### Feature: visualizacion del calendario de vacunación
 
 ### Scenario: Asociación del calendario a la adopción
-
 **Given** que la familia adoptante ha completado una adopción  
 **When** accede a la información de su mascota  
 **Then** el sistema muestra el calendario de vacunación con sus fechas correspondientes 
-
 
 ### Scenario: Consulta de calendario para una adopción no confirmada
   **Given** que la familia adoptante tiene una solicitud de adopción en estado "pendiente"
@@ -532,8 +516,6 @@ Una historia de usuario se considera terminada cuando:
   **Given** que el usuario no tiene una adopción registrada
   **When** intenta acceder a la información de una mascota
   **Then** el sistema deniega el acceso al calendario de vacunación
-
-
 
 ### Story Points HU-15
   - 3 puntos de estimacion
