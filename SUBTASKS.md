@@ -226,8 +226,8 @@
 - FRONT-10-4: Mostrar mensaje de error cuando la decisión no puede ser registrada
 ### Tareas de QA
 - QA-10-1: Diseñar matriz de datos: solicitud pendiente aprobada, solicitud pendiente rechazada, solicitud ya aprobada que intenta cambiar de estado, ID de solicitud inexistente
-- QA-10-2: Automatizar con serenity el escenario: aprobación de solicitud pendiente — estado cambia a "aprobada" y mascota pasa a "en proceso"
-- QA-10-3: Automatizar con serenity el escenario: rechazo de solicitud pendiente — estado cambia a "rechazada" y mascota vuelve a "disponible"
+- QA-10-2: Automatizar el escenario: aprobación de solicitud pendiente — estado cambia a "aprobada" y mascota pasa a "en proceso"
+- QA-10-3: Automatizar el escenario: rechazo de solicitud pendiente — estado cambia a "rechazada" y mascota vuelve a "disponible"
 - QA-10-4: Ejecutar una prueba exploratoria manual verificando que los estados de solicitud y mascota sigan el flujo correcto
 
 ---
@@ -319,8 +319,8 @@
 ### Tareas de DEV
 - DEV-15-1: Crear el  endpoint de tipo GET /adopciones/{id}/calendario que retorne el calendario asociado a una adopción  
 - DEV-15-2: Validar que la adopción referenciada exista y tenga estado "adopción exitosa" antes de retornar el calendario
-- DEV-15-3: Retornar mensaje renderizado en el frontend falta procesos por aprobar cuando la adopción está en estado "pendiente" o "aprobada" 
-- DEV-15-4: Retornar 404 con mensaje renderizado en el frontend cuando el usuario adoptante no tiene ninguna adopción registrada en el sistema
+- DEV-15-3: Retornar mensaje cuando la adopción está en estado "pendiente" o "aprobada" 
+- DEV-15-4: Retornar 404 con mensaje cuando el usuario adoptante no tiene ninguna adopción registrada en el sistema
 ### Tareas de FRONT
 - FRONT-15-1: Crear la interfaz del calendario donde se vea el nombre de la vacuna 
 - FRONT-15-2: Hacer la petición al API para traer las fechas 
