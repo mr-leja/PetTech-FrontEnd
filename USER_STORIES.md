@@ -261,7 +261,7 @@ Una historia de usuario se considera terminada cuando:
  - **When** existen imágenes asociadas
  - **Then** el sistema muestra las fotos de la mascota
 
-### Scenario: Visualización del historial básico
+### Scenario: Visualización de la informacion de la mascota
 
  - **Given** que la familia accede al detalle de una mascota
  - **When** la mascota tiene información de salud registrada
