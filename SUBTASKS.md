@@ -310,6 +310,10 @@
 - DEV-15-2: Validar que la adopción referenciada exista y tenga estado "adopción exitosa" antes de retornar el calendario
 - DEV-15-3: Retornar mensaje renderizado en el frontend falta procesos por aprobar cuando la adopción está en estado "pendiente" o "aprobada" 
 - DEV-15-4: Retornar 404 con mensaje renderizado en el frontend cuando el usuario adoptante no tiene ninguna adopción registrada en el sistema
+### Tareas de FRONT
+- FRONT-15-1: Crear la interfaz del calendario donde se vea el nombre de la vacuna 
+- FRONT-15-2: Hacer la petición al API para traer las fechas 
+- FRONT-15-3: Si la adopción sigue en trámite, mostrar un aviso: "Tu calendario estará listo cuando se confirme la adopción"
 
 ### Tareas de QA
 - QA-15-1: Diseñar matriz de datos: adopción confirmada con calendario generado, adopción en estado pendiente, usuario sin adopciones, ID de adopción inexistente
