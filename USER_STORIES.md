@@ -289,7 +289,7 @@ Una historia de usuario se considera terminada cuando:
 - **Given** que la familia adoptante está explorando mascotas disponibles
 - **When** selecciona una mascota y confirma el envio de la solicitud
 - **Then** el sistema permite iniciar una solicitud de adopción para esa mascota
-- **and** el sistema confirma y registra la solicitud de adopción
+- **And** el sistema confirma y registra la solicitud de adopción
 
 ### Scenario: La solicitud no se aprueba automáticamente
 - **Given** que la familia adoptante ha enviado una solicitud de adopción
@@ -334,7 +334,7 @@ Una historia de usuario se considera terminada cuando:
 
 ### Story Points HU-09
   - 3 puntos de estimacion
-    Flujo unicamente de visualizacion no incluye logica compleya mas que manejo de sesiones
+    Flujo unicamente de visualizacion no incluye logica compleja mas que manejo de sesiones
 
 ---
 
