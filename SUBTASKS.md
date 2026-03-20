@@ -253,7 +253,11 @@
 - DEV-12-2: Crear endpoint de tipo POST /adopciones que tome una solicitud en estado "aprobada"
 - DEV-12-3: Actualizar el estado de la solicitud a "adopción exitosa" y el estado de la mascota a "adoptada"
 - DEV-12-4: Retornar error si se intenta confirmar una adopción para una solicitud que no esté en estado "aprobada"
-
+### Tareas de FRONT
+- FRONT-12-1: Poner el botón de "Finalizar Adopción" en la pantalla de solicitudes que estén aprobadas
+- FRONT-12-2: Conectar el botón con el endpoint de creación de adopción (POST)
+- FRONT-12-3: Alerta de confirmación una vez que el estado cambie a exitoso
+- FRONT-12-4: Mostrar un mensaje claro al admin si la solicitud no cumple los requisitos
 ### Tareas de QA
 - QA-12-1: Diseñar matriz de datos: solicitud aprobada lista para confirmar, solicitud en estado "pendiente"
 - QA-12-2: Automatizar escenario: confirmación exitosa — registro en tabla adopciones con fecha, mascota pasa a "adoptada" y solicitud a "adopción exitosa"
