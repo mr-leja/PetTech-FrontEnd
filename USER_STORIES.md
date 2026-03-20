@@ -360,17 +360,11 @@ Una historia de usuario se considera terminada cuando:
 **When** decide rechazarla  
 **Then** el sistema registra la solicitud como "rechazada"  
 
-### Scenario: Intento de aprobar una solicitud que ya fue aprobada
-**Given** que existe una solicitud con estado de adopción exitosa  
-**When** el administrador intenta aprobar la solicitud nuevamente  
-**Then** el sistema rechaza la operación  
-**And** muestra un mensaje indicando que la solicitud ya fue aprobada
-
-### Scenario: Intento de rechazar una solicitud que ya fue rechazada
-**Given** que existe una solicitud con estado de rechazo  
-**When** el administrador intenta rechazar la solicitud nuevamente  
-**Then** el sistema rechaza la operación  
-**And** muestra un mensaje indicando que la solicitud ya fue rechazada
+  ### Scenario: Intento de cambiar una solicitud ya finalizada
+  **Given** que existe una solicitud con estado "aprobada" o "rechazada"  
+  **When** el administrador intenta realizar una acción sobre la solicitud  
+  **Then** el sistema rechaza la operación  
+  **And** muestra un mensaje indicando que la solicitud ya tiene una decisión final
 
 ### Story Points HU-10
   - 5 puntos de estimacion
