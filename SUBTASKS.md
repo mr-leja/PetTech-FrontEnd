@@ -272,6 +272,10 @@
 - DEV-13-2: Configurar DTO de respuesta con los datos necesarios: nombre de la mascota, especie, fecha de adopción y nombre de la familia
 - DEV-13-3: Implementar paginación en el endpoint para que el sistema solo traiga los 10 primeros de cada pagina esto debido a que es mejor traer parte por parte que todo el resultado
 - DEV-13-4: Si la respuesta  es  vacía se debe retornar con mensaje informativo cuando el usuario no tiene adopciones en proceso
+### Tareas de FRONT
+- FRONT-13-1: Maquetar la tabla de historial con columnas para Mascota, Familia y Fecha de Adopción
+- FRONT-13-2: Consumir la lista de adopciones desde el API
+- FRONT-13-3: Agregar un  filtro para poder filtrar por el nombre del adoptante
 
 ### Tareas de QA
 - QA-13-1: Diseñar matriz de datos: usuario con múltiples adopciones, usuario sin ninguna adopción, filtro aplicado a un usuario específico, listado general sin filtro
