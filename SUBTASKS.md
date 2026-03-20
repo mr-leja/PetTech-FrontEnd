@@ -298,6 +298,11 @@
 - DEV-14-4: Considerar el historial de vacunación registrado en salud_mascota para no re-agendar vacunas ya aplicadas
 - DEV-14-5: Disparar la generación del calendario automáticamente al confirmar una adopción 
 
+### Tareas de FRONT
+- FRONT-14-1: Mostrar una alerta de éxito cuando el calendario se genere automáticamente al confirmar la adopción
+- FRONT-14-2: Mostrar un mensaje claro de error si llega a fallar la generación del calendario por debajo
+- FRONT-14-3: Poner un enlace en la alerta de confirmación para que el admin pueda ir directo a ver el calendario
+
 ### Tareas de QA
 - QA-14-1: Diseñar matriz de datos: perro cachorro sin ninguna vacuna, perro adulto con vacunas parciales, gato sin historial, mascota con historial completo de vacunas, especie no reconocida por el sistema
 - QA-14-2: Automatizar escenario: perro cachorro sin vacunas — calendario incluye protocolo completo con fechas de refuerzo correctas
