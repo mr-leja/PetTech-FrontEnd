@@ -417,6 +417,12 @@ Una historia de usuario se considera terminada cuando:
 **Then** el sistema rechaza la operación  
 **And** muestra un mensaje indicando que solo se pueden confirmar solicitudes aprobadas  
 
+### Scenario: Intento de confirmar una solicitud que ya fue confirmada
+**Given** que existe una solicitud con estado de adopción exitosa  
+**When** el administrador intenta confirmar la adopción nuevamente  
+**Then** el sistema rechaza la operación  
+**And** muestra un mensaje indicando que la solicitud ya fue confirmada
+
 ### Story Points HU-12
   - 3 puntos de estimacion
     Cambio de estado , manejo de fechas , relacion de dos tablas logica directa
