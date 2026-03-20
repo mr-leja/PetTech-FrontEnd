@@ -229,7 +229,7 @@ Una historia de usuario se considera terminada cuando:
   **When** se consulta el listado de mascotas
   **Then** cada mascota presenta la información necesaria para su evaluación básica
 
-### Scenario: Ausencia de mascotas disponibles
+### Scenario: Visualización cuando no hay mascotas disponibles
   **Given** que no existen mascotas disponibles para adopción
   **When** se consulta el listado de mascotas
   **Then** el sistema informa que no hay mascotas disponibles
