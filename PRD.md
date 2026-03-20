@@ -13,7 +13,7 @@
 
 ## 1. Visión y Objetivos
 
-PetTech es una plataforma que facilita la adopción responsable de mascotas, ayudando a emparejar mascotas disponibles con familias adecuadas según sus características y condiciones de vida. El propósito del producto es transformar un proceso de adopción actualmente informal y reactivo en uno estructurado, informado y orientado al bienestar animal a largo plazo.
+PetTech es una plataforma que facilita la adopción responsable de mascotas, ayudando a emparejar mascotas disponibles con familias adecuadas según sus características y condiciones de vida. El propósito del producto es mejorar la calidad de las adopciones, reduciendo riesgos de abandono y promoviendo relaciones sostenibles entre las mascotas y sus nuevas familias
 
 ---
 
@@ -38,14 +38,6 @@ Para abordar los problemas identificados en el proceso de adopción, se propone 
 Este sistema contará con un sistema de emparejamiento manual que facilitará la adopción responsable entre mascotas disponibles y familias adoptantes. La solución permitirá analizar la información esencial tanto de las mascotas como de los posibles adoptantes, considerando factores como el tamaño del hogar, la presencia de niños y el ingreso familiar.
 
 Con base en estos datos, el administrador generará sugerencias de las mascotas que sean más compatibles con la información de cada familia. Adicionalmente, una vez que la adopción sea exitosa, la plataforma generará automáticamente un calendario inicial de vacunación.
-
-### Usuarios Objetivo
-
-| Usuario | Descripción |
-|---|---|
-| **Familia adoptante** | Hogares interesados en adoptar, con o sin experiencia previa |
-| **Refugio o Centros de Adopción** | Organizaciones que administran mascotas disponibles para adopción |
-
 ---
 
 ## 3. Objetivos del Producto
@@ -63,7 +55,14 @@ Facilitar las adopciones responsables a través de un sistema de emparejamiento 
 
 ---
 
-## 4. Roles y Permisos
+### 4. Usuarios Objetivo
+
+| Usuario | Descripción |
+|---|---|
+| **Familia adoptante** | Hogares interesados en adoptar, con o sin experiencia previa |
+| **Refugio o Centros de Adopción** | Organizaciones que administran mascotas disponibles para adopción |
+
+## Roles y Permisos
 
 ### Administrador (Refugio)
 - Crear y editar mascotas
@@ -199,9 +198,3 @@ Las siguientes funcionalidades quedan fuera del alcance inicial del proyecto:
 | RT1 | Técnico | Condiciones de carrera (Race Conditions) en el proceso de emparejamiento | Dado que múltiples familias pueden estar navegando y aplicando por la misma mascota simultáneamente, existe el riesgo de que el sistema permita iniciar el flujo de adopción para el mismo animal a dos procesos distintos al mismo tiempo. Si las peticiones simultáneas no se gestionan de manera correcta, puede ocurrir una duplicidad de registros en la base de datos, provocando que el sistema de recomendaciones funcione de manera incorrecta. | Para mitigar esto, se propone el uso de un servidor de colas para procesar las solicitudes de forma secuencial y asegurar la idempotencia del flujo en la base de datos. Adicionalmente, se implementará un bloqueo de registro mediante el manejo de sesiones: al ingresar la petición con menor latencia, el sistema bloqueará la mascota en la vista para otros usuarios, garantizando que un animal no pueda ser asignado a dos procesos de adopción activos simultáneamente. | Alta | Alta |
 | RT2 | Técnico | Vulnerabilidad y exposición de datos de carácter personal | Debido a que la plataforma almacena información sensible de los adoptantes (identificación, direcciones residenciales y niveles de ingresos), existe el riesgo técnico de una filtración o acceso no autorizado a través de vulnerabilidades en las API. El uso indebido o la exposición de estos endpoints podría comprometer la privacidad de los usuarios y generar implicaciones legales por fuga de datos. | Como mitigación, se implementarán mecanismos de autenticación y autorización robustos (como JWT) junto con el uso de HTTPS para proteger los datos en tránsito. Adicionalmente, para los datos en reposo, se aplicará cifrado en la base de datos para la información más sensible utilizando algoritmos estándar de la industria como AES-256 y RSA, asegurando así la integridad de la información. | Alta | Alta |
 | RT3 | Técnico | Saturación del almacenamiento local y degradación del servidor por archivos multimedia | El sistema requiere que los refugios carguen múltiples fotografías y videos en alta resolución para cada animal que entre al proceso de adopción, lo que genera un riesgo de saturación del almacenamiento local y el colapso del servidor donde esté alojada la aplicación. | Como mitigación, se implementará una arquitectura desacoplada donde los archivos multimedia se alojarán en un proveedor de nube externo (como Amazon S3). En la base de datos solo se almacenará la URL de referencia de cada archivo. Esto garantiza que el servidor de aplicaciones no gestione archivos pesados y la base de datos se mantenga ligera. | Media | Alta |
-
-## 7. Criterios de Éxito
-Que criterios consideraremos exitoso para el MVP:
-- La plataforma sea capaz de gestionar el ciclo de vida completo de una mascota desde su registro hasta su adopción exitosa en un 95% de los casos
-- El motor de reglas con la ayuda del administrador pueda recomendar mascotas a las familias adoptantes en un 80% de los casos
-- El calendario de vacunación sea capaz de generar calendarios de vacunación personalizados para las mascotas
