@@ -4,10 +4,10 @@
 
 ### Tareas de DEV
 - DEV-01-1: Diseñar y crear tabla mascotas en la base de datos con los campos: nombre, especie, raza, edad, fecha_nacimiento, tamaño, peso, sexo, nivel_energia, historia, estado (disponible por defecto)
--  DEV-01-2: Crear entidad/modelo Mascota con sus atributos y restricciones de validación a nivel de modelo
--  DEV-01-3: Crear DTO de entrada RegistrarMascotaDTO con validaciones de campos obligatorios (nombre, especie, edad, sexo, nivel de energía)
--  DEV-01-4: Exponer endpoint POST /mascotas que reciba el DTO, valide y persista el registro
--  DEV-01-5: Implementar validación de especie contra un listado de valores permitidos (perro, gato, conejo, etc.) retornando error descriptivo ante valor no reconocido
+- DEV-01-2: Crear entidad/modelo Mascota con sus atributos y restricciones de validación a nivel de modelo
+- DEV-01-3: Crear DTO de entrada RegistrarMascotaDTO con validaciones de campos obligatorios (nombre, especie, edad, sexo, nivel de energía)
+- DEV-01-4: Exponer endpoint POST /mascotas que reciba el DTO, valide y persista el registro
+- DEV-01-5: Implementar validación de especie contra un listado de valores permitidos (perro, gato, conejo, etc.) retornando error descriptivo ante valor no reconocido
 
 ### Tareas de FRONT
 
@@ -43,9 +43,9 @@
 
  ### Tareas de QA
 - QA-02-1: Diseñar matriz de datos de prueba: salud completa, campo estado_vacunacion vacío, mascota marcada como esterilizada, ID de mascota inexistente
--  QA-02-2: Automatizar escenario: registro exitoso de información de salud — datos asociados correctamente a la mascota
--  QA-02-3: Automatizar escenario: intento sin campo estado_vacunacion — verificar que el sistema rechaza y no persiste
--  QA-02-4: Automatizar escenario: mascota marcada como esterilizada queda con ese dato disponible en su perfil
+- QA-02-2: Automatizar escenario: registro exitoso de información de salud — datos asociados correctamente a la mascota
+- QA-02-3: Automatizar escenario: intento sin campo estado_vacunacion — verificar que el sistema rechaza y no persiste
+- QA-02-4: Automatizar escenario: mascota marcada como esterilizada queda con ese dato disponible en su perfil
 
 ---
 
@@ -58,11 +58,11 @@
 - DEV-03-4: Almacenar únicamente la URL de referencia del archivo en la tabla mascotas (nunca el archivo en el servidor de aplicaciones)
 
 ### Tareas de FRONT
--FRONT-03-1: Implementar componente de carga de archivos (input tipo file con preview)
--FRONT-03-2: Validar en cliente formato (JPG/PNG) y tamaño máximo (5MB) antes de enviar
--FRONT-03-3: Integrar con endpoint POST /mascotas/{id}/fotos usando multipart/form-data
--FRONT-03-4: Mostrar preview de la imagen antes de subirla
--FRONT-03-5: Mostrar estado de carga (progress/loading) y resultado (éxito/error)
+- FRONT-03-1: Implementar componente de carga de archivos (input tipo file con preview)
+- FRONT-03-2: Validar en cliente formato (JPG/PNG) y tamaño máximo (5MB) antes de enviar
+- FRONT-03-3: Integrar con endpoint POST /mascotas/{id}/fotos usando multipart/form-data
+- FRONT-03-4: Mostrar preview de la imagen antes de subirla
+- FRONT-03-5: Mostrar estado de carga (progress/loading) y resultado (éxito/error)
 
  ### Tareas de QA
 - QA-03-1: Diseñar matriz de datos de prueba: imagen JPG válida (<5 MB), imagen PNG válida (<5 MB), archivo .pdf, archivo .docx, imagen JPG >5 MB, solicitud sin archivo adjunto
@@ -75,7 +75,7 @@
 ## HU-04 - Registrar información básica de familia (5 SP)
 
 ### Tareas de DEV
--DEV-04-1: Diseñar y crear tabla familias_adoptantes con los campos: nombre_completo, cedula, edad, direccion, telefono, correo, redes_sociales (opcional)
+- DEV-04-1: Diseñar y crear tabla familias_adoptantes con los campos: nombre_completo, cedula, edad, direccion, telefono, correo, redes_sociales (opcional)
 - DEV-04-2: Crear entidad/modelo FamiliaAdoptante con restricciones de unicidad en cédula y correo
 - DEV-04-3: Crear DTO de entrada RegistrarFamiliaDTO con validaciones: campos obligatorios presentes, edad >= 18, formato de correo válido
 - DEV-04-4: Exponer endpoint POST /familias que reciba el DTO, valide y persista el registro
@@ -100,7 +100,7 @@
 ## HU-05 - Registrar condiciones del hogar y experiencia (3 SP)
 
 ### Tareas de DEV
--DEV-05-1: Crear tabla condiciones_hogar con los campos: id_familia (FK), tipo_vivienda, tamaño_hogar, presencia_ninos, horas_sola_mascota, ingresos_estimados, experiencia_previa, motivacion
+- DEV-05-1: Crear tabla condiciones_hogar con los campos: id_familia (FK), tipo_vivienda, tamaño_hogar, presencia_ninos, horas_sola_mascota, ingresos_estimados, experiencia_previa, motivacion
 - DEV-05-2: Crear DTO de entrada CondicionesHogarDTO con validaciones de campos obligatorios (tipo_vivienda, tamaño_hogar, horas_sola_mascota, ingresos_estimados)
 - DEV-05-3: Exponer endpoint PUT /familias/{id}/hogar para registrar o actualizar las condiciones del hogar de la familia
 - DEV-05-4: Implementar sub-estructura opcional para mascotas existentes en el hogar (especie, edad, estado de vacunación)
@@ -123,7 +123,7 @@
 ## HU-06 - Ver listado de mascotas (3 SP)
 
 ### Tareas de DEV
--DEV-06-1: Exponer endpoint GET /mascotas que retorne únicamente las mascotas con estado disponible
+- DEV-06-1: Exponer endpoint GET /mascotas que retorne únicamente las mascotas con estado disponible
 - DEV-06-2: Configurar DTO de respuesta del listado con los campos: nombre, especie, raza, edad, foto_url (primera foto asociada)
 - DEV-06-3: Implementar filtro de estado disponible en la consulta a la base de datos (no traer mascotas en proceso o adoptadas)
 - DEV-06-4: Implementar respuesta vacía con mensaje descriptivo cuando no existe ninguna mascota disponible
@@ -146,7 +146,7 @@
 ## HU-07 – Ver detalle de mascota (5 SP)
 
 ### Tareas de DEV
--DEV-07-1: Exponer endpoint GET /mascotas/{id} que retorne la información completa de la mascota identificada
+- DEV-07-1: Exponer endpoint GET /mascotas/{id} que retorne la información completa de la mascota identificada
 - DEV-07-2: Configurar DTO de respuesta con todos los campos: información general, lista de URLs de fotografías e historial de salud
 - DEV-07-3: Realizar JOIN entre la tabla mascotas, salud_mascota y los registros de fotos para consolidar la respuesta en un solo objeto
 - DEV-07-4: Implementar comportamiento cuando la mascota no tiene fotografías cargadas: retornar URL de imagen de reemplazo predeterminada
@@ -171,7 +171,7 @@
 ## HU-08 – Solicitar adopción (3 SP)
 
 ### Tareas de DEV
--DEV-08-1: Diseñar y crear tabla solicitudes_adopcion con los campos: id_familia (FK), id_mascota (FK), estado (pendiente por defecto), fecha_solicitud
+- DEV-08-1: Diseñar y crear tabla solicitudes_adopcion con los campos: id_familia (FK), id_mascota (FK), estado (pendiente por defecto), fecha_solicitud
 - DEV-08-2: Exponer endpoint POST /solicitudes que valide las precondiciones y cree el registro de solicitud con estado "pendiente"
 - DEV-08-3: Implementar validación de precondiciones: la familia debe tener condiciones del hogar registradas y la mascota debe estar en estado "disponible"
 - DEV-08-4: Actualizar el estado de la mascota de "disponible" a "en proceso de adopción" de forma atómica al crear la solicitud exitosamente
@@ -185,10 +185,11 @@
 - FRONT-08-5: Deshabilitar acción si la mascota ya no está disponible (estado en proceso/adoptada)
 
 ### Tareas de QA
--QA-08-1: Diseñar matriz de datos de prueba: familia con perfil completo + mascota disponible, familia sin condiciones del hogar, mascota en estado "en proceso", ID de mascota inexistente
+- QA-08-1: Diseñar matriz de datos de prueba: familia con perfil completo + mascota disponible, familia sin condiciones del hogar, mascota en estado "en proceso", ID de mascota inexistente
 - QA-08-2: Automatizar escenario: solicitud exitosa — registro creado con estado "pendiente" y mascota cambia a "en proceso de adopción"
 - QA-08-3: Automatizar escenario: familia sin condiciones del hogar — sistema bloquea la solicitud con mensaje descriptivo
 - QA-08-4: Automatizar escenario: mascota ya en proceso — sistema rechaza la segunda solicitud e informa que no está disponible
+- QA-08-5: Ejecutar prueba de concurrencia simulando dos solicitudes simultáneas para la misma mascota y verificar que el sistema solo registra una solicitud válida (mitigación riesgo RT1)
 
 ---
 
