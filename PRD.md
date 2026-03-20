@@ -6,8 +6,8 @@
 | Nombre del Producto | PetTech: Matcher de Adopción y Cuidados |
 | Versión | 1.0 |
 | Fecha | 2026-03-19 |
-| Autor | Elia Condor Alejandra Marin |
-| Estado | Borrador |
+| Autor | Elia Condor (QA) / Alejandra Marin (DEV)  |
+| Estado | En revision |
 
 ---
 
