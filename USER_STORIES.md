@@ -186,14 +186,12 @@ Una historia de usuario se considera terminada cuando:
 - **And** no actualiza el perfil con información incompleta
 
 ### Scenario: Registro duplicado
-
 - **Given** que la familia adoptante ya tiene registrada su información
 - **When** intenta registrar nuevamente esta información como un nuevo registro
 - **Then** el sistema rechaza el registro por duplicidad
 - **And** se informa que el registro ya existe
 
-### Scenario: Edición de condiciones del hogar y experiencia
-
+### Scenario: Actualizacion de la información
 - **Given** que la familia adoptante esta previamente registrada
 - **When** modifica la información existente
 - **Then** el sistema actualiza correctamente la información del perfil
