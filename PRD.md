@@ -200,10 +200,9 @@ Las siguientes funcionalidades quedan fuera del alcance inicial del proyecto:
 | RT2 | Técnico | Vulnerabilidad y exposición de datos de carácter personal | Debido a que la plataforma almacena información sensible de los adoptantes (identificación, direcciones residenciales y niveles de ingresos), existe el riesgo técnico de una filtración o acceso no autorizado a través de vulnerabilidades en las API. El uso indebido o la exposición de estos endpoints podría comprometer la privacidad de los usuarios y generar implicaciones legales por fuga de datos. | Como mitigación, se implementarán mecanismos de autenticación y autorización robustos (como JWT) junto con el uso de HTTPS para proteger los datos en tránsito. Adicionalmente, para los datos en reposo, se aplicará cifrado en la base de datos para la información más sensible utilizando algoritmos estándar de la industria como AES-256 y RSA, asegurando así la integridad de la información. | Alta | Alta |
 | RT3 | Técnico | Saturación del almacenamiento local y degradación del servidor por archivos multimedia | El sistema requiere que los refugios carguen múltiples fotografías y videos en alta resolución para cada animal que entre al proceso de adopción, lo que genera un riesgo de saturación del almacenamiento local y el colapso del servidor donde esté alojada la aplicación. | Como mitigación, se implementará una arquitectura desacoplada donde los archivos multimedia se alojarán en un proveedor de nube externo (como Amazon S3). En la base de datos solo se almacenará la URL de referencia de cada archivo. Esto garantiza que el servidor de aplicaciones no gestione archivos pesados y la base de datos se mantenga ligera. | Media | Alta |
 
-## Criterios de Éxito
-Que consideremos exitoso el MVP:
+## 7. Criterios de Éxito
+Que criterios consideraremos exitoso para el MVP:
 - La plataforma sea capaz de gestionar el ciclo de vida completo de una mascota desde su registro hasta su adopción exitosa en un 95% de los casos
 - El motor de reglas con la ayuda del administrador pueda recomendar mascotas a las familias adoptantes en un 80% de los casos
 - El calendario de vacunación sea capaz de generar calendarios de vacunación personalizados para las mascotas
-
 - La plataforma sea capaz de gestionar el proceso de adopción de manera eficiente y segura en un 95% de los casos
