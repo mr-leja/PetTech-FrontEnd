@@ -48,7 +48,7 @@ Una historia de usuario se considera terminada cuando:
 
 ## Criterios de aceptacion 
 
-### Feature: Registro de información básica de mascota
+### feature: Registro de información básica de mascota
 
 ### Scenario: Registro exitoso
 
@@ -318,7 +318,7 @@ Una historia de usuario se considera terminada cuando:
 
 ## Criterios de aceptacion
 
-## Feature: Consulta de solicitud de adopción
+## feature: Consulta de solicitud de adopción
 
 ### Scenario: Visualización de información completa  
 **Given** que existe una solicitud de adopción  
@@ -346,7 +346,7 @@ Una historia de usuario se considera terminada cuando:
 
 ## Criterios de aceptacion
 
-## Feature: Gestión de decisión de solicitud  
+## feature: Gestión de decisión de solicitud  
 
 ### Scenario: Aprobación de solicitud  
 **Given** que el administrador ha revisado la solicitud  
@@ -373,7 +373,7 @@ Una historia de usuario se considera terminada cuando:
 
 ## Criterios de aceptacion
 
-## Feature: Sugerencia de mascota alternativa  
+## feature: Sugerencia de mascota alternativa  
 
 ### Scenario: Registro de sugerencia  
 **Given** que el administrador identifica una mejor opción  
