@@ -385,6 +385,12 @@ Una historia de usuario se considera terminada cuando:
 **When** asigna una mascota sugerida a la familia  
 **Then** el sistema registra la sugerencia de adopción  
 
+### Scenario: Validación de reglas de compatibilidad al sugerir
+**Given** que el administrador consulta la información de una familia y las mascotas disponibles
+**When** el sistema analiza los datos (tamaño de hogar, tiempo de soledad, presencia de niños e ingresos) contra el perfil de la mascota
+**Then** el sistema debe mostrar indicadores de compatibilidad basados en las reglas de negocio
+**And** el administrador puede seleccionar la mascota sugerida basándose en el mayor porcentaje de afinidad detectado
+
 ### Scenario: Intento de sugerir una mascota no disponible
 **Given** que el administrador selecciona una mascota que ya está en proceso de adopción
 **When** registra la sugerencia para esa familia

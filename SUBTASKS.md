@@ -236,13 +236,16 @@
 - DEV-11-1: Crear tabla sugerencias_adopcion con los campos: id_solicitud (FK), id_mascota_sugerida (FK), fecha_sugerencia, motivo
 - DEV-11-2: Crear endpoint  de tipo POST /solicitudes/{id}/sugerencia que registre la mascota alternativa
 - DEV-11-3: Validar que la mascota sugerida exista en el sistema y esté en estado "disponible" antes de registrar la sugerencia caso contrario mandar un error que sea entendido por el administrador
+- DEV-11-4: Implementar servicio de emparejamiento con la lógica de negocio del PRD (tamaño mascota vs hogar, tiempo solo vs independencia, ingresos vs gastos mascota) para calcular porcentajes de afinidad
 ### Tareas de FRONT
 - FRONT-11-1: Implementar vista de sugerencia de mascota alternativa
 - FRONT-11-2: Integrar con endpoint POST /solicitudes/{id}/sugerencia
+- FRONT-11-3: Mostrar etiquetas visuales de compatibilidad (ej: "Aptitud de Hogar: 100%") según el resultado 
 ### Tareas de QA
 - QA-11-1: Diseñar matriz de datos: solicitud existente con mascota disponible sugerida, mascota sugerida en estado "en proceso", ID de mascota sugerida que no existe, ID de solicitud inexistente
 - QA-11-2: Automatizar escenario: sugerencia exitosa — registro creado con los datos correctos de la solicitud y la mascota sugerida por el administrador
 - QA-11-3: Automatizar escenario: mascota sugerida no disponible — sistema rechaza el registro e informa el motivo con un mensaje que entienda el administrador
+- QA-11-4: Validar mediante pruebas exploratorias las 6 reglas de incompatibilidad del PRD para asegurar que el indicador visual es coherente con los datos
 
 ---
 
