@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-from { familiasApi, Familia } from '../api/familiasApi'
+ import { familiasApi, Familia } from '../api/familiasApi'
 import NavBar from '@/shared/components/NavBar'
 import Button from '@/shared/components/Button'
 import { useAuthStore } from '@/shared/store/authStore'
@@ -165,9 +165,6 @@ export default function PerfilAdoptantePage() {
             <InfoRow label="Teléfono" value={familia.telefono} />
             <InfoRow label="Ciudad" value={familia.ciudad} />
             <InfoRow label="Departamento" value={familia.departamento} />
-            <div className="col-span-2">
-              <InfoRow label="Dirección" value={familia.direccion} />
-            </div>
             {familia.redes_sociales && (
               <div className="col-span-2">
                 <InfoRow label="Redes sociales" value={familia.redes_sociales} />

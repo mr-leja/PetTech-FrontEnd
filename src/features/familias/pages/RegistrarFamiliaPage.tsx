@@ -34,7 +34,6 @@ const schema = z.object({
   telefono: z.string().min(7, 'Teléfono inválido'),
   ciudad: z.string().min(2, 'Requerido'),
   departamento: z.string().min(2, 'Requerido'),
-  direccion: z.string().min(5, 'Ingresa tu dirección'),
   redes_sociales: z.string().optional(),
   // Paso 3 - Hogar y experiencia
   tipo_vivienda: z.enum(['CASA', 'APARTAMENTO', 'FINCA', 'OTRO']),
@@ -65,7 +64,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>
 
 const STEP2_FIELDS: (keyof FormData)[] = [
-  'nombre_familia', 'cedula', 'fecha_nacimiento', 'telefono', 'ciudad', 'departamento', 'direccion',
+  'nombre_familia', 'cedula', 'fecha_nacimiento', 'telefono', 'ciudad', 'departamento',
 ]
 
 const STEPS = ['Cuenta', 'Información básica', 'Hogar y experiencia']
@@ -119,8 +118,7 @@ export default function RegistrarFamiliaPage() {
         telefono: f.telefono,
         ciudad: f.ciudad,
         departamento: f.departamento,
-        direccion: f.direccion,
-        redes_sociales: f.redes_sociales ?? '',
+        redes_sociales: f.redes_sociales ?? ''
         tipo_vivienda: c?.tipo_vivienda ?? 'CASA',
         propiedad_vivienda: c?.propiedad_vivienda ?? 'PROPIA',
         tiene_patio: c?.tiene_patio ?? false,
@@ -154,7 +152,6 @@ export default function RegistrarFamiliaPage() {
           telefono: data.telefono,
           ciudad: data.ciudad,
           departamento: data.departamento,
-          direccion: data.direccion,
           redes_sociales: data.redes_sociales,
         })
         await familiasApi.actualizarCondicionesHogar({
@@ -180,7 +177,6 @@ export default function RegistrarFamiliaPage() {
         fd.append('telefono', data.telefono)
         fd.append('ciudad', data.ciudad)
         fd.append('departamento', data.departamento)
-        fd.append('direccion', data.direccion)
         if (data.redes_sociales) fd.append('redes_sociales', data.redes_sociales)
         await familiasApi.crearFamilia(fd)
         await familiasApi.registrarCondicionesHogar({
@@ -307,12 +303,6 @@ export default function RegistrarFamiliaPage() {
                     {...register('departamento')}
                   />
                 </div>
-
-                <Input
-                  label="Dirección de residencia"
-                  error={errors.direccion?.message}
-                  {...register('direccion')}
-                />
 
                 <Input
                   label="Redes sociales (opcional)"
