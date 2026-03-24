@@ -137,7 +137,43 @@ export default function MascotaDetalleModal({
 
           {/* Campos de texto */}
           <Field label="Historia de la mascota" value={mascota.historia_mascota || mascota.descripcion} />
-          <Field label="Historial de vacunas" value={mascota.historial_vacunas} />
+
+          {/* Vacunas */}
+          {Array.isArray(mascota.historial_vacunas) && mascota.historial_vacunas.length > 0 && (
+            <div>
+              <p className="text-gray-400 text-xs uppercase tracking-wide mb-2">Historial de vacunas</p>
+              <div className="flex flex-col gap-2">
+                {mascota.historial_vacunas.map((v, i) => (
+                  <div key={i} className="bg-gray-50 rounded-lg p-3 text-sm">
+                    <p className="font-medium text-gray-700">💉 {v.nombre}</p>
+                    <p className="text-gray-500 text-xs mt-0.5">
+                      Aplicada: {new Date(v.fecha_aplicacion).toLocaleDateString('es-CO')}
+                    </p>
+                    {v.proxima_dosis && (
+                      <p className="text-gray-500 text-xs">Próxima: {new Date(v.proxima_dosis).toLocaleDateString('es-CO')}</p>
+                    )}
+                    {v.veterinario && <p className="text-gray-500 text-xs">Veterinario: {v.veterinario}</p>}
+                    {v.lote && <p className="text-gray-500 text-xs">Lote: {v.lote}</p>}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {mascota.carnet_vacunas_url && (
+            <div>
+              <p className="text-gray-400 text-xs uppercase tracking-wide mb-1">Carnet de vacunas</p>
+              <a
+                href={mascota.carnet_vacunas_url}
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm text-pettech-orange hover:underline flex items-center gap-1"
+              >
+                📎 Ver carnet
+              </a>
+            </div>
+          )}
+
           <Field label="Información adicional" value={mascota.info_adicional} />
 
           <div className="text-xs text-gray-400 pt-2 border-t border-gray-50">

@@ -1,5 +1,13 @@
 import httpClient from '@/shared/api/httpClient'
 
+export interface VacunaRecord {
+  nombre: string
+  fecha_aplicacion: string
+  proxima_dosis?: string
+  veterinario?: string
+  lote?: string
+}
+
 export interface Mascota {
   id: number
   nombre: string
@@ -15,7 +23,8 @@ export interface Mascota {
   estado: 'DISPONIBLE' | 'EN_PROCESO' | 'ADOPTADO' | 'NO_DISPONIBLE'
   foto_url: string | null
   nivel_energia: 'BAJO' | 'MEDIO' | 'ALTO' | ''
-  historial_vacunas: string
+  historial_vacunas: VacunaRecord[]
+  carnet_vacunas_url: string | null
   historia_mascota: string
   info_adicional: string
   registrado_por_email: string | null
@@ -43,9 +52,17 @@ export interface CreateMascotaPayload {
   estado?: string
   foto?: File
   nivel_energia?: string
-  historial_vacunas?: string
+  historial_vacunas?: VacunaRecord[]
+  carnet_vacunas?: File
   historia_mascota?: string
   info_adicional?: string
+}
+
+function appendToForm(form: FormData, key: string, value: unknown) {
+  if (value === undefined || value === null) return
+  if (value instanceof File) form.append(key, value)
+  else if (Array.isArray(value)) form.append(key, JSON.stringify(value))
+  else form.append(key, String(value))
 }
 
 export const mascotasApi = {
@@ -57,9 +74,7 @@ export const mascotasApi = {
 
   crear: (payload: CreateMascotaPayload) => {
     const form = new FormData()
-    Object.entries(payload).forEach(([k, v]) => {
-      if (v !== undefined && v !== null) form.append(k, v instanceof File ? v : String(v))
-    })
+    Object.entries(payload).forEach(([k, v]) => appendToForm(form, k, v))
     return httpClient.post<Mascota>('/mascotas/', form, {
       headers: { 'Content-Type': 'multipart/form-data' },
     }).then((r) => r.data)
@@ -67,9 +82,7 @@ export const mascotasApi = {
 
   actualizar: (id: number, payload: Partial<CreateMascotaPayload>) => {
     const form = new FormData()
-    Object.entries(payload).forEach(([k, v]) => {
-      if (v !== undefined && v !== null) form.append(k, v instanceof File ? v : String(v))
-    })
+    Object.entries(payload).forEach(([k, v]) => appendToForm(form, k, v))
     return httpClient.patch<Mascota>(`/mascotas/${id}/`, form, {
       headers: { 'Content-Type': 'multipart/form-data' },
     }).then((r) => r.data)
