@@ -5,6 +5,7 @@ import RegisterPage from '@/features/auth/pages/RegisterPage'
 import DashboardPage from '@/features/dashboard/pages/DashboardPage'
 import ListadoMascotasPage from '@/features/mascotas/pages/ListadoMascotasPage'
 import RegistrarMascotaPage from '@/features/mascotas/pages/RegistrarMascotaPage'
+import EditarMascotaPage from '@/features/mascotas/pages/EditarMascotaPage'
 import RegistrarAdoptantePage from '@/features/familias/pages/RegistrarFamiliaPage'
 import PerfilAdoptantePage from '@/features/familias/pages/CondicionesHogarPage'
 import PrivateRoute from '@/shared/components/PrivateRoute'
@@ -30,6 +31,7 @@ export default function AppRouter() {
       {/* Rutas de admin */}
       <Route element={<AdminRoute />}>
         <Route path="/mascotas/nueva" element={<RegistrarMascotaPage />} />
+        <Route path="/mascotas/:id/editar" element={<EditarMascotaPage />} />
       </Route>
 
       {/* Root redirect */}

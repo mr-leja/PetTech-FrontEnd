@@ -1,4 +1,6 @@
-import { X, PawPrint } from 'lucide-react'
+import { X, PawPrint, Pencil } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { useAuthStore } from '@/shared/store/authStore'
 import type { Mascota } from '../api/mascotasApi'
 
 const ESTADO_LABEL: Record<string, string> = {
@@ -56,6 +58,9 @@ export default function MascotaDetalleModal({
   mascota: Mascota
   onClose: () => void
 }) {
+  const navigate = useNavigate()
+  const user = useAuthStore((s) => s.user)
+
   return (
     <div
       className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4"
@@ -68,9 +73,20 @@ export default function MascotaDetalleModal({
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-100">
           <h2 className="text-lg font-semibold text-gray-800">{mascota.nombre}</h2>
-          <button onClick={onClose} className="p-1 rounded-full hover:bg-gray-100 transition-colors">
-            <X className="w-5 h-5 text-gray-500" />
-          </button>
+          <div className="flex items-center gap-1">
+            {user?.rol === 'ADMIN' && (
+              <button
+                onClick={() => { onClose(); navigate(`/mascotas/${mascota.id}/editar`) }}
+                className="p-1 rounded-full hover:bg-gray-100 transition-colors"
+                title="Editar mascota"
+              >
+                <Pencil className="w-4 h-4 text-pettech-orange" />
+              </button>
+            )}
+            <button onClick={onClose} className="p-1 rounded-full hover:bg-gray-100 transition-colors">
+              <X className="w-5 h-5 text-gray-500" />
+            </button>
+          </div>
         </div>
 
         {/* Foto */}
