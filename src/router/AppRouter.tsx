@@ -5,8 +5,8 @@ import RegisterPage from '@/features/auth/pages/RegisterPage'
 import DashboardPage from '@/features/dashboard/pages/DashboardPage'
 import ListadoMascotasPage from '@/features/mascotas/pages/ListadoMascotasPage'
 import RegistrarMascotaPage from '@/features/mascotas/pages/RegistrarMascotaPage'
-import RegistrarFamiliaPage from '@/features/familias/pages/RegistrarFamiliaPage'
-import CondicionesHogarPage from '@/features/familias/pages/CondicionesHogarPage'
+import RegistrarAdoptantePage from '@/features/familias/pages/RegistrarFamiliaPage'
+import PerfilAdoptantePage from '@/features/familias/pages/CondicionesHogarPage'
 import PrivateRoute from '@/shared/components/PrivateRoute'
 import AdminRoute from '@/shared/components/AdminRoute'
 
@@ -23,8 +23,8 @@ export default function AppRouter() {
       <Route element={<PrivateRoute />}>
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/mascotas" element={<ListadoMascotasPage />} />
-        <Route path="/mi-familia" element={<RegistrarFamiliaPage />} />
-        <Route path="/mi-familia/hogar" element={<CondicionesHogarPage />} />
+        <Route path="/perfil-adoptante" element={<PerfilAdoptantePage />} />
+        <Route path="/perfil-adoptante/registrar" element={<RegistrarAdoptantePage />} />
       </Route>
 
       {/* Rutas de admin */}

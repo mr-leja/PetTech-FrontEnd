@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
+import { useForm, useFieldArray } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import toast from 'react-hot-toast'
@@ -8,31 +8,131 @@ import { familiasApi } from '../api/familiasApi'
 import { Input } from '@/shared/components/Input'
 import Button from '@/shared/components/Button'
 import NavBar from '@/shared/components/NavBar'
+import { useAuthStore } from '@/shared/store/authStore'
+import { CheckCircle, Plus, Trash2 } from 'lucide-react'
 
 const schema = z.object({
+  // Paso 2 - Información básica
   nombre_familia: z.string().min(3, 'Mínimo 3 caracteres'),
+  cedula: z.string().min(5, 'Cédula inválida'),
+  edad: z.coerce.number().min(18, 'Debes ser mayor de edad (18+)').max(120, 'Edad inválida'),
   telefono: z.string().min(7, 'Teléfono inválido'),
   ciudad: z.string().min(2, 'Requerido'),
   departamento: z.string().min(2, 'Requerido'),
+  direccion: z.string().min(5, 'Ingresa tu dirección'),
+  redes_sociales: z.string().optional(),
+  // Paso 3 - Hogar y experiencia
+  tipo_vivienda: z.enum(['CASA', 'APARTAMENTO', 'FINCA', 'OTRO']),
+  propiedad_vivienda: z.enum(['PROPIA', 'ALQUILADA']),
+  tiene_patio: z.boolean(),
+  numero_personas: z.coerce.number().min(1, 'Mínimo 1 persona'),
+  tiene_ninos: z.boolean(),
+  tamano_hogar: z.enum(['PEQUENO', 'MEDIANO', 'GRANDE']),
+  tiene_mascotas_actualmente: z.boolean(),
+  otras_mascotas: z.array(
+    z.object({
+      especie: z.string().min(1, 'Ingresa la especie'),
+      cantidad: z.coerce.number().min(1, 'Mínimo 1'),
+      edad_aprox: z.string().optional(),
+      vacunadas: z.boolean(),
+      esterilizadas: z.boolean(),
+    })
+  ),
+  tiempo_solo_horas: z.coerce.number().min(0).max(24, 'Máximo 24 horas'),
+  ingresos_estimados: z.string().min(1, 'Selecciona una opción'),
+  experiencia_mascotas: z.string().optional(),
+  motivacion: z.string().min(10, 'Cuéntanos tu motivación (mínimo 10 caracteres)'),
+  acuerdo_responsabilidad: z.literal(true, {
+    errorMap: () => ({ message: 'Debes aceptar el acuerdo de responsabilidad.' }),
+  }),
 })
+
 type FormData = z.infer<typeof schema>
+
+const STEP2_FIELDS: (keyof FormData)[] = [
+  'nombre_familia', 'cedula', 'edad', 'telefono', 'ciudad', 'departamento', 'direccion',
+]
+
+const STEPS = ['Cuenta', 'Información básica', 'Hogar y experiencia']
 
 export default function RegistrarFamiliaPage() {
   const navigate = useNavigate()
+  const updateUser = useAuthStore((s) => s.updateUser)
+  const [step, setStep] = useState(1) // 1=básica, 2=hogar
   const [loading, setLoading] = useState(false)
+  const [fotoCedula, setFotoCedula] = useState<File | null>(null)
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const {
+    register,
+    handleSubmit,
+    trigger,
+    watch,
+    control,
+    formState: { errors },
+  } = useForm<FormData>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      tiene_patio: false,
+      tiene_ninos: false,
+      tiene_mascotas_actualmente: false,
+      otras_mascotas: [],
+      tipo_vivienda: 'CASA',
+      propiedad_vivienda: 'PROPIA',
+      tamano_hogar: 'MEDIANO',
+      ingresos_estimados: '',
+      tiempo_solo_horas: 0,
+    },
   })
+
+  const { fields: mascotasFields, append: appendMascota, remove: removeMascota } = useFieldArray({
+    control,
+    name: 'otras_mascotas',
+  })
+
+  const tieneMascotas = watch('tiene_mascotas_actualmente')
+
+  const handleNext = async () => {
+    const valid = await trigger(STEP2_FIELDS)
+    if (valid) setStep(2)
+  }
 
   const onSubmit = async (data: FormData) => {
     setLoading(true)
     try {
-      await familiasApi.crearFamilia(data)
-      toast.success('Familia registrada.')
-      navigate('/mi-familia/hogar')
+      const fd = new FormData()
+      fd.append('nombre_familia', data.nombre_familia)
+      fd.append('cedula', data.cedula)
+      fd.append('edad', String(data.edad))
+      fd.append('telefono', data.telefono)
+      fd.append('ciudad', data.ciudad)
+      fd.append('departamento', data.departamento)
+      fd.append('direccion', data.direccion)
+      if (data.redes_sociales) fd.append('redes_sociales', data.redes_sociales)
+      if (fotoCedula) fd.append('foto_cedula', fotoCedula)
+
+      await familiasApi.crearFamilia(fd)
+
+      await familiasApi.registrarCondicionesHogar({
+        tipo_vivienda: data.tipo_vivienda,
+        propiedad_vivienda: data.propiedad_vivienda,
+        tiene_patio: data.tiene_patio,
+        numero_personas: data.numero_personas,
+        tiene_ninos: data.tiene_ninos,
+        tamano_hogar: data.tamano_hogar,
+        tiene_mascotas_actualmente: data.tiene_mascotas_actualmente,
+        otras_mascotas: data.otras_mascotas,
+        tiempo_solo_horas: data.tiempo_solo_horas,
+        ingresos_estimados: data.ingresos_estimados,
+        experiencia_mascotas: data.experiencia_mascotas,
+        motivacion: data.motivacion,
+        acuerdo_responsabilidad: data.acuerdo_responsabilidad,
+      })
+
+      updateUser({ perfil_completo: true })
+      toast.success('¡Perfil de adoptante completado!')
+      navigate('/perfil-adoptante')
     } catch {
-      toast.error('Error al registrar la familia. ¿Ya tienes una familia registrada?')
+      toast.error('Error al guardar. ¿Ya tienes un perfil registrado?')
     } finally {
       setLoading(false)
     }
@@ -41,19 +141,389 @@ export default function RegistrarFamiliaPage() {
   return (
     <div className="min-h-screen bg-pettech-cream">
       <NavBar />
-      <main className="max-w-lg mx-auto p-6">
+      <main className="max-w-2xl mx-auto p-6">
+        {/* Stepper */}
+        <div className="flex items-center justify-center mb-8">
+          {STEPS.map((label, i) => (
+            <div key={i} className="flex items-center">
+              <div className="flex flex-col items-center gap-1">
+                <div
+                  className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold border-2 transition-colors ${
+                    i < step
+                      ? 'bg-green-500 border-green-500 text-white'
+                      : i === step
+                      ? 'border-pettech-orange bg-pettech-orange text-white'
+                      : 'border-gray-300 bg-white text-gray-400'
+                  }`}
+                >
+                  {i < step ? <CheckCircle className="w-4 h-4" /> : i + 1}
+                </div>
+                <span
+                  className={`text-xs font-medium ${
+                    i === step ? 'text-pettech-orange' : 'text-gray-400'
+                  }`}
+                >
+                  {label}
+                </span>
+              </div>
+              {i < STEPS.length - 1 && (
+                <div
+                  className={`w-16 h-0.5 mb-5 mx-1 ${i < step ? 'bg-green-500' : 'bg-gray-200'}`}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+
         <div className="card p-8">
-          <h1 className="text-xl font-semibold text-gray-800 mb-2">Datos de tu familia</h1>
-          <p className="text-sm text-gray-500 mb-6">Esta información nos ayuda a encontrar la mascota ideal para ti.</p>
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-            <Input label="Nombre de la familia" error={errors.nombre_familia?.message} {...register('nombre_familia')} />
-            <Input label="Teléfono" type="tel" error={errors.telefono?.message} {...register('telefono')} />
-            <Input label="Ciudad" error={errors.ciudad?.message} {...register('ciudad')} />
-            <Input label="Departamento" error={errors.departamento?.message} {...register('departamento')} />
-            <Button type="submit" loading={loading} className="w-full mt-2">Guardar y continuar</Button>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {/* Paso 2: Información básica */}
+            {step === 1 && (
+              <div className="flex flex-col gap-4">
+                <div className="mb-2">
+                  <h2 className="text-xl font-semibold text-gray-800">Información básica</h2>
+                  <p className="text-sm text-gray-500 mt-1">
+                    Cuéntanos sobre ti para encontrar la mascota ideal.
+                  </p>
+                </div>
+
+                <Input
+                  label="Nombre completo"
+                  error={errors.nombre_familia?.message}
+                  {...register('nombre_familia')}
+                />
+
+                <div className="grid grid-cols-2 gap-4">
+                  <Input
+                    label="Número de cédula"
+                    error={errors.cedula?.message}
+                    {...register('cedula')}
+                  />
+                  <Input
+                    label="Edad"
+                    type="number"
+                    min={18}
+                    error={errors.edad?.message}
+                    {...register('edad')}
+                  />
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <label className="text-sm font-medium text-gray-700">
+                    Foto de la cédula (opcional)
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*,.pdf"
+                    onChange={(e) => setFotoCedula(e.target.files?.[0] ?? null)}
+                    className="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-pettech-orange/10 file:text-pettech-orange hover:file:bg-pettech-orange/20 cursor-pointer"
+                  />
+                  {fotoCedula && (
+                    <p className="text-xs text-green-600">📎 {fotoCedula.name}</p>
+                  )}
+                </div>
+
+                <Input
+                  label="Teléfono"
+                  type="tel"
+                  error={errors.telefono?.message}
+                  {...register('telefono')}
+                />
+
+                <div className="grid grid-cols-2 gap-4">
+                  <Input
+                    label="Ciudad"
+                    error={errors.ciudad?.message}
+                    {...register('ciudad')}
+                  />
+                  <Input
+                    label="Departamento"
+                    error={errors.departamento?.message}
+                    {...register('departamento')}
+                  />
+                </div>
+
+                <Input
+                  label="Dirección de residencia"
+                  error={errors.direccion?.message}
+                  {...register('direccion')}
+                />
+
+                <Input
+                  label="Redes sociales (opcional)"
+                  placeholder="@usuario o URL de perfil"
+                  error={errors.redes_sociales?.message}
+                  {...register('redes_sociales')}
+                />
+
+                <Button type="button" onClick={handleNext} className="w-full mt-2">
+                  Continuar
+                </Button>
+              </div>
+            )}
+
+            {/* Paso 3: Hogar y experiencia */}
+            {step === 2 && (
+              <div className="flex flex-col gap-4">
+                <div className="mb-2">
+                  <h2 className="text-xl font-semibold text-gray-800">Hogar y experiencia</h2>
+                  <p className="text-sm text-gray-500 mt-1">
+                    Nos ayuda a verificar que el hogar es ideal para una mascota.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium text-gray-700">Tipo de vivienda</label>
+                    <select className="input-field" {...register('tipo_vivienda')}>
+                      <option value="CASA">Casa</option>
+                      <option value="APARTAMENTO">Apartamento</option>
+                      <option value="FINCA">Finca</option>
+                      <option value="OTRO">Otro</option>
+                    </select>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium text-gray-700">Propiedad</label>
+                    <select className="input-field" {...register('propiedad_vivienda')}>
+                      <option value="PROPIA">Propia</option>
+                      <option value="ALQUILADA">Alquilada</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium text-gray-700">Tamaño del hogar</label>
+                    <select className="input-field" {...register('tamano_hogar')}>
+                      <option value="PEQUENO">Pequeño (&lt; 50 m²)</option>
+                      <option value="MEDIANO">Mediano (50–120 m²)</option>
+                      <option value="GRANDE">Grande (&gt; 120 m²)</option>
+                    </select>
+                  </div>
+                  <Input
+                    label="Personas en casa"
+                    type="number"
+                    min={1}
+                    error={errors.numero_personas?.message}
+                    {...register('numero_personas')}
+                  />
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <label className="text-sm font-medium text-gray-700">
+                    Ingresos estimados del hogar
+                  </label>
+                  <select className="input-field" {...register('ingresos_estimados')}>
+                    <option value="">Selecciona...</option>
+                    <option value="MENOS_1SMLV">Menos de 1 SMLV</option>
+                    <option value="1_2SMLV">1–2 SMLV</option>
+                    <option value="2_4SMLV">2–4 SMLV</option>
+                    <option value="MAS_4SMLV">Más de 4 SMLV</option>
+                  </select>
+                  {errors.ingresos_estimados && (
+                    <p className="text-xs text-red-500">{errors.ingresos_estimados.message}</p>
+                  )}
+                </div>
+
+                <Input
+                  label="Horas que queda sola la mascota al día"
+                  type="number"
+                  min={0}
+                  max={24}
+                  error={errors.tiempo_solo_horas?.message}
+                  {...register('tiempo_solo_horas')}
+                />
+
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      id="patio"
+                      className="w-4 h-4 accent-pettech-orange"
+                      {...register('tiene_patio')}
+                    />
+                    <label htmlFor="patio" className="text-sm text-gray-700">
+                      ¿Tienes patio o jardín?
+                    </label>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      id="ninos"
+                      className="w-4 h-4 accent-pettech-orange"
+                      {...register('tiene_ninos')}
+                    />
+                    <label htmlFor="ninos" className="text-sm text-gray-700">
+                      ¿Hay niños en el hogar?
+                    </label>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      id="mascotas_act"
+                      className="w-4 h-4 accent-pettech-orange"
+                      {...register('tiene_mascotas_actualmente')}
+                    />
+                    <label htmlFor="mascotas_act" className="text-sm text-gray-700">
+                      ¿Tienes mascotas actualmente?
+                    </label>
+                  </div>
+                </div>
+
+                {/* Mascotas actuales */}
+                {tieneMascotas && (
+                  <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="text-sm font-semibold text-gray-700">Mascotas actuales</h3>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          appendMascota({
+                            especie: '',
+                            cantidad: 1,
+                            edad_aprox: '',
+                            vacunadas: false,
+                            esterilizadas: false,
+                          })
+                        }
+                        className="flex items-center gap-1 text-xs text-pettech-orange hover:underline"
+                      >
+                        <Plus className="w-3 h-3" /> Agregar
+                      </button>
+                    </div>
+                    {mascotasFields.length === 0 && (
+                      <p className="text-xs text-gray-400 text-center py-2">
+                        Agrega tus mascotas actuales
+                      </p>
+                    )}
+                    {mascotasFields.map((field, idx) => (
+                      <div
+                        key={field.id}
+                        className="bg-white border border-gray-200 rounded-lg p-3 mb-2"
+                      >
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex-1 grid grid-cols-2 gap-2">
+                            <Input
+                              label="Especie"
+                              placeholder="ej. perro, gato"
+                              error={errors.otras_mascotas?.[idx]?.especie?.message}
+                              {...register(`otras_mascotas.${idx}.especie`)}
+                            />
+                            <Input
+                              label="Cantidad"
+                              type="number"
+                              min={1}
+                              error={errors.otras_mascotas?.[idx]?.cantidad?.message}
+                              {...register(`otras_mascotas.${idx}.cantidad`)}
+                            />
+                            <Input
+                              label="Edad aprox."
+                              placeholder="ej. 2 años"
+                              {...register(`otras_mascotas.${idx}.edad_aprox`)}
+                            />
+                            <div className="flex flex-col gap-2 justify-end pb-1">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  id={`vac_${idx}`}
+                                  className="w-3 h-3 accent-pettech-orange"
+                                  {...register(`otras_mascotas.${idx}.vacunadas`)}
+                                />
+                                <label htmlFor={`vac_${idx}`} className="text-xs text-gray-600">
+                                  Vacunadas
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  id={`est_${idx}`}
+                                  className="w-3 h-3 accent-pettech-orange"
+                                  {...register(`otras_mascotas.${idx}.esterilizadas`)}
+                                />
+                                <label htmlFor={`est_${idx}`} className="text-xs text-gray-600">
+                                  Esterilizadas
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => removeMascota(idx)}
+                            className="text-red-400 hover:text-red-600 mt-6"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <div className="flex flex-col gap-1">
+                  <label className="text-sm font-medium text-gray-700">
+                    Experiencia con mascotas (opcional)
+                  </label>
+                  <textarea
+                    className="input-field min-h-[80px]"
+                    placeholder="Cuéntanos sobre tu experiencia previa..."
+                    {...register('experiencia_mascotas')}
+                  />
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <label className="text-sm font-medium text-gray-700">
+                    ¿Por qué quieres adoptar?
+                  </label>
+                  <textarea
+                    className="input-field min-h-[80px]"
+                    placeholder="Cuéntanos tu motivación..."
+                    {...register('motivacion')}
+                  />
+                  {errors.motivacion && (
+                    <p className="text-xs text-red-500">{errors.motivacion.message}</p>
+                  )}
+                </div>
+
+                <div className="bg-pettech-yellow/20 border border-pettech-yellow rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      id="acuerdo"
+                      className="w-4 h-4 mt-0.5 accent-pettech-orange"
+                      {...register('acuerdo_responsabilidad')}
+                    />
+                    <label htmlFor="acuerdo" className="text-sm text-gray-700">
+                      Acepto el{' '}
+                      <strong>acuerdo de responsabilidad</strong>: me comprometo a brindar cuidado y
+                      amor a la mascota adoptada.
+                    </label>
+                  </div>
+                  {errors.acuerdo_responsabilidad && (
+                    <p className="text-xs text-red-500 mt-1">
+                      {errors.acuerdo_responsabilidad.message}
+                    </p>
+                  )}
+                </div>
+
+                <div className="flex gap-3 mt-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setStep(1)}
+                    className="flex-1"
+                  >
+                    Atrás
+                  </Button>
+                  <Button type="submit" loading={loading} className="flex-1">
+                    Guardar perfil
+                  </Button>
+                </div>
+              </div>
+            )}
           </form>
         </div>
       </main>
     </div>
   )
 }
+
