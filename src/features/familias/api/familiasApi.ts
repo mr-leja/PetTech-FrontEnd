@@ -67,11 +67,21 @@ export const familiasApi = {
   crearFamilia: (formData: FormData) =>
     httpClient.post('/familias/mia/', formData).then((r) => r.data),
 
+  actualizarFamilia: (payload: Partial<{
+    nombre_familia: string; cedula: string; fecha_nacimiento: string;
+    telefono: string; ciudad: string; departamento: string;
+    direccion: string; redes_sociales: string;
+  }>) =>
+    httpClient.patch('/familias/mia/', payload).then((r) => r.data),
+
   misCondicionesHogar: () =>
     httpClient.get('/familias/mia/condiciones-hogar/').then((r) => r.data),
 
   registrarCondicionesHogar: (payload: CondicionesPayload) =>
     httpClient.post('/familias/mia/condiciones-hogar/', payload).then((r) => r.data),
+
+  actualizarCondicionesHogar: (payload: Partial<CondicionesPayload>) =>
+    httpClient.patch('/familias/mia/condiciones-hogar/', payload).then((r) => r.data),
 
   listarFamilias: () =>
     httpClient.get('/familias/').then((r) => r.data),

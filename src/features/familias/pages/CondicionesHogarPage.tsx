@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { familiasApi, Familia } from '../api/familiasApi'
+from { familiasApi, Familia } from '../api/familiasApi'
 import NavBar from '@/shared/components/NavBar'
 import Button from '@/shared/components/Button'
 import { useAuthStore } from '@/shared/store/authStore'
-import { User, Home, PawPrint, CheckCircle } from 'lucide-react'
+import { User, Home, PawPrint, CheckCircle, Pencil } from 'lucide-react'
 
 function calcularEdad(fechaNac: string): number {
   const today = new Date()
@@ -111,9 +111,19 @@ export default function PerfilAdoptantePage() {
             <h1 className="text-2xl font-bold text-gray-800">Perfil del adoptante</h1>
             <p className="text-sm text-gray-500">{user?.email}</p>
           </div>
-          <div className="flex items-center gap-1 bg-green-100 text-green-700 text-xs px-3 py-1.5 rounded-full">
-            <CheckCircle className="w-3.5 h-3.5" />
-            <span>Perfil completo</span>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1 bg-green-100 text-green-700 text-xs px-3 py-1.5 rounded-full">
+              <CheckCircle className="w-3.5 h-3.5" />
+              <span>Perfil completo</span>
+            </div>
+            <button
+              onClick={() => navigate('/perfil-adoptante/registrar')}
+              className="flex items-center gap-1.5 text-sm text-pettech-orange border border-pettech-orange rounded-lg px-3 py-1.5 hover:bg-pettech-orange/10 transition-colors"
+              title="Editar perfil"
+            >
+              <Pencil className="w-3.5 h-3.5" />
+              <span>Editar</span>
+            </button>
           </div>
         </div>
 

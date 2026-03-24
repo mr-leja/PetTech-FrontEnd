@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -75,6 +75,7 @@ export default function RegistrarFamiliaPage() {
   const updateUser = useAuthStore((s) => s.updateUser)
   const [step, setStep] = useState(1) // 1=básica, 2=hogar
   const [loading, setLoading] = useState(false)
+  const [isEditing, setIsEditing] = useState(false)
 
   const {
     register,
@@ -82,6 +83,7 @@ export default function RegistrarFamiliaPage() {
     trigger,
     watch,
     control,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -105,6 +107,37 @@ export default function RegistrarFamiliaPage() {
 
   const tieneMascotas = watch('tiene_mascotas_actualmente')
 
+  useEffect(() => {
+    familiasApi.miFamilia().then(({ familia: f, tiene_familia }) => {
+      if (!tiene_familia || !f) return
+      setIsEditing(true)
+      const c = f.condiciones_hogar
+      reset({
+        nombre_familia: f.nombre_familia,
+        cedula: f.cedula,
+        fecha_nacimiento: f.fecha_nacimiento,
+        telefono: f.telefono,
+        ciudad: f.ciudad,
+        departamento: f.departamento,
+        direccion: f.direccion,
+        redes_sociales: f.redes_sociales ?? '',
+        tipo_vivienda: c?.tipo_vivienda ?? 'CASA',
+        propiedad_vivienda: c?.propiedad_vivienda ?? 'PROPIA',
+        tiene_patio: c?.tiene_patio ?? false,
+        numero_personas: c?.numero_personas ?? 1,
+        tiene_ninos: c?.tiene_ninos ?? false,
+        tamano_hogar: c?.tamano_hogar ?? 'MEDIANO',
+        tiene_mascotas_actualmente: c?.tiene_mascotas_actualmente ?? false,
+        otras_mascotas: c?.otras_mascotas ?? [],
+        tiempo_solo_horas: c?.tiempo_solo_horas ?? 0,
+        ingresos_estimados: c?.ingresos_estimados ?? '',
+        experiencia_mascotas: c?.experiencia_mascotas ?? '',
+        motivacion: c?.motivacion ?? '',
+        acuerdo_responsabilidad: true,
+      })
+    }).catch(() => {})
+  }, [])
+
   const handleNext = async () => {
     const valid = await trigger(STEP2_FIELDS)
     if (valid) setStep(2)
@@ -113,39 +146,64 @@ export default function RegistrarFamiliaPage() {
   const onSubmit = async (data: FormData) => {
     setLoading(true)
     try {
-      const fd = new FormData()
-      fd.append('nombre_familia', data.nombre_familia)
-      fd.append('cedula', data.cedula)
-      fd.append('fecha_nacimiento', data.fecha_nacimiento)
-      fd.append('telefono', data.telefono)
-      fd.append('ciudad', data.ciudad)
-      fd.append('departamento', data.departamento)
-      fd.append('direccion', data.direccion)
-      if (data.redes_sociales) fd.append('redes_sociales', data.redes_sociales)
-
-      await familiasApi.crearFamilia(fd)
-
-      await familiasApi.registrarCondicionesHogar({
-        tipo_vivienda: data.tipo_vivienda,
-        propiedad_vivienda: data.propiedad_vivienda,
-        tiene_patio: data.tiene_patio,
-        numero_personas: data.numero_personas,
-        tiene_ninos: data.tiene_ninos,
-        tamano_hogar: data.tamano_hogar,
-        tiene_mascotas_actualmente: data.tiene_mascotas_actualmente,
-        otras_mascotas: data.otras_mascotas,
-        tiempo_solo_horas: data.tiempo_solo_horas,
-        ingresos_estimados: data.ingresos_estimados,
-        experiencia_mascotas: data.experiencia_mascotas,
-        motivacion: data.motivacion,
-        acuerdo_responsabilidad: data.acuerdo_responsabilidad,
-      })
-
-      updateUser({ perfil_completo: true })
-      toast.success('¡Perfil de adoptante completado!')
+      if (isEditing) {
+        await familiasApi.actualizarFamilia({
+          nombre_familia: data.nombre_familia,
+          cedula: data.cedula,
+          fecha_nacimiento: data.fecha_nacimiento,
+          telefono: data.telefono,
+          ciudad: data.ciudad,
+          departamento: data.departamento,
+          direccion: data.direccion,
+          redes_sociales: data.redes_sociales,
+        })
+        await familiasApi.actualizarCondicionesHogar({
+          tipo_vivienda: data.tipo_vivienda,
+          propiedad_vivienda: data.propiedad_vivienda,
+          tiene_patio: data.tiene_patio,
+          numero_personas: data.numero_personas,
+          tiene_ninos: data.tiene_ninos,
+          tamano_hogar: data.tamano_hogar,
+          tiene_mascotas_actualmente: data.tiene_mascotas_actualmente,
+          otras_mascotas: data.otras_mascotas,
+          tiempo_solo_horas: data.tiempo_solo_horas,
+          ingresos_estimados: data.ingresos_estimados,
+          experiencia_mascotas: data.experiencia_mascotas,
+          motivacion: data.motivacion,
+        })
+        toast.success('Perfil actualizado correctamente.')
+      } else {
+        const fd = new FormData()
+        fd.append('nombre_familia', data.nombre_familia)
+        fd.append('cedula', data.cedula)
+        fd.append('fecha_nacimiento', data.fecha_nacimiento)
+        fd.append('telefono', data.telefono)
+        fd.append('ciudad', data.ciudad)
+        fd.append('departamento', data.departamento)
+        fd.append('direccion', data.direccion)
+        if (data.redes_sociales) fd.append('redes_sociales', data.redes_sociales)
+        await familiasApi.crearFamilia(fd)
+        await familiasApi.registrarCondicionesHogar({
+          tipo_vivienda: data.tipo_vivienda,
+          propiedad_vivienda: data.propiedad_vivienda,
+          tiene_patio: data.tiene_patio,
+          numero_personas: data.numero_personas,
+          tiene_ninos: data.tiene_ninos,
+          tamano_hogar: data.tamano_hogar,
+          tiene_mascotas_actualmente: data.tiene_mascotas_actualmente,
+          otras_mascotas: data.otras_mascotas,
+          tiempo_solo_horas: data.tiempo_solo_horas,
+          ingresos_estimados: data.ingresos_estimados,
+          experiencia_mascotas: data.experiencia_mascotas,
+          motivacion: data.motivacion,
+          acuerdo_responsabilidad: data.acuerdo_responsabilidad,
+        })
+        updateUser({ perfil_completo: true })
+        toast.success('¡Perfil de adoptante completado!')
+      }
       navigate('/perfil-adoptante')
     } catch {
-      toast.error('Error al guardar. ¿Ya tienes un perfil registrado?')
+      toast.error('Error al guardar. Verifica los datos e inténtalo de nuevo.')
     } finally {
       setLoading(false)
     }
@@ -525,7 +583,7 @@ export default function RegistrarFamiliaPage() {
                     Atrás
                   </Button>
                   <Button type="submit" loading={loading} className="flex-1">
-                    Guardar perfil
+                    {isEditing ? 'Guardar cambios' : 'Guardar perfil'}
                   </Button>
                 </div>
               </div>
