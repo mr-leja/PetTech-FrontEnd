@@ -229,6 +229,10 @@ export default function RegistrarFamiliaPage() {
                 <Input
                   label="Teléfono"
                   type="tel"
+                  onKeyDown={(e) => {
+                    const allowed = ['0','1','2','3','4','5','6','7','8','9','+','-',' ','Backspace','Delete','ArrowLeft','ArrowRight','Tab']
+                    if (!allowed.includes(e.key) && !e.ctrlKey && !e.metaKey) e.preventDefault()
+                  }}
                   error={errors.telefono?.message}
                   {...register('telefono')}
                 />
