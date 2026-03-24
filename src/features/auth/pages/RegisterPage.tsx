@@ -161,7 +161,7 @@ export default function RegisterPage() {
         {step === 1 && (
           <form onSubmit={form2.handleSubmit(handleStep2)} className="flex flex-col gap-4">
             <Input label="Nombre de la familia" placeholder="Familia Pérez" error={form2.formState.errors.nombre_familia?.message} {...form2.register('nombre_familia')} />
-            <Input label="Teléfono" type="tel" placeholder="300 123 4567" error={form2.formState.errors.telefono?.message} {...form2.register('telefono')} />
+            <Input label="Teléfono" type="tel" placeholder="300 123 4567" onKeyDown={(e) => { const allowed = ['0','1','2','3','4','5','6','7','8','9','+','-',' ','Backspace','Delete','ArrowLeft','ArrowRight','Tab']; if (!allowed.includes(e.key) && !e.ctrlKey && !e.metaKey) e.preventDefault() }} error={form2.formState.errors.telefono?.message} {...form2.register('telefono')} />
             <Input label="Ciudad" placeholder="Bogotá" error={form2.formState.errors.ciudad?.message} {...form2.register('ciudad')} />
             <Input label="Departamento" placeholder="Cundinamarca" error={form2.formState.errors.departamento?.message} {...form2.register('departamento')} />
             <Button type="submit" loading={loading} className="w-full mt-2">Siguiente</Button>
@@ -180,7 +180,7 @@ export default function RegisterPage() {
                 <option value="OTRO">Otro</option>
               </select>
             </div>
-            <Input label="Número de personas en el hogar" type="number" min={1} error={form3.formState.errors.numero_personas?.message} {...form3.register('numero_personas')} />
+            <Input label="Número de personas en el hogar" type="number" min={1} onKeyDown={(e) => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault()} error={form3.formState.errors.numero_personas?.message} {...form3.register('numero_personas')} />
             <div className="flex items-center gap-3">
               <input type="checkbox" id="patio" className="w-4 h-4 accent-pettech-orange" {...form3.register('tiene_patio')} />
               <label htmlFor="patio" className="text-sm text-gray-700">¿Tienes patio o jardín?</label>
