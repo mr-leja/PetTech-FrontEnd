@@ -4,7 +4,8 @@ from { familiasApi, Familia } from '../api/familiasApi'
 import NavBar from '@/shared/components/NavBar'
 import Button from '@/shared/components/Button'
 import { useAuthStore } from '@/shared/store/authStore'
-import { User, Home, PawPrint, CheckCircle, Pencil } from 'lucide-react'
+import toast from 'react-hot-toast'
+import { User, Home, PawPrint, CheckCircle, Pencil, Trash2 } from 'lucide-react'
 
 function calcularEdad(fechaNac: string): number {
   const today = new Date()
@@ -53,8 +54,25 @@ function InfoRow({ label, value }: { label: string; value: React.ReactNode }) {
 export default function PerfilAdoptantePage() {
   const navigate = useNavigate()
   const user = useAuthStore((s) => s.user)
+  const logout = useAuthStore((s) => s.logout)
   const [loading, setLoading] = useState(true)
   const [familia, setFamilia] = useState<Familia | null>(null)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [deletingAccount, setDeletingAccount] = useState(false)
+
+  const handleEliminarCuenta = async () => {
+    setDeletingAccount(true)
+    try {
+      await familiasApi.eliminarCuenta()
+      logout()
+      toast.success('Cuenta eliminada correctamente.')
+      navigate('/login')
+    } catch {
+      toast.error('Error al eliminar la cuenta.')
+      setDeletingAccount(false)
+      setShowDeleteModal(false)
+    }
+  }
 
   useEffect(() => {
     familiasApi
@@ -243,7 +261,53 @@ export default function PerfilAdoptantePage() {
             </div>
           </>
         )}
+
+        {/* Zona de peligro */}
+        <div className="border border-red-200 rounded-xl p-5 mt-2">
+          <h3 className="text-sm font-semibold text-red-600 mb-1">Zona de peligro</h3>
+          <p className="text-xs text-gray-500 mb-3">Eliminar tu cuenta borrará permanentemente tu perfil y todos los datos asociados.</p>
+          <button
+            onClick={() => setShowDeleteModal(true)}
+            className="flex items-center gap-2 text-sm text-red-500 hover:text-red-700 border border-red-300 hover:border-red-500 rounded-lg px-4 py-2 transition-colors"
+          >
+            <Trash2 className="w-4 h-4" />
+            Eliminar mi cuenta
+          </button>
+        </div>
       </main>
+
+      {/* Modal confirmación eliminación */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl">
+            <div className="flex flex-col items-center text-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
+                <Trash2 className="w-6 h-6 text-red-500" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800">Eliminar cuenta</h3>
+              <p className="text-sm text-gray-500">
+                Esta acción eliminará tu cuenta y toda la información asociada permanentemente. No se puede deshacer.
+              </p>
+            </div>
+            <div className="flex gap-3 mt-6">
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                className="flex-1 btn-outline"
+                disabled={deletingAccount}
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleEliminarCuenta}
+                disabled={deletingAccount}
+                className="flex-1 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-xl transition-colors disabled:opacity-50"
+              >
+                {deletingAccount ? 'Eliminando...' : 'Sí, eliminar'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

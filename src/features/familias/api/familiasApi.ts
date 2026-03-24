@@ -85,4 +85,7 @@ export const familiasApi = {
 
   listarFamilias: () =>
     httpClient.get('/familias/').then((r) => r.data),
+
+  eliminarCuenta: () =>
+    httpClient.delete('/auth/perfil/').then((r) => r.data),
 }
