@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pettech_frontend
+    ports:
+      - "80:80"
+    networks:
+      - pettech_network
+
+networks:
+  pettech_network:
+    external: true
+    name: pettech_network
