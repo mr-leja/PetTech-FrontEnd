@@ -385,7 +385,7 @@ export default function RegistrarMascotaPage() {
                 </div>
 
                 <div className="flex flex-col gap-1">
-                  <label className="text-sm font-medium text-gray-700">Informaci param($m) [System.Text.Encoding]::Latin1.GetString([System.Text.Encoding]::UTF8.GetBytes($m.Value)) n adicional</label>
+                  <label className="text-sm font-medium text-gray-700">Información adicional</label>
                   <textarea
                     className="input-field min-h-[80px]"
                     placeholder="Ej: desparasitado, esterilizado/a, alergias conocidas..."
