@@ -11,7 +11,8 @@ const ESTADO_LABEL: Record<string, string> = {
 const ESPECIE_EMOJI: Record<string, string> = {
   PERRO: '🐶',
   GATO: '🐱',
-  OTRO: '🐾',
+  CONEJO: '🐰',
+  HAMSTER: '🐹',
 }
 
 export default function MascotaCard({
@@ -47,7 +48,11 @@ export default function MascotaCard({
         </div>
         <p className="text-sm text-gray-500">{mascota.especie} • {mascota.raza || 'Mestizo'}</p>
         <p className="text-sm text-gray-400 mt-0.5">
-          {mascota.edad_anios === 0 ? 'Cachorro' : `${mascota.edad_anios} año${mascota.edad_anios !== 1 ? 's' : ''}`}
+          {mascota.edad_anios === 0
+            ? 'Cachorro'
+            : mascota.edad_unidad === 'MESES'
+              ? `${mascota.edad_anios} mes${mascota.edad_anios !== 1 ? 'es' : ''}`
+              : `${mascota.edad_anios} año${mascota.edad_anios !== 1 ? 's' : ''}`}
         </p>
       </div>
     </div>

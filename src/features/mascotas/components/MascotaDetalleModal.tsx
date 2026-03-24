@@ -8,6 +8,47 @@ const ESTADO_LABEL: Record<string, string> = {
   NO_DISPONIBLE: 'No disponible',
 }
 
+const TAMANO_LABEL: Record<string, string> = {
+  PEQUENO: 'Pequeño',
+  MEDIANO: 'Mediano',
+  GRANDE: 'Grande',
+}
+
+const SEXO_LABEL: Record<string, string> = {
+  MACHO: 'Macho',
+  HEMBRA: 'Hembra',
+}
+
+const ENERGIA_LABEL: Record<string, string> = {
+  BAJO: 'Bajo',
+  MEDIO: 'Medio',
+  ALTO: 'Alto',
+}
+
+const ESPECIE_LABEL: Record<string, string> = {
+  PERRO: 'Perro',
+  GATO: 'Gato',
+  CONEJO: 'Conejo',
+  HAMSTER: 'Hámster',
+}
+
+function formatEdad(mascota: Mascota) {
+  if (mascota.edad_anios === 0) return 'Cachorro'
+  return mascota.edad_unidad === 'MESES'
+    ? `${mascota.edad_anios} mes${mascota.edad_anios !== 1 ? 'es' : ''}`
+    : `${mascota.edad_anios} año${mascota.edad_anios !== 1 ? 's' : ''}`
+}
+
+function Field({ label, value }: { label: string; value?: string | null }) {
+  if (!value) return null
+  return (
+    <div>
+      <p className="text-gray-400 text-xs uppercase tracking-wide mb-0.5">{label}</p>
+      <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">{value}</p>
+    </div>
+  )
+}
+
 export default function MascotaDetalleModal({
   mascota,
   onClose,
@@ -27,10 +68,7 @@ export default function MascotaDetalleModal({
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-100">
           <h2 className="text-lg font-semibold text-gray-800">{mascota.nombre}</h2>
-          <button
-            onClick={onClose}
-            className="p-1 rounded-full hover:bg-gray-100 transition-colors"
-          >
+          <button onClick={onClose} className="p-1 rounded-full hover:bg-gray-100 transition-colors">
             <X className="w-5 h-5 text-gray-500" />
           </button>
         </div>
@@ -47,29 +85,61 @@ export default function MascotaDetalleModal({
         </div>
 
         {/* Detalles */}
-        <div className="p-5 flex flex-col gap-3">
+        <div className="p-5 flex flex-col gap-4">
+          {/* Estado + especie */}
           <div className="flex items-center gap-2">
-            <span className={`badge-${mascota.estado.toLowerCase().replace('_','_')}`}>
+            <span className={`badge-${mascota.estado.toLowerCase().replace('_', '_')}`}>
               {ESTADO_LABEL[mascota.estado]}
             </span>
-            <span className="text-sm text-gray-500">{mascota.especie} • {mascota.raza || 'Mestizo'}</span>
+            <span className="text-sm text-gray-500">
+              {ESPECIE_LABEL[mascota.especie] ?? mascota.especie}
+              {mascota.raza ? ` • ${mascota.raza}` : ' • Mestizo'}
+            </span>
           </div>
+
+          {/* Info básica en grid */}
           <div className="grid grid-cols-2 gap-3 text-sm">
             <div>
               <p className="text-gray-400 text-xs uppercase tracking-wide">Edad</p>
-              <p className="font-medium">{mascota.edad_anios === 0 ? 'Cachorro' : `${mascota.edad_anios} año${mascota.edad_anios !== 1 ? 's' : ''}`}</p>
+              <p className="font-medium">{formatEdad(mascota)}</p>
             </div>
-            <div>
-              <p className="text-gray-400 text-xs uppercase tracking-wide">Especie</p>
-              <p className="font-medium">{mascota.especie}</p>
-            </div>
+            {mascota.sexo && (
+              <div>
+                <p className="text-gray-400 text-xs uppercase tracking-wide">Sexo</p>
+                <p className="font-medium">{SEXO_LABEL[mascota.sexo] ?? mascota.sexo}</p>
+              </div>
+            )}
+            {mascota.tamano && (
+              <div>
+                <p className="text-gray-400 text-xs uppercase tracking-wide">Tamaño</p>
+                <p className="font-medium">{TAMANO_LABEL[mascota.tamano] ?? mascota.tamano}</p>
+              </div>
+            )}
+            {mascota.peso != null && (
+              <div>
+                <p className="text-gray-400 text-xs uppercase tracking-wide">Peso</p>
+                <p className="font-medium">{mascota.peso} kg</p>
+              </div>
+            )}
+            {mascota.fecha_nacimiento && (
+              <div>
+                <p className="text-gray-400 text-xs uppercase tracking-wide">Fecha de nacimiento</p>
+                <p className="font-medium">{new Date(mascota.fecha_nacimiento).toLocaleDateString('es-CO')}</p>
+              </div>
+            )}
+            {mascota.nivel_energia && (
+              <div>
+                <p className="text-gray-400 text-xs uppercase tracking-wide">Nivel de energía</p>
+                <p className="font-medium">{ENERGIA_LABEL[mascota.nivel_energia] ?? mascota.nivel_energia}</p>
+              </div>
+            )}
           </div>
-          {mascota.descripcion && (
-            <div>
-              <p className="text-gray-400 text-xs uppercase tracking-wide mb-1">Descripción</p>
-              <p className="text-sm text-gray-700 leading-relaxed">{mascota.descripcion}</p>
-            </div>
-          )}
+
+          {/* Campos de texto */}
+          <Field label="Historia de la mascota" value={mascota.historia_mascota || mascota.descripcion} />
+          <Field label="Historial de vacunas" value={mascota.historial_vacunas} />
+          <Field label="Información adicional" value={mascota.info_adicional} />
+
           <div className="text-xs text-gray-400 pt-2 border-t border-gray-50">
             Registrado el {new Date(mascota.fecha_ingreso).toLocaleDateString('es-CO')}
           </div>
@@ -78,3 +148,4 @@ export default function MascotaDetalleModal({
     </div>
   )
 }
+

@@ -3,12 +3,21 @@ import httpClient from '@/shared/api/httpClient'
 export interface Mascota {
   id: number
   nombre: string
-  especie: 'PERRO' | 'GATO' | 'OTRO'
+  especie: 'PERRO' | 'GATO' | 'CONEJO' | 'HAMSTER'
   raza: string
   edad_anios: number
+  edad_unidad: 'ANIOS' | 'MESES'
+  fecha_nacimiento: string | null
+  tamano: 'PEQUENO' | 'MEDIANO' | 'GRANDE' | ''
+  peso: number | null
+  sexo: 'MACHO' | 'HEMBRA' | ''
   descripcion: string
   estado: 'DISPONIBLE' | 'EN_PROCESO' | 'ADOPTADO' | 'NO_DISPONIBLE'
   foto_url: string | null
+  nivel_energia: 'BAJO' | 'MEDIO' | 'ALTO' | ''
+  historial_vacunas: string
+  historia_mascota: string
+  info_adicional: string
   registrado_por_email: string | null
   fecha_ingreso: string
 }
@@ -23,11 +32,20 @@ export interface MascotasResponse {
 export interface CreateMascotaPayload {
   nombre: string
   especie: string
-  raza: string
+  raza?: string
   edad_anios: number
-  descripcion: string
+  edad_unidad: 'ANIOS' | 'MESES'
+  fecha_nacimiento?: string
+  tamano?: string
+  peso?: number
+  sexo?: string
+  descripcion?: string
   estado?: string
   foto?: File
+  nivel_energia?: string
+  historial_vacunas?: string
+  historia_mascota?: string
+  info_adicional?: string
 }
 
 export const mascotasApi = {

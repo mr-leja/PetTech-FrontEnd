@@ -67,7 +67,8 @@ export default function ListadoMascotasPage() {
             <option value="">Todas las especies</option>
             <option value="PERRO">Perro</option>
             <option value="GATO">Gato</option>
-            <option value="OTRO">Otro</option>
+            <option value="CONEJO">Conejo</option>
+            <option value="HAMSTER">Hámster</option>
           </select>
         </div>
 

@@ -9,18 +9,40 @@ import { mascotasApi } from '../api/mascotasApi'
 import { Input } from '@/shared/components/Input'
 import Button from '@/shared/components/Button'
 import NavBar from '@/shared/components/NavBar'
-import { ArrowLeft, Upload } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, Upload } from 'lucide-react'
+
+const ESPECIES = [
+  { value: 'PERRO', label: 'Perro' },
+  { value: 'GATO', label: 'Gato' },
+  { value: 'CONEJO', label: 'Conejo' },
+  { value: 'HAMSTER', label: 'Hámster' },
+] as const
 
 const schema = z.object({
-  nombre: z.string().min(2, 'Requerido'),
-  especie: z.enum(['PERRO', 'GATO', 'OTRO']),
+  // Paso 1 — Información básica
+  nombre: z.string().min(2, 'Mínimo 2 caracteres'),
+  especie: z.enum(['PERRO', 'GATO', 'CONEJO', 'HAMSTER']),
   raza: z.string().optional(),
-  edad_anios: z.coerce.number().min(0).max(30),
-  descripcion: z.string().optional(),
-  estado: z.enum(['DISPONIBLE', 'EN_PROCESO', 'ADOPTADO', 'NO_DISPONIBLE']).default('DISPONIBLE'),
+  edad: z.coerce.number().min(0, 'Debe ser ≥ 0'),
+  edad_unidad: z.enum(['ANIOS', 'MESES']),
+  fecha_nacimiento: z.string().optional(),
+  tamano: z.enum(['PEQUENO', 'MEDIANO', 'GRANDE', '']).optional(),
+  peso: z.string().optional(),
+  sexo: z.enum(['MACHO', 'HEMBRA', '']).optional(),
+  estado: z.enum(['DISPONIBLE', 'EN_PROCESO', 'NO_DISPONIBLE']).default('DISPONIBLE'),
+  // Paso 2 — Información de salud
+  nivel_energia: z.enum(['BAJO', 'MEDIO', 'ALTO', '']).optional(),
+  historial_vacunas: z.string().optional(),
+  historia_mascota: z.string().optional(),
+  info_adicional: z.string().optional(),
 })
 
 type FormData = z.infer<typeof schema>
+
+const STEP1_FIELDS: (keyof FormData)[] = [
+  'nombre', 'especie', 'raza', 'edad', 'edad_unidad',
+  'fecha_nacimiento', 'tamano', 'peso', 'sexo', 'estado',
+]
 
 export default function RegistrarMascotaPage() {
   const navigate = useNavigate()
@@ -28,10 +50,11 @@ export default function RegistrarMascotaPage() {
   const [loading, setLoading] = useState(false)
   const [fotoFile, setFotoFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
+  const [step, setStep] = useState(1)
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const { register, handleSubmit, trigger, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { especie: 'PERRO', estado: 'DISPONIBLE', edad_anios: 0 },
+    defaultValues: { especie: 'PERRO', estado: 'DISPONIBLE', edad: 0, edad_unidad: 'ANIOS' },
   })
 
   const handleFoto = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,10 +64,32 @@ export default function RegistrarMascotaPage() {
     setPreview(URL.createObjectURL(file))
   }
 
+  const goToStep2 = async () => {
+    const valid = await trigger(STEP1_FIELDS)
+    if (valid) setStep(2)
+  }
+
   const onSubmit = async (data: FormData) => {
     setLoading(true)
     try {
-      await mascotasApi.crear({ ...data, ...(fotoFile && { foto: fotoFile }) })
+      await mascotasApi.crear({
+        nombre: data.nombre,
+        especie: data.especie,
+        raza: data.raza,
+        edad_anios: data.edad,
+        edad_unidad: data.edad_unidad,
+        fecha_nacimiento: data.fecha_nacimiento || undefined,
+        tamano: data.tamano || undefined,
+        peso: data.peso ? parseFloat(data.peso) : undefined,
+        sexo: data.sexo || undefined,
+        descripcion: data.historia_mascota,
+        estado: data.estado,
+        ...(fotoFile && { foto: fotoFile }),
+        nivel_energia: data.nivel_energia || undefined,
+        historial_vacunas: data.historial_vacunas,
+        historia_mascota: data.historia_mascota,
+        info_adicional: data.info_adicional,
+      })
       await qc.invalidateQueries({ queryKey: ['mascotas'] })
       toast.success('Mascota registrada exitosamente.')
       navigate('/mascotas')
@@ -65,54 +110,195 @@ export default function RegistrarMascotaPage() {
         >
           <ArrowLeft className="w-4 h-4" /> Volver
         </button>
+
+        {/* Stepper */}
+        <div className="flex items-center gap-3 mb-8">
+          <div className={`flex items-center gap-2 ${step >= 1 ? 'text-pettech-orange' : 'text-gray-400'}`}>
+            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold border-2 ${step > 1 ? 'bg-pettech-orange border-pettech-orange text-white' : step === 1 ? 'border-pettech-orange text-pettech-orange' : 'border-gray-300 text-gray-400'}`}>
+              {step > 1 ? <Check className="w-3 h-3" /> : '1'}
+            </div>
+            <span className="text-sm font-medium">Información básica</span>
+          </div>
+          <div className="flex-1 h-px bg-gray-200" />
+          <div className={`flex items-center gap-2 ${step >= 2 ? 'text-pettech-orange' : 'text-gray-400'}`}>
+            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold border-2 ${step >= 2 ? 'border-pettech-orange text-pettech-orange' : 'border-gray-300 text-gray-400'}`}>
+              2
+            </div>
+            <span className="text-sm font-medium">Información de salud</span>
+          </div>
+        </div>
+
         <div className="card p-8">
-          <h1 className="text-xl font-semibold text-gray-800 mb-6">Registrar nueva mascota</h1>
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-            <div className="grid grid-cols-2 gap-4">
-              <Input label="Nombre" error={errors.nombre?.message} {...register('nombre')} />
-              <Input label="Edad (años)" type="number" min={0} max={30} error={errors.edad_anios?.message} {...register('edad_anios')} />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col gap-1">
-                <label className="text-sm font-medium text-gray-700">Especie</label>
-                <select className="input-field" {...register('especie')}>
-                  <option value="PERRO">Perro</option>
-                  <option value="GATO">Gato</option>
-                  <option value="OTRO">Otro</option>
-                </select>
+          <form onSubmit={handleSubmit(onSubmit)}>
+
+            {/* ── PASO 1 ── */}
+            {step === 1 && (
+              <div className="flex flex-col gap-4">
+                <h2 className="text-lg font-semibold text-gray-800 mb-1">Información básica</h2>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <Input label="Nombre *" error={errors.nombre?.message} {...register('nombre')} />
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium text-gray-700">Especie *</label>
+                    <select className="input-field" {...register('especie')}>
+                      {ESPECIES.map((e) => (
+                        <option key={e.value} value={e.value}>{e.label}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <Input label="Raza (opcional)" placeholder="Labrador, Persa..." {...register('raza')} />
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium text-gray-700">Estado</label>
+                    <select className="input-field" {...register('estado')}>
+                      <option value="DISPONIBLE">Disponible</option>
+                      <option value="EN_PROCESO">En proceso</option>
+                      <option value="NO_DISPONIBLE">No disponible</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Edad + unidad */}
+                <div className="flex flex-col gap-1">
+                  <label className="text-sm font-medium text-gray-700">Edad *</label>
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      min={0}
+                      max={99}
+                      className="input-field flex-1"
+                      {...register('edad')}
+                    />
+                    <select className="input-field w-32" {...register('edad_unidad')}>
+                      <option value="ANIOS">Años</option>
+                      <option value="MESES">Meses</option>
+                    </select>
+                  </div>
+                  {errors.edad && <p className="text-xs text-red-500">{errors.edad.message}</p>}
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <Input
+                    label="Fecha de nacimiento (opcional)"
+                    type="date"
+                    {...register('fecha_nacimiento')}
+                  />
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium text-gray-700">Tamaño</label>
+                    <select className="input-field" {...register('tamano')}>
+                      <option value="">Seleccionar...</option>
+                      <option value="PEQUENO">Raza pequeña</option>
+                      <option value="MEDIANO">Raza mediana</option>
+                      <option value="GRANDE">Raza grande</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <Input
+                    label="Peso en kg (opcional)"
+                    type="number"
+                    step="0.1"
+                    min={0}
+                    placeholder="Ej: 5.5"
+                    {...register('peso')}
+                  />
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium text-gray-700">Sexo</label>
+                    <select className="input-field" {...register('sexo')}>
+                      <option value="">Seleccionar...</option>
+                      <option value="MACHO">Macho</option>
+                      <option value="HEMBRA">Hembra</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="flex justify-end mt-2">
+                  <Button type="button" onClick={goToStep2} className="flex items-center gap-2">
+                    Siguiente <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </div>
               </div>
-              <div className="flex flex-col gap-1">
-                <label className="text-sm font-medium text-gray-700">Estado</label>
-                <select className="input-field" {...register('estado')}>
-                  <option value="DISPONIBLE">Disponible</option>
-                  <option value="EN_PROCESO">En proceso</option>
-                  <option value="NO_DISPONIBLE">No disponible</option>
-                </select>
+            )}
+
+            {/* ── PASO 2 ── */}
+            {step === 2 && (
+              <div className="flex flex-col gap-4">
+                <h2 className="text-lg font-semibold text-gray-800 mb-1">Información de salud</h2>
+
+                <div className="flex flex-col gap-1">
+                  <label className="text-sm font-medium text-gray-700">Nivel de energía</label>
+                  <select className="input-field" {...register('nivel_energia')}>
+                    <option value="">Seleccionar...</option>
+                    <option value="BAJO">Bajo</option>
+                    <option value="MEDIO">Medio</option>
+                    <option value="ALTO">Alto</option>
+                  </select>
+                </div>
+
+                {/* Foto / Video */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium text-gray-700">Foto / Video (opcional)</label>
+                  <label className="flex items-center gap-3 cursor-pointer border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-pettech-orange transition-colors">
+                    <Upload className="w-5 h-5 text-gray-400" />
+                    <span className="text-sm text-gray-500">{fotoFile ? fotoFile.name : 'Subir archivo'}</span>
+                    <input type="file" accept="image/*,video/*" className="hidden" onChange={handleFoto} />
+                  </label>
+                  {preview && (
+                    fotoFile?.type.startsWith('video/')
+                      ? <video src={preview} controls className="w-full max-h-48 rounded-lg" />
+                      : <img src={preview} alt="preview" className="w-32 h-32 object-cover rounded-lg" />
+                  )}
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <label className="text-sm font-medium text-gray-700">Historial de vacunas</label>
+                  <textarea
+                    className="input-field min-h-[80px]"
+                    placeholder="Ej: Parvovirus (ene 2024), Moquillo (mar 2024)..."
+                    {...register('historial_vacunas')}
+                  />
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <label className="text-sm font-medium text-gray-700">Historia de la mascota</label>
+                  <textarea
+                    className="input-field min-h-[100px]"
+                    placeholder="Breve descripción de su personalidad y comportamiento..."
+                    {...register('historia_mascota')}
+                  />
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <label className="text-sm font-medium text-gray-700">Información adicional</label>
+                  <textarea
+                    className="input-field min-h-[80px]"
+                    placeholder="Ej: desparasitado, esterilizado/a, alergias conocidas..."
+                    {...register('info_adicional')}
+                  />
+                </div>
+
+                <div className="flex items-center justify-between mt-2">
+                  <button
+                    type="button"
+                    onClick={() => setStep(1)}
+                    className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700"
+                  >
+                    <ArrowLeft className="w-4 h-4" /> Anterior
+                  </button>
+                  <Button type="submit" loading={loading}>Registrar mascota</Button>
+                </div>
               </div>
-            </div>
-            <Input label="Raza (opcional)" placeholder="Labrador, Persa, ..." {...register('raza')} />
-            <div className="flex flex-col gap-1">
-              <label className="text-sm font-medium text-gray-700">Descripción</label>
-              <textarea
-                className="input-field min-h-[100px]"
-                placeholder="Cuéntanos sobre la mascota..."
-                {...register('descripcion')}
-              />
-            </div>
-            {/* Foto upload */}
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-gray-700">Foto (opcional)</label>
-              <label className="flex items-center gap-3 cursor-pointer border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-pettech-orange transition-colors">
-                <Upload className="w-5 h-5 text-gray-400" />
-                <span className="text-sm text-gray-500">{fotoFile ? fotoFile.name : 'Subir foto'}</span>
-                <input type="file" accept="image/*" className="hidden" onChange={handleFoto} />
-              </label>
-              {preview && <img src={preview} alt="preview" className="w-32 h-32 object-cover rounded-lg" />}
-            </div>
-            <Button type="submit" loading={loading} className="w-full mt-2">Registrar mascota</Button>
+            )}
+
           </form>
         </div>
       </main>
     </div>
+  )
+}
+
   )
 }
