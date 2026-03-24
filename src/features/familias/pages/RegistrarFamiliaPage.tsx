@@ -54,7 +54,7 @@ const schema = z.object({
   ),
   tiempo_solo_horas: z.coerce.number().min(0).max(24, 'Máximo 24 horas'),
   ingresos_estimados: z.string().min(1, 'Selecciona una opción'),
-  experiencia_mascotas: z.string().optional(),
+  experiencia_mascotas: z.string().min(10, 'Cuéntanos tu experiencia (mínimo 10 caracteres)'),
   motivacion: z.string().min(10, 'Cuéntanos tu motivación (mínimo 10 caracteres)'),
   acuerdo_responsabilidad: z.literal(true, {
     errorMap: () => ({ message: 'Debes aceptar el acuerdo de responsabilidad.' }),
@@ -519,13 +519,16 @@ export default function RegistrarFamiliaPage() {
 
                 <div className="flex flex-col gap-1">
                   <label className="text-sm font-medium text-gray-700">
-                    Experiencia con mascotas (opcional)
+                    Experiencia con mascotas
                   </label>
                   <textarea
                     className="input-field min-h-[80px]"
                     placeholder="Cuéntanos sobre tu experiencia previa..."
                     {...register('experiencia_mascotas')}
                   />
+                  {errors.experiencia_mascotas && (
+                    <p className="text-xs text-red-500">{errors.experiencia_mascotas.message}</p>
+                  )}
                 </div>
 
                 <div className="flex flex-col gap-1">
