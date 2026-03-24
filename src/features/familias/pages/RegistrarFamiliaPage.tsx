@@ -307,6 +307,7 @@ export default function RegistrarFamiliaPage() {
                     label="Personas en casa"
                     type="number"
                     min={1}
+                    onKeyDown={(e) => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault()}
                     error={errors.numero_personas?.message}
                     {...register('numero_personas')}
                   />
@@ -333,6 +334,7 @@ export default function RegistrarFamiliaPage() {
                   type="number"
                   min={0}
                   max={24}
+                  onKeyDown={(e) => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault()}
                   error={errors.tiempo_solo_horas?.message}
                   {...register('tiempo_solo_horas')}
                 />
@@ -416,6 +418,7 @@ export default function RegistrarFamiliaPage() {
                               label="Cantidad"
                               type="number"
                               min={1}
+                              onKeyDown={(e) => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault()}
                               error={errors.otras_mascotas?.[idx]?.cantidad?.message}
                               {...register(`otras_mascotas.${idx}.cantidad`)}
                             />

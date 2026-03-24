@@ -189,6 +189,7 @@ export default function RegistrarMascotaPage() {
                       min={0}
                       max={99}
                       className="input-field flex-1"
+                      onKeyDown={(e) => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault()}
                       {...register('edad')}
                     />
                     <select className="input-field w-32" {...register('edad_unidad')}>
@@ -224,6 +225,7 @@ export default function RegistrarMascotaPage() {
                     step="0.1"
                     min={0}
                     placeholder="Ej: 5.5"
+                    onKeyDown={(e) => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault()}
                     error={errors.peso?.message}
                     {...register('peso')}
                   />
