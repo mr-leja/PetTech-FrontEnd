@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
-import { PawPrint, Users, Heart, Home } from 'lucide-react'
+import { PawPrint, Users, Heart, Home, Clock, CheckCircle } from 'lucide-react'
 import { useAuthStore } from '@/shared/store/authStore'
 import { mascotasApi } from '@/features/mascotas/api/mascotasApi'
 import { familiasApi } from '@/features/familias/api/familiasApi'
@@ -22,6 +22,7 @@ function StatCard({ label, value, icon, color }: { label: string; value: string 
 export default function DashboardPage() {
   const user = useAuthStore((s) => s.user)
   const isAdmin = user?.rol === 'ADMIN'
+  const displayName = user?.nombre || user?.email?.split('@')[0] || ''
 
   const { data: mascotas, isLoading: loadingMascotas } = useQuery({
     queryKey: ['mascotas', 'dashboard'],
@@ -45,7 +46,7 @@ export default function DashboardPage() {
         {/* Greeting */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-800">
-            ¡Hola{user?.nombre ? `, ${user.nombre}` : ''}! 🐾
+            ¡Hola, {displayName}! 🐾
           </h1>
           <p className="text-gray-500 mt-1">
             {isAdmin ? 'Panel de administración PetTech' : 'Bienvenido a PetTech Adopciones'}
@@ -87,6 +88,24 @@ export default function DashboardPage() {
           </>
         )}
 
+        {/* Contadores adopciones — vista Familia */}
+        {!isAdmin && (
+          <div className="grid grid-cols-2 gap-4 mb-8">
+            <StatCard
+              label="Adopciones realizadas"
+              value={0}
+              icon={<CheckCircle className="w-6 h-6 text-green-500" />}
+              color="border-green-400"
+            />
+            <StatCard
+              label="Adopciones en proceso"
+              value={0}
+              icon={<Clock className="w-6 h-6 text-yellow-500" />}
+              color="border-yellow-400"
+            />
+          </div>
+        )}
+
         {/* Acciones rápidas */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           <Link
@@ -100,20 +119,7 @@ export default function DashboardPage() {
             </div>
           </Link>
 
-          {!isAdmin && (
-            <Link
-              to="/mi-familia"
-              className="card p-6 hover:shadow-md transition-shadow flex flex-col gap-3 group"
-            >
-              <Users className="w-8 h-8 text-pettech-orange group-hover:scale-110 transition-transform" />
-              <div>
-                <h3 className="font-semibold text-gray-800">Mi familia</h3>
-                <p className="text-sm text-gray-500">
-                  {user?.perfil_completo ? 'Perfil completo ✅' : 'Completa tu perfil'}
-                </p>
-              </div>
-            </Link>
-          )}
+
 
           {isAdmin && (
             <Link
@@ -136,7 +142,7 @@ export default function DashboardPage() {
               <p className="font-medium text-gray-800">Completa tu perfil de familia</p>
               <p className="text-sm text-gray-500">Registra los datos de tu familia y hogar para postularte a una adopción.</p>
             </div>
-            <Link to="/mi-familia" className="btn-primary text-sm whitespace-nowrap ml-4">Completar ahora</Link>
+            <Link to="/perfil-adoptante/registrar" className="btn-primary text-sm whitespace-nowrap ml-4">Completar ahora</Link>
           </div>
         )}
       </main>
