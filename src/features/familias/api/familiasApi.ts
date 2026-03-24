@@ -32,7 +32,8 @@ export interface Familia {
   nombre_familia: string
   cedula: string
   foto_cedula_url: string | null
-  edad: number
+  fecha_nacimiento: string
+  edad: number | null
   telefono: string
   ciudad: string
   departamento: string

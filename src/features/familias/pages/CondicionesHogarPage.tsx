@@ -6,6 +6,19 @@ import Button from '@/shared/components/Button'
 import { useAuthStore } from '@/shared/store/authStore'
 import { User, Home, PawPrint, CheckCircle } from 'lucide-react'
 
+function calcularEdad(fechaNac: string): number {
+  const today = new Date()
+  const birth = new Date(fechaNac)
+  return (
+    today.getFullYear() -
+    birth.getFullYear() -
+    (today.getMonth() < birth.getMonth() ||
+    (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate())
+      ? 1
+      : 0)
+  )
+}
+
 const TIPO_VIVIENDA_LABEL: Record<string, string> = {
   CASA: 'Casa',
   APARTAMENTO: 'Apartamento',
@@ -113,7 +126,14 @@ export default function PerfilAdoptantePage() {
           <div className="grid grid-cols-2 gap-4">
             <InfoRow label="Nombre completo" value={familia.nombre_familia} />
             <InfoRow label="Cédula" value={familia.cedula} />
-            <InfoRow label="Edad" value={`${familia.edad} años`} />
+            <InfoRow
+              label="Fecha de nacimiento"
+              value={
+                familia.fecha_nacimiento
+                  ? `${new Date(familia.fecha_nacimiento + 'T12:00:00').toLocaleDateString('es-CO', { day: '2-digit', month: 'long', year: 'numeric' })} (${calcularEdad(familia.fecha_nacimiento)} años)`
+                  : '—'
+              }
+            />
             <InfoRow label="Teléfono" value={familia.telefono} />
             <InfoRow label="Ciudad" value={familia.ciudad} />
             <InfoRow label="Departamento" value={familia.departamento} />
@@ -123,21 +143,6 @@ export default function PerfilAdoptantePage() {
             {familia.redes_sociales && (
               <div className="col-span-2">
                 <InfoRow label="Redes sociales" value={familia.redes_sociales} />
-              </div>
-            )}
-            {familia.foto_cedula_url && (
-              <div className="col-span-2">
-                <span className="text-xs font-medium text-gray-400 uppercase tracking-wide block mb-1">
-                  Foto cédula
-                </span>
-                <a
-                  href={familia.foto_cedula_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-pettech-orange hover:underline"
-                >
-                  Ver documento
-                </a>
               </div>
             )}
           </div>

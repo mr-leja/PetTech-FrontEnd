@@ -15,7 +15,22 @@ const schema = z.object({
   // Paso 2 - Información básica
   nombre_familia: z.string().min(3, 'Mínimo 3 caracteres'),
   cedula: z.string().min(5, 'Cédula inválida'),
-  edad: z.coerce.number().min(18, 'Debes ser mayor de edad (18+)').max(120, 'Edad inválida'),
+  fecha_nacimiento: z
+    .string()
+    .min(1, 'Ingresa tu fecha de nacimiento')
+    .refine((v) => {
+      if (!v) return false
+      const today = new Date()
+      const birth = new Date(v)
+      const age =
+        today.getFullYear() -
+        birth.getFullYear() -
+        (today.getMonth() < birth.getMonth() ||
+        (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate())
+          ? 1
+          : 0)
+      return age >= 18
+    }, 'Debes ser mayor de edad (18 años o más)'),
   telefono: z.string().min(7, 'Teléfono inválido'),
   ciudad: z.string().min(2, 'Requerido'),
   departamento: z.string().min(2, 'Requerido'),
@@ -50,7 +65,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>
 
 const STEP2_FIELDS: (keyof FormData)[] = [
-  'nombre_familia', 'cedula', 'edad', 'telefono', 'ciudad', 'departamento', 'direccion',
+  'nombre_familia', 'cedula', 'fecha_nacimiento', 'telefono', 'ciudad', 'departamento', 'direccion',
 ]
 
 const STEPS = ['Cuenta', 'Información básica', 'Hogar y experiencia']
@@ -60,7 +75,6 @@ export default function RegistrarFamiliaPage() {
   const updateUser = useAuthStore((s) => s.updateUser)
   const [step, setStep] = useState(1) // 1=básica, 2=hogar
   const [loading, setLoading] = useState(false)
-  const [fotoCedula, setFotoCedula] = useState<File | null>(null)
 
   const {
     register,
@@ -102,13 +116,12 @@ export default function RegistrarFamiliaPage() {
       const fd = new FormData()
       fd.append('nombre_familia', data.nombre_familia)
       fd.append('cedula', data.cedula)
-      fd.append('edad', String(data.edad))
+      fd.append('fecha_nacimiento', data.fecha_nacimiento)
       fd.append('telefono', data.telefono)
       fd.append('ciudad', data.ciudad)
       fd.append('departamento', data.departamento)
       fd.append('direccion', data.direccion)
       if (data.redes_sociales) fd.append('redes_sociales', data.redes_sociales)
-      if (fotoCedula) fd.append('foto_cedula', fotoCedula)
 
       await familiasApi.crearFamilia(fd)
 
@@ -199,28 +212,18 @@ export default function RegistrarFamiliaPage() {
                     error={errors.cedula?.message}
                     {...register('cedula')}
                   />
-                  <Input
-                    label="Edad"
-                    type="number"
-                    min={18}
-                    error={errors.edad?.message}
-                    {...register('edad')}
-                  />
-                </div>
-
-                <div className="flex flex-col gap-1">
-                  <label className="text-sm font-medium text-gray-700">
-                    Foto de la cédula (opcional)
-                  </label>
-                  <input
-                    type="file"
-                    accept="image/*,.pdf"
-                    onChange={(e) => setFotoCedula(e.target.files?.[0] ?? null)}
-                    className="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-pettech-orange/10 file:text-pettech-orange hover:file:bg-pettech-orange/20 cursor-pointer"
-                  />
-                  {fotoCedula && (
-                    <p className="text-xs text-green-600">📎 {fotoCedula.name}</p>
-                  )}
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium text-gray-700">Fecha de nacimiento</label>
+                    <input
+                      type="date"
+                      max={new Date(new Date().setFullYear(new Date().getFullYear() - 18)).toISOString().split('T')[0]}
+                      className="input-field"
+                      {...register('fecha_nacimiento')}
+                    />
+                    {errors.fecha_nacimiento && (
+                      <p className="text-xs text-red-500">{errors.fecha_nacimiento.message}</p>
+                    )}
+                  </div>
                 </div>
 
                 <Input
