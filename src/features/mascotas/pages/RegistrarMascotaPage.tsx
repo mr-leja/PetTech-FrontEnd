@@ -379,7 +379,7 @@ export default function RegistrarMascotaPage() {
                   <label className="text-sm font-medium text-gray-700">Historia de la mascota</label>
                   <textarea
                     className="input-field min-h-[100px]"
-                    placeholder="Breve descripci param($m) [System.Text.Encoding]::Latin1.GetString([System.Text.Encoding]::UTF8.GetBytes($m.Value)) n de su personalidad y comportamiento..."
+                    placeholder="Breve descripción de su personalidad y comportamiento..."
                     {...register('historia_mascota')}
                   />
                 </div>
