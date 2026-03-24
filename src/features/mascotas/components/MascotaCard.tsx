@@ -1,5 +1,5 @@
 import type { Mascota } from '../api/mascotasApi'
-import { PawPrint } from 'lucide-react'
+import { PawPrint, Trash2 } from 'lucide-react'
 
 const ESTADO_LABEL: Record<string, string> = {
   DISPONIBLE: 'Disponible',
@@ -18,17 +18,30 @@ const ESPECIE_EMOJI: Record<string, string> = {
 export default function MascotaCard({
   mascota,
   onClick,
+  isAdmin,
+  onDeleteClick,
 }: {
   mascota: Mascota
   onClick: () => void
+  isAdmin?: boolean
+  onDeleteClick?: (e: React.MouseEvent, id: number) => void
 }) {
   const estadoClass = `badge-${mascota.estado.toLowerCase().replace('_', '_')}`
 
   return (
     <div
-      className="card cursor-pointer hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+      className="card cursor-pointer hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 relative"
       onClick={onClick}
     >
+      {isAdmin && onDeleteClick && (
+        <button
+          onClick={(e) => { e.stopPropagation(); onDeleteClick(e, mascota.id) }}
+          className="absolute top-2 right-2 z-10 p-1.5 bg-white/90 rounded-full shadow hover:bg-red-50 transition-colors"
+          title="Eliminar mascota"
+        >
+          <Trash2 className="w-3.5 h-3.5 text-red-500" />
+        </button>
+      )}
       {/* Foto */}
       <div className="aspect-square bg-pettech-cream overflow-hidden">
         {mascota.foto_url ? (

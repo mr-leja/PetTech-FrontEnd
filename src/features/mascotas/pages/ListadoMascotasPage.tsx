@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { Plus, SlidersHorizontal } from 'lucide-react'
+import toast from 'react-hot-toast'
 import { mascotasApi, type Mascota } from '../api/mascotasApi'
 import MascotaCard from '../components/MascotaCard'
 import MascotaDetalleModal from '../components/MascotaDetalleModal'
@@ -12,9 +13,12 @@ import NavBar from '@/shared/components/NavBar'
 
 export default function ListadoMascotasPage() {
   const user = useAuthStore((s) => s.user)
+  const qc = useQueryClient()
   const [selected, setSelected] = useState<Mascota | null>(null)
   const [filtroEstado, setFiltroEstado] = useState('')
   const [filtroEspecie, setFiltroEspecie] = useState('')
+  const [deletingId, setDeletingId] = useState<number | null>(null)
+  const [deleteLoading, setDeleteLoading] = useState(false)
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['mascotas', filtroEstado, filtroEspecie],
@@ -24,6 +28,22 @@ export default function ListadoMascotasPage() {
         ...(filtroEspecie && { especie: filtroEspecie }),
       }),
   })
+
+  const handleDeleteConfirm = async () => {
+    if (!deletingId) return
+    setDeleteLoading(true)
+    try {
+      await mascotasApi.eliminar(deletingId)
+      await qc.invalidateQueries({ queryKey: ['mascotas'] })
+      toast.success('Mascota eliminada correctamente.')
+      setSelected(null)
+    } catch {
+      toast.error('Error al eliminar la mascota.')
+    } finally {
+      setDeleteLoading(false)
+      setDeletingId(null)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-pettech-cream">
@@ -80,12 +100,46 @@ export default function ListadoMascotasPage() {
         )}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {data?.results.map((m) => (
-            <MascotaCard key={m.id} mascota={m} onClick={() => setSelected(m)} />
+            <MascotaCard
+              key={m.id}
+              mascota={m}
+              onClick={() => setSelected(m)}
+              isAdmin={user?.rol === 'ADMIN'}
+              onDeleteClick={(_e, id) => setDeletingId(id)}
+            />
           ))}
         </div>
       </main>
 
       {selected && <MascotaDetalleModal mascota={selected} onClose={() => setSelected(null)} />}
+
+      {/* Modal de confirmación de eliminación */}
+      {deletingId !== null && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="card w-full max-w-sm p-6 flex flex-col gap-4">
+            <h3 className="text-lg font-semibold text-gray-800">¿Eliminar mascota?</h3>
+            <p className="text-sm text-gray-600">
+              Esta acción es irreversible. La mascota será eliminada permanentemente.
+            </p>
+            <div className="flex gap-3 justify-end">
+              <button
+                onClick={() => setDeletingId(null)}
+                disabled={deleteLoading}
+                className="btn-secondary text-sm"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleDeleteConfirm}
+                disabled={deleteLoading}
+                className="bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-600 transition-colors disabled:opacity-50"
+              >
+                {deleteLoading ? 'Eliminando...' : 'Eliminar'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
