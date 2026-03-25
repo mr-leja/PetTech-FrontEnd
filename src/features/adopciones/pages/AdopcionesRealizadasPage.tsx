@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { Heart, PawPrint, Calendar, MapPin, Info } from 'lucide-react'
 import { solicitudesApi, type Adopcion } from '../api/solicitudesApi'
+import NavBar from '@/shared/components/NavBar'
 import Spinner from '@/shared/components/Spinner'
 
 const ESPECIE_LABEL: Record<string, string> = {
@@ -123,7 +124,9 @@ export default function AdopcionesRealizadasPage() {
   })
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-pettech-cream">
+      <NavBar />
+      <main className="max-w-3xl mx-auto px-4 py-8">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
           <Heart className="w-6 h-6 text-pettech-orange" />
@@ -168,6 +171,7 @@ export default function AdopcionesRealizadasPage() {
           )}
         </>
       )}
-    </main>
+      </main>
+    </div>
   )
 }
