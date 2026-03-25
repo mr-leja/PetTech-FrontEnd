@@ -143,6 +143,23 @@ export default function DashboardPage() {
             </Link>
           )}
 
+          {!isAdmin && (
+            <Link
+              to="/mis-adopciones"
+              className="card p-6 hover:shadow-md transition-shadow flex flex-col gap-3 group"
+            >
+              <Heart className="w-8 h-8 text-pettech-orange group-hover:scale-110 transition-transform" />
+              <div>
+                <h3 className="font-semibold text-gray-800">Mis adopciones</h3>
+                <p className="text-sm text-gray-500">
+                  {(contadores?.adopciones_realizadas ?? 0) > 0
+                    ? `${contadores!.adopciones_realizadas} ${contadores!.adopciones_realizadas === 1 ? 'adopción realizada' : 'adopciones realizadas'}`
+                    : 'Consulta tus adopciones completadas'}
+                </p>
+              </div>
+            </Link>
+          )}
+
 
 
           {isAdmin && (
