@@ -1,10 +1,21 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import toast from 'react-hot-toast'
 import { useQueryClient } from '@tanstack/react-query'
+
+const DRAFT_KEY = 'pettech_mascota_draft'
+
+function loadDraft(): Partial<FormData> | null {
+  try {
+    const raw = sessionStorage.getItem(DRAFT_KEY)
+    return raw ? JSON.parse(raw) : null
+  } catch {
+    return null
+  }
+}
 import { mascotasApi } from '../api/mascotasApi'
 import { Input } from '@/shared/components/Input'
 import Button from '@/shared/components/Button'
@@ -72,15 +83,25 @@ export default function RegistrarMascotaPage() {
   const [carnetFile, setCarnetFile] = useState<File | null>(null)
   const [step, setStep] = useState(1)
 
-  const { register, handleSubmit, trigger, control, formState: { errors } } = useForm<FormData>({
+  const { register, handleSubmit, trigger, control, watch, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       especie: 'PERRO', estado: 'DISPONIBLE', edad: 0, edad_unidad: 'ANIOS',
       tamano: '', sexo: '', vacunas: [],
       nivel_energia: '', nivel_independencia: '', nivel_complejidad: '',
       nivel_sociabilidad: '', apta_ninos: '', costo_estimado_mensual: '',
+      ...loadDraft(),
     },
   })
+
+  // Persistir borrador en sessionStorage al cambiar cualquier campo
+  const watchedValues = watch()
+  useEffect(() => {
+    const { vacunas, ...rest } = watchedValues
+    try {
+      sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ ...rest, vacunas }))
+    } catch {}
+  }, [JSON.stringify(watchedValues)])
 
   const { fields: vacunaFields, append: appendVacuna, remove: removeVacuna } = useFieldArray({
     control,
@@ -127,6 +148,7 @@ export default function RegistrarMascotaPage() {
         info_adicional: data.info_adicional,
       })
       await qc.invalidateQueries({ queryKey: ['mascotas'] })
+      sessionStorage.removeItem(DRAFT_KEY)
       toast.success('Mascota registrada exitosamente.')
       navigate('/mascotas')
     } catch {

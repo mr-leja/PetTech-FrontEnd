@@ -6,6 +6,17 @@ import { z } from 'zod'
 import toast from 'react-hot-toast'
 import { familiasApi } from '../api/familiasApi'
 import { Input } from '@/shared/components/Input'
+
+const DRAFT_KEY = 'pettech_familia_draft'
+
+function loadDraft(): Partial<FormData> | null {
+  try {
+    const raw = sessionStorage.getItem(DRAFT_KEY)
+    return raw ? JSON.parse(raw) : null
+  } catch {
+    return null
+  }
+}
 import Button from '@/shared/components/Button'
 import NavBar from '@/shared/components/NavBar'
 import { useAuthStore } from '@/shared/store/authStore'
@@ -109,9 +120,23 @@ export default function RegistrarFamiliaPage() {
 
   const tieneMascotas = watch('tiene_mascotas_actualmente')
 
+  // Persistir borrador en sessionStorage solo si NO estamos editando
+  const watchedValues = watch()
+  useEffect(() => {
+    if (isEditing) return
+    try {
+      sessionStorage.setItem(DRAFT_KEY, JSON.stringify(watchedValues))
+    } catch {}
+  }, [isEditing, JSON.stringify(watchedValues)])
+
   useEffect(() => {
     familiasApi.miFamilia().then(({ familia: f, tiene_familia }) => {
-      if (!tiene_familia || !f) return
+      if (!tiene_familia || !f) {
+        // Restaurar borrador si existe
+        const draft = loadDraft()
+        if (draft) reset({ ...draft } as any)
+        return
+      }
       setIsEditing(true)
       const c = f.condiciones_hogar
       if (f.foto_perfil_url) setFotoPreview(f.foto_perfil_url)
@@ -203,6 +228,7 @@ export default function RegistrarFamiliaPage() {
         updateUser({ perfil_completo: true })
         toast.success('¡Perfil de adoptante completado!')
       }
+      sessionStorage.removeItem(DRAFT_KEY)
       navigate('/perfil-adoptante')
     } catch {
       toast.error('Error al guardar. Verifica los datos e inténtalo de nuevo.')
