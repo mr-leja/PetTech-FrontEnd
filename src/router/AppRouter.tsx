@@ -10,6 +10,8 @@ import RegistrarAdoptantePage from '@/features/familias/pages/RegistrarFamiliaPa
 import PerfilAdoptantePage from '@/features/familias/pages/CondicionesHogarPage'
 import GestionSolicitudesPage from '@/features/adopciones/pages/GestionSolicitudesPage'
 import MisSolicitudesPage from '@/features/adopciones/pages/MisSolicitudesPage'
+import AdopcionesRealizadasPage from '@/features/adopciones/pages/AdopcionesRealizadasPage'
+import GestionAdopcionesPage from '@/features/adopciones/pages/GestionAdopcionesPage'
 import PrivateRoute from '@/shared/components/PrivateRoute'
 import AdminRoute from '@/shared/components/AdminRoute'
 
@@ -29,6 +31,7 @@ export default function AppRouter() {
         <Route path="/perfil-adoptante" element={<PerfilAdoptantePage />} />
         <Route path="/perfil-adoptante/registrar" element={<RegistrarAdoptantePage />} />
         <Route path="/mis-solicitudes" element={<MisSolicitudesPage />} />
+        <Route path="/mis-adopciones" element={<AdopcionesRealizadasPage />} />
       </Route>
 
       {/* Rutas de admin */}
@@ -36,6 +39,7 @@ export default function AppRouter() {
         <Route path="/mascotas/nueva" element={<RegistrarMascotaPage />} />
         <Route path="/mascotas/:id/editar" element={<EditarMascotaPage />} />
         <Route path="/solicitudes" element={<GestionSolicitudesPage />} />
+        <Route path="/adopciones" element={<GestionAdopcionesPage />} />
       </Route>
 
       {/* Root redirect */}

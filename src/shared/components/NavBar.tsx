@@ -32,12 +32,14 @@ export default function NavBar() {
             <>
               <Link to="/perfil-adoptante" className="text-gray-600 hover:text-pettech-orange transition-colors">Perfil del adoptante</Link>
               <Link to="/mis-solicitudes" className="text-gray-600 hover:text-pettech-orange transition-colors">Mis solicitudes</Link>
+              <Link to="/mis-adopciones" className="text-gray-600 hover:text-pettech-orange transition-colors">Mis adopciones</Link>
             </>
           )}
           {user?.rol === 'ADMIN' && (
             <>
               <Link to="/mascotas/nueva" className="text-gray-600 hover:text-pettech-orange transition-colors">+ Mascota</Link>
               <Link to="/solicitudes" className="text-gray-600 hover:text-pettech-orange transition-colors">Solicitudes</Link>
+              <Link to="/adopciones" className="text-gray-600 hover:text-pettech-orange transition-colors">Adopciones</Link>
             </>
           )}
         </nav>
@@ -67,10 +69,14 @@ export default function NavBar() {
             <>
               <Link to="/perfil-adoptante" className="text-gray-600" onClick={() => setMobileOpen(false)}>Perfil del adoptante</Link>
               <Link to="/mis-solicitudes" className="text-gray-600" onClick={() => setMobileOpen(false)}>Mis solicitudes</Link>
+              <Link to="/mis-adopciones" className="text-gray-600" onClick={() => setMobileOpen(false)}>Mis adopciones</Link>
             </>
           )}
           {user?.rol === 'ADMIN' && (
-            <Link to="/solicitudes" className="text-gray-600" onClick={() => setMobileOpen(false)}>Solicitudes</Link>
+            <>
+              <Link to="/solicitudes" className="text-gray-600" onClick={() => setMobileOpen(false)}>Solicitudes</Link>
+              <Link to="/adopciones" className="text-gray-600" onClick={() => setMobileOpen(false)}>Adopciones</Link>
+            </>
           )}
           <button onClick={handleLogout} className="text-left text-red-500">Cerrar sesión</button>
         </div>
