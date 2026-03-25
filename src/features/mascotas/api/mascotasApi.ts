@@ -51,6 +51,7 @@ export interface CreateMascotaPayload {
   descripcion?: string
   estado?: string
   foto?: File
+  borrar_foto?: boolean
   nivel_energia?: string
   historial_vacunas?: VacunaRecord[]
   carnet_vacunas?: File
@@ -75,17 +76,13 @@ export const mascotasApi = {
   crear: (payload: CreateMascotaPayload) => {
     const form = new FormData()
     Object.entries(payload).forEach(([k, v]) => appendToForm(form, k, v))
-    return httpClient.post<Mascota>('/mascotas/', form, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    }).then((r) => r.data)
+    return httpClient.post<Mascota>('/mascotas/', form).then((r) => r.data)
   },
 
   actualizar: (id: number, payload: Partial<CreateMascotaPayload>) => {
     const form = new FormData()
     Object.entries(payload).forEach(([k, v]) => appendToForm(form, k, v))
-    return httpClient.patch<Mascota>(`/mascotas/${id}/`, form, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    }).then((r) => r.data)
+    return httpClient.patch<Mascota>(`/mascotas/${id}/`, form).then((r) => r.data)
   },
 
   eliminar: (id: number) =>

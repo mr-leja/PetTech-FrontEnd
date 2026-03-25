@@ -64,6 +64,7 @@ export default function EditarMascotaPage() {
   const [loadingData, setLoadingData] = useState(true)
   const [fotoFile, setFotoFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
+  const [fotoEliminada, setFotoEliminada] = useState(false)
   const [carnetFile, setCarnetFile] = useState<File | null>(null)
   const [step, setStep] = useState(1)
 
@@ -107,6 +108,7 @@ export default function EditarMascotaPage() {
   const handleFoto = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
+    setFotoEliminada(false)
     setFotoFile(file)
     setPreview(URL.createObjectURL(file))
   }
@@ -131,7 +133,7 @@ export default function EditarMascotaPage() {
         peso: data.peso ? parseFloat(data.peso) : undefined,
         sexo: data.sexo,
         estado: data.estado,
-        ...(fotoFile && { foto: fotoFile }),
+        ...(fotoFile ? { foto: fotoFile } : fotoEliminada ? { borrar_foto: true } : {}),
         nivel_energia: data.nivel_energia || undefined,
         historial_vacunas: data.vacunas || [],
         ...(carnetFile && { carnet_vacunas: carnetFile }),
@@ -302,18 +304,37 @@ export default function EditarMascotaPage() {
                   </select>
                 </div>
 
-                <div className="flex flex-col gap-2">
-                  <label className="text-sm font-medium text-gray-700">Foto / Video (opcional)</label>
-                  <label className="flex items-center gap-3 cursor-pointer border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-pettech-orange transition-colors">
-                    <Upload className="w-5 h-5 text-gray-400" />
-                    <span className="text-sm text-gray-500">{fotoFile ? fotoFile.name : 'Cambiar foto/video'}</span>
-                    <input type="file" accept="image/*,video/*" className="hidden" onChange={handleFoto} />
-                  </label>
-                  {preview && (
-                    fotoFile?.type.startsWith('video/')
-                      ? <video src={preview} controls className="w-full max-h-48 rounded-lg" />
-                      : <img src={preview} alt="preview" className="w-32 h-32 object-cover rounded-lg" />
-                  )}
+                <div className="flex flex-col gap-1">
+                  <label className="text-sm font-medium text-gray-700">Foto</label>
+                  <div className="flex items-center gap-4">
+                    {preview ? (
+                      <img
+                        src={preview}
+                        alt="Vista previa"
+                        className="w-16 h-16 rounded-lg object-cover border-2 border-pettech-orange"
+                      />
+                    ) : (
+                      <div className="w-16 h-16 rounded-lg bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center">
+                        <Upload className="w-6 h-6 text-gray-400" />
+                      </div>
+                    )}
+                    <div className="flex flex-col gap-1">
+                      <label className="cursor-pointer inline-flex items-center gap-1.5 text-sm text-pettech-orange border border-pettech-orange rounded-lg px-3 py-1.5 hover:bg-pettech-orange/10 transition-colors w-fit">
+                        <Upload className="w-3.5 h-3.5" />
+                        {preview ? 'Cambiar foto' : 'Subir foto'}
+                        <input type="file" accept="image/*" className="hidden" onChange={handleFoto} />
+                      </label>
+                      {preview && (
+                        <button
+                          type="button"
+                          className="text-xs text-gray-400 hover:text-red-500 transition-colors text-left"
+                          onClick={() => { setFotoFile(null); setPreview(null); setFotoEliminada(true) }}
+                        >
+                          Quitar foto
+                        </button>
+                      )}
+                    </div>
+                  </div>
                 </div>
 
                 <div className="flex flex-col gap-3">
