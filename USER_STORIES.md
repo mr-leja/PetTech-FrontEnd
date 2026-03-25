@@ -269,19 +269,21 @@ Una historia de usuario se considera terminada cuando:
 
 ## HU-08 – Solicitar adopción
 
- - **Como** familia adoptante
- - **Quiero** enviar una solicitud de adopción
- - **Para** expresar interés en una mascota
+- **Como** familia adoptante
+- **Quiero** enviar una solicitud de adopción desde la tarjeta de una mascota disponible
+- **Para** expresar mi interés formal en adoptarla
 
 ## Criterios de aceptación
 
 ### feature: Solicitud de adopción
 
-### Scenario: Selección de mascota para solicitud
-- **Given** que la familia adoptante está explorando mascotas disponibles
-- **When** selecciona una mascota y confirma el envio de la solicitud
-- **Then** el sistema permite iniciar una solicitud de adopción para esa mascota
-- **And** el sistema confirma y registra la solicitud de adopción
+### Scenario: Solicitud exitosa sobre mascota disponible
+- **Given** que la familia adoptante visualiza el listado de mascotas
+- **And** existe una mascota con estado "disponible"
+- **When** hace clic en "Solicitar adopción" y confirma
+- **Then** el sistema registra la solicitud con estado "pendiente"
+- **And** el estado de la mascota cambia automáticamente a "en proceso"
+- **And** el sistema muestra un mensaje de confirmación
 
 ### Scenario: La solicitud no se aprueba automáticamente
 - **Given** que la familia adoptante ha enviado una solicitud de adopción
@@ -289,73 +291,119 @@ Una historia de usuario se considera terminada cuando:
 - **Then** el estado de la solicitud queda como "pendiente"
 - **And** la solicitud no debe estar ni en estado aprobado ni rechazado
 
+### Scenario: Mascota en proceso solo visible para la familia solicitante
+- **Given** que una mascota ha pasado a estado "en proceso" por una solicitud de la familia A
+- **When** la familia B consulta el listado de mascotas
+- **Then** la mascota con estado "en proceso" no aparece en el listado de la familia B
+- **And** la familia A sí puede ver su mascota en proceso en su listado
+
 ### Scenario: Intento de solicitud sobre una mascota no disponible
-- **Given** una mascota con estado no disponible para adopción
+- **Given** una mascota con estado distinto a "disponible"
 - **When** la familia adoptante intenta enviar una solicitud de adopción
 - **Then** el sistema rechaza la solicitud
 - **And** notifica que la mascota no está disponible para adopción
 
+### Scenario: Familia sin perfil intenta solicitar adopción
+- **Given** que un usuario autenticado no tiene perfil de familia registrado
+- **When** intenta crear una solicitud de adopción
+- **Then** el sistema rechaza la operación
+- **And** informa que debe completar el perfil de familia antes de solicitar
+
 ### Story Points HU-08
   - 3 puntos de estimacion
-    Flujo CRUD sencillo: selección + registro + estado inicial+ validaciones simples.
+    Flujo CRUD con cambio de estado en cascada, filtro de visibilidad y validaciones de negocio.
 
-   --- 
+--- 
 
-## HU-09 – Consultar detalle de solicitud de adopción
+## HU-09 – Consultar solicitudes de adopción (admin)
 
-**Como** administrador  
-**Quiero** visualizar la información de la familia y la mascota en una solicitud  
-**Para** analizar la viabilidad de la adopción  
+**Como** administrador
+**Quiero** visualizar el listado y detalle de todas las solicitudes de adopción
+**Para** analizar la viabilidad de cada adopción antes de tomar una decisión
 
-## Criterios de aceptacion
+## Criterios de aceptación
 
-### feature: Consulta de solicitud de adopción
+### feature: Consulta de solicitudes de adopción
 
-### Scenario: Visualización de información completa  
-**Given** que existe una solicitud de adopción  
-**When** el administrador accede a su detalle  
-**Then** el sistema muestra la información de la familia y de la mascota  
+### Scenario: Visualización del listado de solicitudes
+**Given** que existen solicitudes registradas en el sistema
+**When** el administrador accede al módulo de gestión de solicitudes
+**Then** el sistema muestra el listado con estado, nombre de la mascota y nombre de la familia para cada solicitud
 
-### Scenario: Intento de acceso a una solicitud inexistente  
-**Given** que un administrador intenta acceder al detalle de una solicitud mediante un ID que no existe  
-**When** el sistema procesa la peticion 
-**Then** el sistema informa que la solicitud consultada no existe en el sistema  
+### Scenario: Visualización de información completa de una solicitud
+**Given** que existe una solicitud de adopción
+**When** el administrador accede a su detalle
+**Then** el sistema muestra la información completa de la mascota (nombre, especie, foto)
+**And** muestra los datos del adoptante (nombre, teléfono, ciudad, condiciones del hogar)
+**And** muestra el mensaje opcional enviado por la familia
+
+### Scenario: Filtro por estado de solicitud
+**Given** que existen solicitudes con diferentes estados (pendiente, aprobada, rechazada)
+**When** el administrador aplica un filtro por estado
+**Then** el sistema muestra únicamente las solicitudes que coinciden con el filtro seleccionado
+
+### Scenario: Intento de acceso a una solicitud inexistente
+**Given** que un administrador intenta acceder al detalle de una solicitud mediante un ID que no existe
+**When** el sistema procesa la petición
+**Then** el sistema informa que la solicitud consultada no existe en el sistema
+
+### Scenario: Familia consulta sus propias solicitudes
+**Given** que una familia adoptante ha realizado solicitudes de adopción
+**When** consulta el listado de sus solicitudes
+**Then** el sistema muestra únicamente sus propias solicitudes
+**And** no puede ver solicitudes de otras familias
 
 ### Story Points HU-09
   - 3 puntos de estimacion
-    Flujo unicamente de visualizacion no incluye logica compleja mas que manejo de sesiones
+    Flujo de visualización con control de acceso por rol y datos relacionados de dos entidades.
 
 ---
 
-## HU-10– Registrar decisión sobre solicitud
+## HU-10 – Registrar decisión sobre solicitud
 
-**Como** administrador  
-**Quiero** aprobar o rechazar una solicitud de adopción  
-**Para** controlar el proceso de asignación de mascotas  
+**Como** administrador
+**Quiero** aprobar o rechazar una solicitud de adopción
+**Para** controlar el proceso de asignación de mascotas y registrar adopciones realizadas
 
-## Criterios de aceptacion
+## Criterios de aceptación
 
-### feature: Gestión de decisión de solicitud  
+### feature: Gestión de decisión de solicitud
 
-### Scenario: Aprobación de solicitud  
-**Given** que el administrador ha revisado la solicitud  
-**When** decide aprobarla  
-**Then** el sistema registra la solicitud como "aprobada"  
+### Scenario: Aprobación de solicitud
+**Given** que el administrador ha revisado la solicitud con estado "pendiente"
+**When** hace clic en el botón "Aprobar"
+**Then** el sistema registra la solicitud como "aprobada"
+**And** la mascota cambia automáticamente a estado "adoptado"
+**And** se crea un registro en el módulo de adopciones realizadas
+**And** el contador de adopciones realizadas del adoptante se incrementa
 
-### Scenario: Rechazo de solicitud  
-**Given** que el administrador ha revisado la solicitud  
-**When** decide rechazarla  
-**Then** el sistema registra la solicitud como "rechazada"  
+### Scenario: Rechazo de solicitud
+**Given** que el administrador ha revisado la solicitud con estado "pendiente"
+**When** hace clic en el botón "Rechazar"
+**Then** el sistema registra la solicitud como "rechazada"
+**And** la mascota vuelve automáticamente a estado "disponible"
+**And** la mascota vuelve a ser visible para todos los adoptantes
+
+### Scenario: Actualización de contadores del adoptante al aprobar
+**Given** que una solicitud de adopción es aprobada
+**When** el adoptante consulta su perfil
+**Then** el contador de "adopciones en proceso" disminuye en uno
+**And** el contador de "adopciones realizadas" aumenta en uno
 
 ### Scenario: Intento de cambiar una solicitud ya finalizada
-**Given** que existe una solicitud con estado "aprobada" o "rechazada"  
-**When** el administrador intenta realizar una acción sobre la solicitud  
-**Then** el sistema rechaza la operación  
+**Given** que existe una solicitud con estado "aprobada" o "rechazada"
+**When** el administrador intenta realizar una acción de aprobación o rechazo sobre la solicitud
+**Then** el sistema rechaza la operación
 **And** muestra un mensaje indicando que la solicitud ya tiene una decisión final
+
+### Scenario: Registro en el módulo de adopciones
+**Given** que una solicitud es aprobada
+**When** el administrador consulta el módulo de adopciones realizadas
+**Then** aparece un nuevo registro con los datos de la mascota, la familia y la fecha de adopción
 
 ### Story Points HU-10
   - 5 puntos de estimacion
-    Logica de de cambio de estado de solicitud incluye ver datos de tablas con datos existentes
+    Lógica de cambio de estado en cascada: solicitud → mascota → adopción registrada + actualización de contadores del adopante.
 
 ---
 ## HU-11 – Sugerir alternativa de adopción
