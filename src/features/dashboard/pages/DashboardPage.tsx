@@ -167,6 +167,16 @@ export default function DashboardPage() {
                   <p className="text-sm text-gray-500">Aprobar o rechazar solicitudes de adopción</p>
                 </div>
               </Link>
+              <Link
+                to="/adopciones"
+                className="card p-6 hover:shadow-md transition-shadow flex flex-col gap-3 group bg-pettech-orange/5"
+              >
+                <Heart className="w-8 h-8 text-pettech-orange group-hover:scale-110 transition-transform" />
+                <div>
+                  <h3 className="font-semibold text-gray-800">Historial de adopciones</h3>
+                  <p className="text-sm text-gray-500">Ver registro completo de adopciones</p>
+                </div>
+              </Link>
             </>
           )}
         </div>
