@@ -37,7 +37,7 @@ function AdopcionCard({ adopcion }: { adopcion: Adopcion }) {
   })
 
   return (
-    <article className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+    <article className="card overflow-hidden">
       <div className="flex flex-col sm:flex-row">
         {/* Foto mascota */}
         <div className="sm:w-48 sm:h-auto h-48 flex-shrink-0 bg-gray-100">
@@ -126,51 +126,38 @@ export default function AdopcionesRealizadasPage() {
   return (
     <div className="min-h-screen bg-pettech-cream">
       <NavBar />
-      <main className="max-w-3xl mx-auto px-4 py-8">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+      <main className="max-w-2xl mx-auto p-6">
+        <div className="flex items-center gap-3 mb-6">
           <Heart className="w-6 h-6 text-pettech-orange" />
-          Mis adopciones realizadas
-        </h1>
-        <p className="text-gray-500 text-sm mt-1">
-          Historial de las mascotas que has adoptado a través de PetTech.
-        </p>
-      </div>
-
-      {isLoading && (
-        <div className="flex justify-center py-16">
-          <Spinner />
+          <div>
+            <h1 className="text-2xl font-semibold text-gray-800">Mis adopciones</h1>
+            <p className="text-sm text-gray-500">{data?.count ?? 0} adopciones realizadas</p>
+          </div>
         </div>
-      )}
 
-      {isError && (
-        <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center text-red-600">
-          No se pudieron cargar las adopciones. Intenta de nuevo más tarde.
-        </div>
-      )}
+        {isLoading && <Spinner />}
 
-      {!isLoading && !isError && data && (
-        <>
-          {data.results.length === 0 ? (
-            <div className="text-center py-16">
-              <PawPrint className="w-14 h-14 text-gray-200 mx-auto mb-3" />
-              <p className="text-gray-500 font-medium">Aún no tienes adopciones realizadas.</p>
-              <p className="text-gray-400 text-sm mt-1">
-                Cuando una solicitud sea aprobada, aparecerá aquí tu historia de adopción.
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              <p className="text-sm text-gray-500">
-                {data.count} {data.count === 1 ? 'adopción registrada' : 'adopciones registradas'}
-              </p>
-              {data.results.map((adopcion) => (
-                <AdopcionCard key={adopcion.id} adopcion={adopcion} />
-              ))}
-            </div>
-          )}
-        </>
-      )}
+        {isError && (
+          <p className="text-red-500 text-center">Error al cargar las adopciones.</p>
+        )}
+
+        {!isLoading && !isError && data?.results.length === 0 && (
+          <div className="card p-10 text-center">
+            <PawPrint className="w-12 h-12 text-pettech-orange opacity-40 mx-auto mb-4" />
+            <h2 className="text-base font-semibold text-gray-700 mb-1">Aún no tienes adopciones</h2>
+            <p className="text-sm text-gray-500">
+              Cuando una solicitud sea aprobada, aparecerá aquí tu historia de adopción.
+            </p>
+          </div>
+        )}
+
+        {!isLoading && !isError && data && data.results.length > 0 && (
+          <div className="flex flex-col gap-3">
+            {data.results.map((adopcion) => (
+              <AdopcionCard key={adopcion.id} adopcion={adopcion} />
+            ))}
+          </div>
+        )}
       </main>
     </div>
   )
