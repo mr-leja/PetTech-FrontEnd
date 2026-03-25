@@ -118,7 +118,7 @@ export default function RegistrarFamiliaPage() {
         telefono: f.telefono,
         ciudad: f.ciudad,
         departamento: f.departamento,
-        redes_sociales: f.redes_sociales ?? ''
+        redes_sociales: f.redes_sociales ?? '',
         tipo_vivienda: c?.tipo_vivienda ?? 'CASA',
         propiedad_vivienda: c?.propiedad_vivienda ?? 'PROPIA',
         tiene_patio: c?.tiene_patio ?? false,
