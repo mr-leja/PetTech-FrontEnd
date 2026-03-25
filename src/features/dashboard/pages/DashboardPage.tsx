@@ -166,7 +166,7 @@ export default function DashboardPage() {
             <>
               <Link
                 to="/mascotas/nueva"
-                className="card p-6 hover:shadow-md transition-shadow flex flex-col gap-3 group bg-pettech-orange/5"
+                className="card p-6 hover:shadow-md transition-shadow flex flex-col gap-3 group"
               >
                 <PawPrint className="w-8 h-8 text-pettech-orange group-hover:scale-110 transition-transform" />
                 <div>
@@ -176,7 +176,7 @@ export default function DashboardPage() {
               </Link>
               <Link
                 to="/solicitudes"
-                className="card p-6 hover:shadow-md transition-shadow flex flex-col gap-3 group bg-pettech-orange/5"
+                className="card p-6 hover:shadow-md transition-shadow flex flex-col gap-3 group"
               >
                 <ClipboardList className="w-8 h-8 text-pettech-orange group-hover:scale-110 transition-transform" />
                 <div>
@@ -186,7 +186,7 @@ export default function DashboardPage() {
               </Link>
               <Link
                 to="/adopciones"
-                className="card p-6 hover:shadow-md transition-shadow flex flex-col gap-3 group bg-pettech-orange/5"
+                className="card p-6 hover:shadow-md transition-shadow flex flex-col gap-3 group"
               >
                 <Heart className="w-8 h-8 text-pettech-orange group-hover:scale-110 transition-transform" />
                 <div>
