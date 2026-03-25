@@ -125,9 +125,22 @@ export default function PerfilAdoptantePage() {
       <main className="max-w-2xl mx-auto p-6">
         {/* Encabezado */}
         <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-800">Perfil del adoptante</h1>
-            <p className="text-sm text-gray-500">{user?.email}</p>
+          <div className="flex items-center gap-4">
+            {familia.foto_perfil_url ? (
+              <img
+                src={familia.foto_perfil_url}
+                alt="Foto de perfil"
+                className="w-14 h-14 rounded-full object-cover border-2 border-pettech-orange shrink-0"
+              />
+            ) : (
+              <div className="w-14 h-14 rounded-full bg-pettech-orange/20 flex items-center justify-center shrink-0">
+                <User className="w-7 h-7 text-pettech-orange" />
+              </div>
+            )}
+            <div>
+              <h1 className="text-2xl font-bold text-gray-800">Perfil del adoptante</h1>
+              <p className="text-sm text-gray-500">{user?.email}</p>
+            </div>
           </div>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1 bg-green-100 text-green-700 text-xs px-3 py-1.5 rounded-full">

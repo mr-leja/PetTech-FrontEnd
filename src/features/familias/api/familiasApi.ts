@@ -32,6 +32,7 @@ export interface Familia {
   nombre_familia: string
   cedula: string
   foto_cedula_url: string | null
+  foto_perfil_url: string | null
   fecha_nacimiento: string
   telefono: string
   ciudad: string
@@ -70,9 +71,16 @@ export const familiasApi = {
   actualizarFamilia: (payload: Partial<{
     nombre_familia: string; cedula: string; fecha_nacimiento: string;
     telefono: string; ciudad: string; departamento: string;
-    direccion: string; redes_sociales: string;
-  }>) =>
-    httpClient.patch('/familias/mia/', payload).then((r) => r.data),
+    direccion: string; redes_sociales: string; foto_perfil?: File;
+  }>) => {
+    const form = new FormData()
+    Object.entries(payload).forEach(([k, v]) => {
+      if (v !== undefined) form.append(k, v instanceof File ? v : String(v))
+    })
+    return httpClient.patch('/familias/mia/', form, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }).then((r) => r.data)
+  },
 
   misCondicionesHogar: () =>
     httpClient.get('/familias/mia/condiciones-hogar/').then((r) => r.data),

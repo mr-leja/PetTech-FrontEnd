@@ -9,7 +9,7 @@ import { Input } from '@/shared/components/Input'
 import Button from '@/shared/components/Button'
 import NavBar from '@/shared/components/NavBar'
 import { useAuthStore } from '@/shared/store/authStore'
-import { CheckCircle, Plus, Trash2 } from 'lucide-react'
+import { CheckCircle, Plus, Trash2, Upload } from 'lucide-react'
 
 const schema = z.object({
   // Paso 2 - Información básica
@@ -75,6 +75,8 @@ export default function RegistrarFamiliaPage() {
   const [step, setStep] = useState(1) // 1=básica, 2=hogar
   const [loading, setLoading] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
+  const [fotoPerfil, setFotoPerfil] = useState<File | null>(null)
+  const [fotoPreview, setFotoPreview] = useState<string | null>(null)
 
   const {
     register,
@@ -111,6 +113,7 @@ export default function RegistrarFamiliaPage() {
       if (!tiene_familia || !f) return
       setIsEditing(true)
       const c = f.condiciones_hogar
+      if (f.foto_perfil_url) setFotoPreview(f.foto_perfil_url)
       reset({
         nombre_familia: f.nombre_familia,
         cedula: f.cedula,
@@ -153,6 +156,7 @@ export default function RegistrarFamiliaPage() {
           ciudad: data.ciudad,
           departamento: data.departamento,
           redes_sociales: data.redes_sociales,
+          ...(fotoPerfil && { foto_perfil: fotoPerfil }),
         })
         await familiasApi.actualizarCondicionesHogar({
           tipo_vivienda: data.tipo_vivienda,
@@ -178,6 +182,7 @@ export default function RegistrarFamiliaPage() {
         fd.append('ciudad', data.ciudad)
         fd.append('departamento', data.departamento)
         if (data.redes_sociales) fd.append('redes_sociales', data.redes_sociales)
+        if (fotoPerfil) fd.append('foto_perfil', fotoPerfil)
         await familiasApi.crearFamilia(fd)
         await familiasApi.registrarCondicionesHogar({
           tipo_vivienda: data.tipo_vivienda,
@@ -310,6 +315,41 @@ export default function RegistrarFamiliaPage() {
                   error={errors.redes_sociales?.message}
                   {...register('redes_sociales')}
                 />
+
+                <div className="flex flex-col gap-1">
+                  <label className="text-sm font-medium text-gray-700">Foto de perfil (opcional)</label>
+                  <label className="flex items-center gap-3 cursor-pointer border-2 border-dashed border-gray-300 rounded-lg p-3 hover:border-pettech-orange transition-colors">
+                    <Upload className="w-5 h-5 text-gray-400 shrink-0" />
+                    <span className="text-sm text-gray-500 truncate">
+                      {fotoPerfil ? fotoPerfil.name : 'Seleccionar imagen (JPG, PNG o WebP — máx. 5 MB)'}
+                    </span>
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0]
+                        if (!file) return
+                        if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+                          toast.error('Solo se permiten imágenes JPEG, PNG o WebP.')
+                          return
+                        }
+                        if (file.size > 5 * 1024 * 1024) {
+                          toast.error('La imagen no puede superar 5 MB.')
+                          return
+                        }
+                        setFotoPerfil(file)
+                        setFotoPreview(URL.createObjectURL(file))
+                      }}
+                    />
+                  </label>
+                  {fotoPreview && (
+                    <div className="flex items-center gap-3 mt-1">
+                      <img src={fotoPreview} alt="preview" className="w-16 h-16 rounded-full object-cover border-2 border-pettech-orange" />
+                      <button type="button" onClick={() => { setFotoPerfil(null); setFotoPreview(null) }} className="text-xs text-red-400 hover:text-red-600">Quitar foto</button>
+                    </div>
+                  )}
+                </div>
 
                 <Button type="button" onClick={handleNext} className="w-full mt-2">
                   Continuar
