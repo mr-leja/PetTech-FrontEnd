@@ -32,7 +32,10 @@ export default function NavBar() {
             <Link to="/perfil-adoptante" className="text-gray-600 hover:text-pettech-orange transition-colors">Perfil del adoptante</Link>
           )}
           {user?.rol === 'ADMIN' && (
-            <Link to="/mascotas/nueva" className="text-gray-600 hover:text-pettech-orange transition-colors">+ Mascota</Link>
+            <>
+              <Link to="/mascotas/nueva" className="text-gray-600 hover:text-pettech-orange transition-colors">+ Mascota</Link>
+              <Link to="/solicitudes" className="text-gray-600 hover:text-pettech-orange transition-colors">Solicitudes</Link>
+            </>
           )}
         </nav>
 
@@ -59,6 +62,9 @@ export default function NavBar() {
           <Link to="/mascotas" className="text-gray-600" onClick={() => setMobileOpen(false)}>Mascotas</Link>
           {user?.rol !== 'ADMIN' && (
             <Link to="/perfil-adoptante" className="text-gray-600" onClick={() => setMobileOpen(false)}>Perfil del adoptante</Link>
+          )}
+          {user?.rol === 'ADMIN' && (
+            <Link to="/solicitudes" className="text-gray-600" onClick={() => setMobileOpen(false)}>Solicitudes</Link>
           )}
           <button onClick={handleLogout} className="text-left text-red-500">Cerrar sesión</button>
         </div>
