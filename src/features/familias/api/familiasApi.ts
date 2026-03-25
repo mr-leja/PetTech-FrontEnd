@@ -77,9 +77,7 @@ export const familiasApi = {
     Object.entries(payload).forEach(([k, v]) => {
       if (v !== undefined) form.append(k, v instanceof File ? v : String(v))
     })
-    return httpClient.patch('/familias/mia/', form, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    }).then((r) => r.data)
+    return httpClient.patch('/familias/mia/', form).then((r) => r.data)
   },
 
   misCondicionesHogar: () =>
