@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
-import { PawPrint, Users, Heart, Home, Clock, CheckCircle } from 'lucide-react'
+import { PawPrint, Users, Heart, Home, Clock, CheckCircle, ClipboardList } from 'lucide-react'
 import { useAuthStore } from '@/shared/store/authStore'
 import { mascotasApi } from '@/features/mascotas/api/mascotasApi'
 import { familiasApi } from '@/features/familias/api/familiasApi'
+import { solicitudesApi } from '@/features/adopciones/api/solicitudesApi'
 import NavBar from '@/shared/components/NavBar'
 import Spinner from '@/shared/components/Spinner'
 
@@ -33,6 +34,12 @@ export default function DashboardPage() {
     queryKey: ['familias', 'dashboard'],
     queryFn: () => familiasApi.listarFamilias(),
     enabled: isAdmin,
+  })
+
+  const { data: contadores } = useQuery({
+    queryKey: ['solicitudes', 'contadores'],
+    queryFn: () => solicitudesApi.misContadores(),
+    enabled: !isAdmin,
   })
 
   const disponibles = mascotas?.results.filter((m) => m.estado === 'DISPONIBLE').length ?? 0
@@ -93,13 +100,13 @@ export default function DashboardPage() {
           <div className="grid grid-cols-2 gap-4 mb-8">
             <StatCard
               label="Adopciones realizadas"
-              value={0}
+              value={contadores?.adopciones_realizadas ?? 0}
               icon={<CheckCircle className="w-6 h-6 text-green-500" />}
               color="border-green-400"
             />
             <StatCard
               label="Adopciones en proceso"
-              value={0}
+              value={contadores?.adopciones_en_proceso ?? 0}
               icon={<Clock className="w-6 h-6 text-yellow-500" />}
               color="border-yellow-400"
             />
@@ -119,19 +126,48 @@ export default function DashboardPage() {
             </div>
           </Link>
 
+          {!isAdmin && (
+            <Link
+              to="/mis-solicitudes"
+              className="card p-6 hover:shadow-md transition-shadow flex flex-col gap-3 group"
+            >
+              <ClipboardList className="w-8 h-8 text-pettech-orange group-hover:scale-110 transition-transform" />
+              <div>
+                <h3 className="font-semibold text-gray-800">Mis solicitudes</h3>
+                <p className="text-sm text-gray-500">
+                  {(contadores?.adopciones_en_proceso ?? 0) > 0
+                    ? `${contadores!.adopciones_en_proceso} en revisión`
+                    : 'Consulta el estado de tus solicitudes'}
+                </p>
+              </div>
+            </Link>
+          )}
+
 
 
           {isAdmin && (
-            <Link
-              to="/mascotas/nueva"
-              className="card p-6 hover:shadow-md transition-shadow flex flex-col gap-3 group bg-pettech-orange/5"
-            >
-              <PawPrint className="w-8 h-8 text-pettech-orange group-hover:scale-110 transition-transform" />
-              <div>
-                <h3 className="font-semibold text-gray-800">Registrar mascota</h3>
-                <p className="text-sm text-gray-500">Agregar nueva mascota al sistema</p>
-              </div>
-            </Link>
+            <>
+              <Link
+                to="/mascotas/nueva"
+                className="card p-6 hover:shadow-md transition-shadow flex flex-col gap-3 group bg-pettech-orange/5"
+              >
+                <PawPrint className="w-8 h-8 text-pettech-orange group-hover:scale-110 transition-transform" />
+                <div>
+                  <h3 className="font-semibold text-gray-800">Registrar mascota</h3>
+                  <p className="text-sm text-gray-500">Agregar nueva mascota al sistema</p>
+                </div>
+              </Link>
+              <Link
+                to="/solicitudes"
+                className="card p-6 hover:shadow-md transition-shadow flex flex-col gap-3 group bg-pettech-orange/5"
+              >
+                <ClipboardList className="w-8 h-8 text-pettech-orange group-hover:scale-110 transition-transform" />
+                <div>
+                  <h3 className="font-semibold text-gray-800">Gestionar solicitudes</h3>
+                  <p className="text-sm text-gray-500">Aprobar o rechazar solicitudes de adopción</p>
+                </div>
+              </Link>
+            </>
           )}
         </div>
 
