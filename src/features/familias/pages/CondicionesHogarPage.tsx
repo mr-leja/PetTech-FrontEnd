@@ -259,9 +259,9 @@ export default function PerfilAdoptantePage() {
           </>
         )}
 
-        {/* Zona de peligro */}
+        {/* Eliminar cuenta */}
         <div className="border border-red-200 rounded-xl p-5 mt-2">
-          <h3 className="text-sm font-semibold text-red-600 mb-1">Zona de peligro</h3>
+          <h3 className="text-sm font-semibold text-red-600 mb-1">Eliminar cuenta</h3>
           <p className="text-xs text-gray-500 mb-3">Eliminar tu cuenta borrará permanentemente tu perfil y todos los datos asociados.</p>
           <button
             onClick={() => setShowDeleteModal(true)}
