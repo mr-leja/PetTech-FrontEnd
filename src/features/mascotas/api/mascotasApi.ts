@@ -23,6 +23,11 @@ export interface Mascota {
   estado: 'DISPONIBLE' | 'EN_PROCESO' | 'ADOPTADO' | 'NO_DISPONIBLE'
   foto_url: string | null
   nivel_energia: 'BAJO' | 'MEDIO' | 'ALTO' | ''
+  nivel_independencia: 'BAJO' | 'MEDIO' | 'ALTO' | ''
+  nivel_complejidad: 'BAJO' | 'MEDIO' | 'ALTO' | ''
+  nivel_sociabilidad: 'BAJO' | 'MEDIO' | 'ALTO' | ''
+  apta_ninos: boolean | null
+  costo_estimado_mensual: 'MENOS_1SMLV' | '1_2SMLV' | '2_4SMLV' | 'MAS_4SMLV' | ''
   historial_vacunas: VacunaRecord[]
   carnet_vacunas_url: string | null
   historia_mascota: string
@@ -53,6 +58,11 @@ export interface CreateMascotaPayload {
   foto?: File
   borrar_foto?: boolean
   nivel_energia?: string
+  nivel_independencia?: string
+  nivel_complejidad?: string
+  nivel_sociabilidad?: string
+  apta_ninos?: boolean | null
+  costo_estimado_mensual?: string
   historial_vacunas?: VacunaRecord[]
   carnet_vacunas?: File
   historia_mascota?: string

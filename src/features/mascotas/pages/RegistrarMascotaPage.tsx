@@ -43,8 +43,14 @@ const schema = z.object({
   peso: z.string().min(1, 'Requerido'),
   sexo: z.string().min(1, 'Selecciona el sexo'),
   estado: z.enum(['DISPONIBLE', 'EN_PROCESO', 'NO_DISPONIBLE']).default('DISPONIBLE'),
-  // Paso 2 — Información de salud
+  // Paso 2 — Características para adopción (matching)
   nivel_energia: z.enum(['BAJO', 'MEDIO', 'ALTO', '']).optional(),
+  nivel_independencia: z.enum(['BAJO', 'MEDIO', 'ALTO', '']).optional(),
+  nivel_complejidad: z.enum(['BAJO', 'MEDIO', 'ALTO', '']).optional(),
+  nivel_sociabilidad: z.enum(['BAJO', 'MEDIO', 'ALTO', '']).optional(),
+  apta_ninos: z.enum(['SI', 'NO', '']).optional(),
+  costo_estimado_mensual: z.enum(['MENOS_1SMLV', '1_2SMLV', '2_4SMLV', 'MAS_4SMLV', '']).optional(),
+  // Paso 2 — Información de salud
   vacunas: z.array(vacunaSchema).optional(),
   historia_mascota: z.string().optional(),
   info_adicional: z.string().optional(),
@@ -68,7 +74,12 @@ export default function RegistrarMascotaPage() {
 
   const { register, handleSubmit, trigger, control, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { especie: 'PERRO', estado: 'DISPONIBLE', edad: 0, edad_unidad: 'ANIOS', tamano: '', sexo: '', vacunas: [] },
+    defaultValues: {
+      especie: 'PERRO', estado: 'DISPONIBLE', edad: 0, edad_unidad: 'ANIOS',
+      tamano: '', sexo: '', vacunas: [],
+      nivel_energia: '', nivel_independencia: '', nivel_complejidad: '',
+      nivel_sociabilidad: '', apta_ninos: '', costo_estimado_mensual: '',
+    },
   })
 
   const { fields: vacunaFields, append: appendVacuna, remove: removeVacuna } = useFieldArray({
@@ -105,6 +116,11 @@ export default function RegistrarMascotaPage() {
         estado: data.estado,
         ...(fotoFile && { foto: fotoFile }),
         nivel_energia: data.nivel_energia || undefined,
+        nivel_independencia: data.nivel_independencia || undefined,
+        nivel_complejidad: data.nivel_complejidad || undefined,
+        nivel_sociabilidad: data.nivel_sociabilidad || undefined,
+        apta_ninos: data.apta_ninos === 'SI' ? true : data.apta_ninos === 'NO' ? false : null,
+        costo_estimado_mensual: data.costo_estimado_mensual || undefined,
         historial_vacunas: data.vacunas || [],
         ...(carnetFile && { carnet_vacunas: carnetFile }),
         historia_mascota: data.historia_mascota,
@@ -262,7 +278,60 @@ export default function RegistrarMascotaPage() {
                     <option value="ALTO">Alto</option>
                   </select>
                 </div>
+                {/* ── Características para adopción (matching) ── */}
+                <div className="border border-orange-100 rounded-xl p-4 bg-orange-50/40 flex flex-col gap-4">
+                  <h3 className="text-sm font-semibold text-pettech-orange">Características para adopción</h3>
+                  <p className="text-xs text-gray-500 -mt-2">Estos datos se usan para recomendar la mascota a familias compatibles.</p>
 
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-1">
+                      <label className="text-sm font-medium text-gray-700">Nivel de independencia</label>
+                      <select className="input-field" {...register('nivel_independencia')}>
+                        <option value="">Seleccionar...</option>
+                        <option value="BAJO">Baja (necesita compañía constante)</option>
+                        <option value="MEDIO">Media (puede estar solo moderadamente)</option>
+                        <option value="ALTO">Alta (muy independiente)</option>
+                      </select>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <label className="text-sm font-medium text-gray-700">Sociabilidad con otras mascotas</label>
+                      <select className="input-field" {...register('nivel_sociabilidad')}>
+                        <option value="">Seleccionar...</option>
+                        <option value="BAJO">Baja (prefiere estar solo)</option>
+                        <option value="MEDIO">Media (se adapta)</option>
+                        <option value="ALTO">Alta (muy sociable)</option>
+                      </select>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <label className="text-sm font-medium text-gray-700">Complejidad de cuidado</label>
+                      <select className="input-field" {...register('nivel_complejidad')}>
+                        <option value="">Seleccionar...</option>
+                        <option value="BAJO">Baja (ideal para principiantes)</option>
+                        <option value="MEDIO">Media (algo de experiencia)</option>
+                        <option value="ALTO">Alta (requiere experiencia)</option>
+                      </select>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <label className="text-sm font-medium text-gray-700">¿Apta para niños?</label>
+                      <select className="input-field" {...register('apta_ninos')}>
+                        <option value="">Seleccionar...</option>
+                        <option value="SI">Sí</option>
+                        <option value="NO">No</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium text-gray-700">Costo estimado de cuidado mensual</label>
+                    <select className="input-field" {...register('costo_estimado_mensual')}>
+                      <option value="">Seleccionar...</option>
+                      <option value="MENOS_1SMLV">Menos de 1 SMLV</option>
+                      <option value="1_2SMLV">1–2 SMLV</option>
+                      <option value="2_4SMLV">2–4 SMLV</option>
+                      <option value="MAS_4SMLV">Más de 4 SMLV</option>
+                    </select>
+                  </div>
+                </div>
                 {/* Foto */}
                 <div className="flex flex-col gap-1">
                   <label className="text-sm font-medium text-gray-700">Foto</label>
