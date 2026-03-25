@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { CheckCircle, XCircle, SlidersHorizontal, ChevronDown, ChevronUp, PawPrint, User } from 'lucide-react'
+import { CheckCircle, XCircle, SlidersHorizontal, ChevronDown, ChevronUp, PawPrint, User, Scale } from 'lucide-react'
 import toast from 'react-hot-toast'
 import NavBar from '@/shared/components/NavBar'
 import Spinner from '@/shared/components/Spinner'
@@ -46,6 +46,151 @@ const INGRESOS_LABEL: Record<string, string> = {
   '1_2SMLV': '1–2 SMLV',
   '2_4SMLV': '2–4 SMLV',
   MAS_4SMLV: '> 4 SMLV',
+}
+
+const NIVEL_LABEL: Record<string, string> = {
+  BAJO: 'Bajo', MEDIO: 'Medio', ALTO: 'Alto',
+}
+
+const COSTO_LABEL: Record<string, string> = {
+  MENOS_1SMLV: '< 1 SMLV/mes',
+  '1_2SMLV': '1–2 SMLV/mes',
+  '2_4SMLV': '2–4 SMLV/mes',
+  MAS_4SMLV: '> 4 SMLV/mes',
+}
+
+// Orden numérico para comparaciones de nivel BAJO/MEDIO/ALTO
+const NIVEL_NUM: Record<string, number> = { BAJO: 1, MEDIO: 2, ALTO: 3 }
+const INGRESOS_NUM: Record<string, number> = { MENOS_1SMLV: 1, '1_2SMLV': 2, '2_4SMLV': 3, MAS_4SMLV: 4 }
+
+function CompatRow({
+  criterio, mascota, familia, compatible,
+}: {
+  criterio: string
+  mascota: string
+  familia: string
+  compatible: boolean | null
+}) {
+  const badge =
+    compatible === true
+      ? 'bg-green-100 text-green-700'
+      : compatible === false
+      ? 'bg-red-100 text-red-600'
+      : 'bg-gray-100 text-gray-500'
+  const icon = compatible === true ? '✓' : compatible === false ? '✗' : '?'
+  return (
+    <div className="grid grid-cols-[1fr_1fr_1fr_52px] items-center gap-2 py-2 border-b border-gray-100 last:border-0">
+      <span className="text-xs text-gray-500">{criterio}</span>
+      <span className="text-xs font-medium text-pettech-orange">{mascota || '—'}</span>
+      <span className="text-xs font-medium text-blue-700">{familia || '—'}</span>
+      <span className={`text-xs font-bold px-2 py-0.5 rounded-full text-center ${badge}`}>{icon}</span>
+    </div>
+  )
+}
+
+function PanelCompatibilidad({ solicitud }: { solicitud: SolicitudAdopcion }) {
+  const ch = solicitud.condiciones_hogar
+
+  // Criterio 1: Tamaño mascota vs tamaño hogar
+  const tamanoOk = solicitud.mascota_tamano && ch?.tamano_hogar
+    ? NIVEL_NUM[solicitud.mascota_tamano] <= NIVEL_NUM[ch.tamano_hogar]
+    : null
+
+  // Criterio 2: Independencia (tiempo solo tolerado por mascota) vs horas que pasa sola
+  const soledadOk = solicitud.mascota_nivel_independencia && ch?.tiempo_solo_horas != null
+    ? !(NIVEL_NUM[solicitud.mascota_nivel_independencia] === 1 && ch.tiempo_solo_horas > 6)
+    : null
+
+  // Criterio 3: Complejidad mascota vs experiencia declarada (texto → si no tiene experiencia = BAJO)
+  const tieneExperiencia = ch?.experiencia_mascotas && ch.experiencia_mascotas.trim().length > 10
+  const complejidadOk = solicitud.mascota_nivel_complejidad
+    ? !(NIVEL_NUM[solicitud.mascota_nivel_complejidad] === 3 && !tieneExperiencia)
+    : null
+
+  // Criterio 4: Sociabilidad mascota vs tiene mascotas actualmente
+  const sociabilidadOk = solicitud.mascota_nivel_sociabilidad
+    ? NIVEL_NUM[solicitud.mascota_nivel_sociabilidad] > 1 || !ch?.tiene_mascotas_actualmente
+    : null
+
+  // Criterio 5: Apta para niños vs tiene niños en casa
+  const ninosOk = solicitud.mascota_apta_ninos != null && ch?.tiene_ninos != null
+    ? !ch.tiene_ninos || solicitud.mascota_apta_ninos === true
+    : null
+
+  // Criterio 6: Costo estimado vs ingresos familia
+  const costoOk = solicitud.mascota_costo_estimado_mensual && ch?.ingresos_estimados
+    ? INGRESOS_NUM[ch.ingresos_estimados] >= INGRESOS_NUM[solicitud.mascota_costo_estimado_mensual]
+    : null
+
+  const total = [tamanoOk, soledadOk, complejidadOk, sociabilidadOk, ninosOk, costoOk]
+  const conocidos = total.filter((v) => v !== null)
+  const compatibles = total.filter((v) => v === true).length
+  const scoreColor =
+    conocidos.length === 0 ? 'text-gray-400'
+    : compatibles / conocidos.length >= 0.75 ? 'text-green-600'
+    : compatibles / conocidos.length >= 0.5 ? 'text-yellow-600'
+    : 'text-red-600'
+
+  return (
+    <div className="p-4 border-b border-gray-200 bg-orange-50/30">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <Scale className="w-4 h-4 text-pettech-orange" />
+          <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Análisis de compatibilidad</p>
+        </div>
+        {conocidos.length > 0 && (
+          <span className={`text-xs font-bold ${scoreColor}`}>
+            {compatibles}/{conocidos.length} criterios compatibles
+          </span>
+        )}
+      </div>
+
+      {/* Header */}
+      <div className="grid grid-cols-[1fr_1fr_1fr_52px] gap-2 mb-1">
+        <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Criterio</span>
+        <span className="text-xs font-semibold text-pettech-orange uppercase tracking-wide">Mascota</span>
+        <span className="text-xs font-semibold text-blue-600 uppercase tracking-wide">Familia</span>
+        <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide text-center">OK</span>
+      </div>
+
+      <CompatRow
+        criterio="Tamaño vs hogar"
+        mascota={TAMANO_LABEL[solicitud.mascota_tamano] ?? solicitud.mascota_tamano}
+        familia={TAMANO_LABEL[ch?.tamano_hogar ?? ''] ?? ch?.tamano_hogar ?? ''}
+        compatible={tamanoOk}
+      />
+      <CompatRow
+        criterio="Independencia vs horas sola"
+        mascota={NIVEL_LABEL[solicitud.mascota_nivel_independencia] ?? '—'}
+        familia={ch?.tiempo_solo_horas != null ? `${ch.tiempo_solo_horas}h/día` : '—'}
+        compatible={soledadOk}
+      />
+      <CompatRow
+        criterio="Complejidad vs experiencia"
+        mascota={NIVEL_LABEL[solicitud.mascota_nivel_complejidad] ?? '—'}
+        familia={tieneExperiencia ? 'Con experiencia' : ch ? 'Sin experiencia' : '—'}
+        compatible={complejidadOk}
+      />
+      <CompatRow
+        criterio="Sociabilidad vs otras mascotas"
+        mascota={NIVEL_LABEL[solicitud.mascota_nivel_sociabilidad] ?? '—'}
+        familia={ch ? (ch.tiene_mascotas_actualmente ? 'Tiene mascotas' : 'Sin mascotas') : '—'}
+        compatible={sociabilidadOk}
+      />
+      <CompatRow
+        criterio="Apta para niños"
+        mascota={solicitud.mascota_apta_ninos === true ? 'Sí' : solicitud.mascota_apta_ninos === false ? 'No' : '—'}
+        familia={ch ? (ch.tiene_ninos ? 'Hay niños' : 'Sin niños') : '—'}
+        compatible={ninosOk}
+      />
+      <CompatRow
+        criterio="Costo vs ingresos"
+        mascota={COSTO_LABEL[solicitud.mascota_costo_estimado_mensual] ?? '—'}
+        familia={INGRESOS_LABEL[ch?.ingresos_estimados ?? ''] ?? '—'}
+        compatible={costoOk}
+      />
+    </div>
+  )
 }
 
 function DataItem({ label, value }: { label: string; value?: string | number | null }) {
@@ -163,6 +308,9 @@ function SolicitudRow({ solicitud }: { solicitud: SolicitudAdopcion }) {
               </div>
             )}
           </div>
+
+          {/* ── PANEL COMPATIBILIDAD ── */}
+          <PanelCompatibilidad solicitud={solicitud} />
 
           {/* ── SECCIÓN ADOPTANTE ── */}
           <div className="p-4 border-b border-gray-200">

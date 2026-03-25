@@ -2,6 +2,7 @@ import httpClient from '@/shared/api/httpClient'
 
 export interface CondicionesHogarResumen {
   tipo_vivienda: string
+  propiedad_vivienda: string
   tiene_patio: boolean
   numero_personas: number
   tiene_ninos: boolean
@@ -24,6 +25,11 @@ export interface SolicitudAdopcion {
   mascota_sexo: string
   mascota_tamano: string
   mascota_nivel_energia: string
+  mascota_nivel_independencia: string
+  mascota_nivel_complejidad: string
+  mascota_nivel_sociabilidad: string
+  mascota_apta_ninos: boolean | null
+  mascota_costo_estimado_mensual: string
   mascota_descripcion: string
   mascota_historia: string
   mascota_estado: string
