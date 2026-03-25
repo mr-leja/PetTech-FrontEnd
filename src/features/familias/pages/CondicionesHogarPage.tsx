@@ -103,10 +103,10 @@ export default function PerfilAdoptantePage() {
           <div className="card p-8 text-center">
             <PawPrint className="w-12 h-12 text-pettech-orange mx-auto mb-4" />
             <h1 className="text-xl font-semibold text-gray-800 mb-2">
-              Completa tu perfil de adoptante
+              Completa tu perfil
             </h1>
             <p className="text-sm text-gray-500 mb-6">
-              Para poder adoptar una mascota, necesitamos conocerte un poco más.
+              Registra tus datos personales y de hogar para postularte a una adopción.
             </p>
             <Button onClick={() => navigate('/perfil-adoptante/registrar')} className="w-full">
               Registrar mi perfil

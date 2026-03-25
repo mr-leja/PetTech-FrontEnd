@@ -73,7 +73,7 @@ export default function RegisterPage() {
         rol: loginRes.rol,
         perfil_completo: loginRes.perfil_completo,
       })
-      toast.success('Cuenta creada. Completa tu perfil de familia.')
+      toast.success('Cuenta creada. Completa tu perfil.')
       setStep(1)
     } catch (err: unknown) {
       const msg = (err as { response?: { data?: { error?: string } } })?.response?.data?.error

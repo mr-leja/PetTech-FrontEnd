@@ -139,8 +139,8 @@ export default function DashboardPage() {
         {!isAdmin && !user?.perfil_completo && (
           <div className="mt-6 bg-pettech-yellow/20 border border-pettech-yellow rounded-xl p-5 flex items-center justify-between">
             <div>
-              <p className="font-medium text-gray-800">Completa tu perfil de familia</p>
-              <p className="text-sm text-gray-500">Registra los datos de tu familia y hogar para postularte a una adopción.</p>
+              <p className="font-medium text-gray-800">Completa tu perfil</p>
+              <p className="text-sm text-gray-500">Registra tus datos personales y de hogar para postularte a una adopción.</p>
             </div>
             <Link to="/perfil-adoptante/registrar" className="btn-primary text-sm whitespace-nowrap ml-4">Completar ahora</Link>
           </div>
