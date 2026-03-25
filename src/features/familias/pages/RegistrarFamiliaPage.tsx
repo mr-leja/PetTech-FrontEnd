@@ -77,6 +77,7 @@ export default function RegistrarFamiliaPage() {
   const [isEditing, setIsEditing] = useState(false)
   const [fotoPerfil, setFotoPerfil] = useState<File | null>(null)
   const [fotoPreview, setFotoPreview] = useState<string | null>(null)
+  const [fotoEliminada, setFotoEliminada] = useState(false)
 
   const {
     register,
@@ -156,7 +157,7 @@ export default function RegistrarFamiliaPage() {
           ciudad: data.ciudad,
           departamento: data.departamento,
           redes_sociales: data.redes_sociales,
-          ...(fotoPerfil && { foto_perfil: fotoPerfil }),
+          ...(fotoPerfil ? { foto_perfil: fotoPerfil } : fotoEliminada ? { borrar_foto_perfil: true } : {}),
         })
         await familiasApi.actualizarCondicionesHogar({
           tipo_vivienda: data.tipo_vivienda,
@@ -351,6 +352,7 @@ export default function RegistrarFamiliaPage() {
                               toast.error('La imagen no puede superar 5 MB.')
                               return
                             }
+                            setFotoEliminada(false)
                             setFotoPerfil(file)
                             setFotoPreview(URL.createObjectURL(file))
                           }}
@@ -360,7 +362,7 @@ export default function RegistrarFamiliaPage() {
                         <button
                           type="button"
                           className="text-xs text-gray-400 hover:text-red-500 transition-colors text-left"
-                          onClick={() => { setFotoPerfil(null); setFotoPreview(null) }}
+                          onClick={() => { setFotoPerfil(null); setFotoPreview(null); setFotoEliminada(true) }}
                         >
                           Quitar foto
                         </button>

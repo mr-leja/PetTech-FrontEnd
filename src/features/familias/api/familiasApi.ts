@@ -72,6 +72,7 @@ export const familiasApi = {
     nombre_familia: string; cedula: string; fecha_nacimiento: string;
     telefono: string; ciudad: string; departamento: string;
     direccion: string; redes_sociales: string; foto_perfil?: File;
+    borrar_foto_perfil?: boolean;
   }>) => {
     const form = new FormData()
     Object.entries(payload).forEach(([k, v]) => {
