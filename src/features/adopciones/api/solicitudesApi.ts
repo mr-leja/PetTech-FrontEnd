@@ -53,11 +53,29 @@ export interface SolicitudesResponse {
 export interface Adopcion {
   id: number
   solicitud: number
+  // Mascota
   mascota_nombre: string
   mascota_especie: string
+  mascota_raza: string
+  mascota_edad_anios: number
+  mascota_edad_unidad: string
+  mascota_sexo: string
+  mascota_tamano: string
+  mascota_descripcion: string
   mascota_foto_url: string | null
+  // Familia
   familia_nombre: string
   familia_email: string
+  familia_cedula: string
+  familia_telefono: string
+  familia_ciudad: string
+  familia_departamento: string
+  familia_foto_perfil_url: string | null
+  // Solicitud original
+  solicitud_mensaje: string
+  solicitud_notas_admin: string
+  solicitud_fecha: string
+  // Adopcion
   fecha_adopcion: string
   notas: string
 }
