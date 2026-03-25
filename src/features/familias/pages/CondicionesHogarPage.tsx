@@ -130,10 +130,10 @@ export default function PerfilAdoptantePage() {
               <img
                 src={familia.foto_perfil_url}
                 alt="Foto de perfil"
-                className="w-14 h-14 rounded-full object-cover border-2 border-pettech-orange shrink-0"
+                className="w-14 h-14 rounded-full object-cover border-2 border-pettech-orange flex-shrink-0"
               />
             ) : (
-              <div className="w-14 h-14 rounded-full bg-pettech-orange/20 flex items-center justify-center shrink-0">
+              <div className="w-14 h-14 rounded-full bg-pettech-orange/10 border-2 border-pettech-orange/30 flex items-center justify-center flex-shrink-0">
                 <User className="w-7 h-7 text-pettech-orange" />
               </div>
             )}

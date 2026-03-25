@@ -6,11 +6,14 @@ const httpClient = axios.create({
   headers: { 'Content-Type': 'application/json' },
 })
 
-// Attach JWT token to every request
+// Attach JWT token to every request; remove Content-Type for FormData so Axios sets the multipart boundary
 httpClient.interceptors.request.use((config) => {
   const token = useAuthStore.getState().token
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
+  }
+  if (config.data instanceof FormData) {
+    delete config.headers['Content-Type']
   }
   return config
 })

@@ -316,39 +316,57 @@ export default function RegistrarFamiliaPage() {
                   {...register('redes_sociales')}
                 />
 
+                {/* Foto de perfil */}
                 <div className="flex flex-col gap-1">
                   <label className="text-sm font-medium text-gray-700">Foto de perfil (opcional)</label>
-                  <label className="flex items-center gap-3 cursor-pointer border-2 border-dashed border-gray-300 rounded-lg p-3 hover:border-pettech-orange transition-colors">
-                    <Upload className="w-5 h-5 text-gray-400 shrink-0" />
-                    <span className="text-sm text-gray-500 truncate">
-                      {fotoPerfil ? fotoPerfil.name : 'Seleccionar imagen (JPG, PNG o WebP — máx. 5 MB)'}
-                    </span>
-                    <input
-                      type="file"
-                      accept="image/jpeg,image/png,image/webp"
-                      className="hidden"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0]
-                        if (!file) return
-                        if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-                          toast.error('Solo se permiten imágenes JPEG, PNG o WebP.')
-                          return
-                        }
-                        if (file.size > 5 * 1024 * 1024) {
-                          toast.error('La imagen no puede superar 5 MB.')
-                          return
-                        }
-                        setFotoPerfil(file)
-                        setFotoPreview(URL.createObjectURL(file))
-                      }}
-                    />
-                  </label>
-                  {fotoPreview && (
-                    <div className="flex items-center gap-3 mt-1">
-                      <img src={fotoPreview} alt="preview" className="w-16 h-16 rounded-full object-cover border-2 border-pettech-orange" />
-                      <button type="button" onClick={() => { setFotoPerfil(null); setFotoPreview(null) }} className="text-xs text-red-400 hover:text-red-600">Quitar foto</button>
+                  <div className="flex items-center gap-4">
+                    {fotoPreview ? (
+                      <img
+                        src={fotoPreview}
+                        alt="Vista previa"
+                        className="w-16 h-16 rounded-full object-cover border-2 border-pettech-orange"
+                      />
+                    ) : (
+                      <div className="w-16 h-16 rounded-full bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center">
+                        <Upload className="w-6 h-6 text-gray-400" />
+                      </div>
+                    )}
+                    <div className="flex flex-col gap-1">
+                      <label className="cursor-pointer inline-flex items-center gap-1.5 text-sm text-pettech-orange border border-pettech-orange rounded-lg px-3 py-1.5 hover:bg-pettech-orange/10 transition-colors w-fit">
+                        <Upload className="w-3.5 h-3.5" />
+                        {fotoPreview ? 'Cambiar foto' : 'Subir foto'}
+                        <input
+                          type="file"
+                          accept="image/jpeg,image/png,image/webp"
+                          className="hidden"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0]
+                            if (!file) return
+                            const allowed = ['image/jpeg', 'image/png', 'image/webp']
+                            if (!allowed.includes(file.type)) {
+                              toast.error('Solo se permiten imágenes JPEG, PNG o WebP.')
+                              return
+                            }
+                            if (file.size > 5 * 1024 * 1024) {
+                              toast.error('La imagen no puede superar 5 MB.')
+                              return
+                            }
+                            setFotoPerfil(file)
+                            setFotoPreview(URL.createObjectURL(file))
+                          }}
+                        />
+                      </label>
+                      {fotoPreview && (
+                        <button
+                          type="button"
+                          className="text-xs text-gray-400 hover:text-red-500 transition-colors text-left"
+                          onClick={() => { setFotoPerfil(null); setFotoPreview(null) }}
+                        >
+                          Quitar foto
+                        </button>
+                      )}
                     </div>
-                  )}
+                  </div>
                 </div>
 
                 <Button type="button" onClick={handleNext} className="w-full mt-2">
