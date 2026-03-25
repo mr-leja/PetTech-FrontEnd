@@ -41,3 +41,5 @@ Paso 2: datos familia (HU-04)
 Paso 3: condiciones del hogar + acuerdo responsabilidad (HU-05)
 → Redirige al Dashboard con perfil_completo = true
 ```
+## Link de Figma
+https://www.figma.com/design/N3uFMRskP6nqZwSOIIhts3/PetTech?node-id=1-4&t=6tUKtNtnuSGaHvn6-1
