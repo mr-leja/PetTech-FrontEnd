@@ -295,6 +295,8 @@ export default function GestionSolicitudesPage() {
   const { data, isLoading, error } = useQuery({
     queryKey: ['solicitudes'],
     queryFn: () => solicitudesApi.listar(),
+    refetchInterval: 30_000,
+    staleTime: 0,
   })
 
   const solicitudesFiltradas = data?.results.filter(

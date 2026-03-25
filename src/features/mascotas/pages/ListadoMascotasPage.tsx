@@ -32,6 +32,8 @@ export default function ListadoMascotasPage() {
         ...(filtroEstado && { estado: filtroEstado }),
         ...(filtroEspecie && { especie: filtroEspecie }),
       }),
+    refetchInterval: 30_000,
+    staleTime: 0,
   })
 
   const handleDeleteConfirm = async () => {

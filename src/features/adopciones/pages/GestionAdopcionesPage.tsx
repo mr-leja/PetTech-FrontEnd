@@ -189,6 +189,8 @@ export default function GestionAdopcionesPage() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['adopciones', 'todas'],
     queryFn: () => solicitudesApi.listarAdopciones(),
+    refetchInterval: 30_000,
+    staleTime: 0,
   })
 
   const adopcionesFiltradas = data?.results.filter((a: Adopcion) => {

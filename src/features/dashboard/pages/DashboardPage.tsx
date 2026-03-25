@@ -28,18 +28,24 @@ export default function DashboardPage() {
   const { data: mascotas, isLoading: loadingMascotas } = useQuery({
     queryKey: ['mascotas', 'dashboard'],
     queryFn: () => mascotasApi.listar(),
+    refetchInterval: 30_000,
+    staleTime: 0,
   })
 
   const { data: familiasData, isLoading: loadingFamilias } = useQuery({
     queryKey: ['familias', 'dashboard'],
     queryFn: () => familiasApi.listarFamilias(),
     enabled: isAdmin,
+    refetchInterval: 30_000,
+    staleTime: 0,
   })
 
   const { data: contadores } = useQuery({
     queryKey: ['solicitudes', 'contadores'],
     queryFn: () => solicitudesApi.misContadores(),
     enabled: !isAdmin,
+    refetchInterval: 30_000,
+    staleTime: 0,
   })
 
   const disponibles = mascotas?.results.filter((m) => m.estado === 'DISPONIBLE').length ?? 0
