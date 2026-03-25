@@ -9,6 +9,7 @@ import EditarMascotaPage from '@/features/mascotas/pages/EditarMascotaPage'
 import RegistrarAdoptantePage from '@/features/familias/pages/RegistrarFamiliaPage'
 import PerfilAdoptantePage from '@/features/familias/pages/CondicionesHogarPage'
 import GestionSolicitudesPage from '@/features/adopciones/pages/GestionSolicitudesPage'
+import MisSolicitudesPage from '@/features/adopciones/pages/MisSolicitudesPage'
 import PrivateRoute from '@/shared/components/PrivateRoute'
 import AdminRoute from '@/shared/components/AdminRoute'
 
@@ -27,6 +28,7 @@ export default function AppRouter() {
         <Route path="/mascotas" element={<ListadoMascotasPage />} />
         <Route path="/perfil-adoptante" element={<PerfilAdoptantePage />} />
         <Route path="/perfil-adoptante/registrar" element={<RegistrarAdoptantePage />} />
+        <Route path="/mis-solicitudes" element={<MisSolicitudesPage />} />
       </Route>
 
       {/* Rutas de admin */}

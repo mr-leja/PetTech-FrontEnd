@@ -29,7 +29,10 @@ export default function NavBar() {
         <nav className="hidden sm:flex items-center gap-6 text-sm">
           <Link to="/mascotas" className="text-gray-600 hover:text-pettech-orange transition-colors">Mascotas</Link>
           {user?.rol !== 'ADMIN' && (
-            <Link to="/perfil-adoptante" className="text-gray-600 hover:text-pettech-orange transition-colors">Perfil del adoptante</Link>
+            <>
+              <Link to="/perfil-adoptante" className="text-gray-600 hover:text-pettech-orange transition-colors">Perfil del adoptante</Link>
+              <Link to="/mis-solicitudes" className="text-gray-600 hover:text-pettech-orange transition-colors">Mis solicitudes</Link>
+            </>
           )}
           {user?.rol === 'ADMIN' && (
             <>
@@ -61,7 +64,10 @@ export default function NavBar() {
         <div className="sm:hidden border-t border-gray-100 bg-white px-4 py-3 flex flex-col gap-3 text-sm">
           <Link to="/mascotas" className="text-gray-600" onClick={() => setMobileOpen(false)}>Mascotas</Link>
           {user?.rol !== 'ADMIN' && (
-            <Link to="/perfil-adoptante" className="text-gray-600" onClick={() => setMobileOpen(false)}>Perfil del adoptante</Link>
+            <>
+              <Link to="/perfil-adoptante" className="text-gray-600" onClick={() => setMobileOpen(false)}>Perfil del adoptante</Link>
+              <Link to="/mis-solicitudes" className="text-gray-600" onClick={() => setMobileOpen(false)}>Mis solicitudes</Link>
+            </>
           )}
           {user?.rol === 'ADMIN' && (
             <Link to="/solicitudes" className="text-gray-600" onClick={() => setMobileOpen(false)}>Solicitudes</Link>
