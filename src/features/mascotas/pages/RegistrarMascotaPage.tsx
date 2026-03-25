@@ -300,7 +300,7 @@ export default function RegistrarMascotaPage() {
                 {/* â”€â”€ Historial de vacunas â”€â”€ */}
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium text-gray-700">Historial de vacunas (opcional)</label>
+                    <label className="text-sm font-medium text-gray-700">Historial de vacunas</label>
                     <button
                       type="button"
                       onClick={() => appendVacuna({ nombre: '', fecha_aplicacion: '', proxima_dosis: '', veterinario: '', lote: '' })}
@@ -380,7 +380,7 @@ export default function RegistrarMascotaPage() {
 
                   {/* Carnet de vacunas */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-sm font-medium text-gray-700">📎 Subir carnet de vacunas (opcional)</label>
+                    <label className="text-sm font-medium text-gray-700">Carnet de vacunas</label>
                     <label className="flex items-center gap-3 cursor-pointer border-2 border-dashed border-gray-300 rounded-lg p-3 hover:border-pettech-orange transition-colors">
                       <Upload className="w-4 h-4 text-gray-400" />
                       <span className="text-sm text-gray-500">

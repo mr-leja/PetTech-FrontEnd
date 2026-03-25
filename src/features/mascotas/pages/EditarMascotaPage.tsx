@@ -388,7 +388,7 @@ export default function EditarMascotaPage() {
                   ))}
 
                   <div className="flex flex-col gap-2">
-                    <label className="text-sm font-medium text-gray-700">📎 Carnet de vacunas (opcional)</label>
+                    <label className="text-sm font-medium text-gray-700">Carnet de vacunas</label>
                     <label className="flex items-center gap-3 cursor-pointer border-2 border-dashed border-gray-300 rounded-lg p-3 hover:border-pettech-orange transition-colors">
                       <Upload className="w-4 h-4 text-gray-400" />
                       <span className="text-sm text-gray-500">{carnetFile ? carnetFile.name : 'PDF o imagen del carnet'}</span>

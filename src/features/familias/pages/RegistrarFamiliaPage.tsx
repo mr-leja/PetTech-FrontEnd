@@ -311,7 +311,7 @@ export default function RegistrarFamiliaPage() {
                 </div>
 
                 <Input
-                  label="Redes sociales (opcional)"
+                  label="Redes sociales"
                   placeholder="@usuario o URL de perfil"
                   error={errors.redes_sociales?.message}
                   {...register('redes_sociales')}
@@ -319,7 +319,7 @@ export default function RegistrarFamiliaPage() {
 
                 {/* Foto de perfil */}
                 <div className="flex flex-col gap-1">
-                  <label className="text-sm font-medium text-gray-700">Foto de perfil (opcional)</label>
+                  <label className="text-sm font-medium text-gray-700">Foto de perfil</label>
                   <div className="flex items-center gap-4">
                     {fotoPreview ? (
                       <img
