@@ -41,8 +41,9 @@ export default function LoginPage() {
       })
       toast.success(`¡Bienvenido, ${res.email}!`)
       navigate('/dashboard')
-    } catch {
-      toast.error('Correo o contraseña incorrectos.')
+    } catch (err: unknown) {
+      const msg = (err as { response?: { data?: { error?: string } } })?.response?.data?.error
+      toast.error(typeof msg === 'string' ? msg : 'Correo o contraseña incorrectos.')
     } finally {
       setLoading(false)
     }
