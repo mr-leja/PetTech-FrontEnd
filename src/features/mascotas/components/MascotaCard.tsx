@@ -1,5 +1,5 @@
 import type { Mascota } from '../api/mascotasApi'
-import { PawPrint, Trash2 } from 'lucide-react'
+import { PawPrint, Trash2, Heart } from 'lucide-react'
 
 const ESTADO_LABEL: Record<string, string> = {
   DISPONIBLE: 'Disponible',
@@ -20,11 +20,13 @@ export default function MascotaCard({
   onClick,
   isAdmin,
   onDeleteClick,
+  onSolicitarAdopcion,
 }: {
   mascota: Mascota
   onClick: () => void
   isAdmin?: boolean
   onDeleteClick?: (e: React.MouseEvent, id: number) => void
+  onSolicitarAdopcion?: (e: React.MouseEvent, mascota: Mascota) => void
 }) {
   const estadoClass = `badge-${mascota.estado.toLowerCase().replace('_', '_')}`
 
@@ -67,7 +69,19 @@ export default function MascotaCard({
               ? `${mascota.edad_anios} mes${mascota.edad_anios !== 1 ? 'es' : ''}`
               : `${mascota.edad_anios} año${mascota.edad_anios !== 1 ? 's' : ''}`}
         </p>
+
+        {/* Botón solicitar adopción para familias — solo mascotas disponibles */}
+        {!isAdmin && mascota.estado === 'DISPONIBLE' && onSolicitarAdopcion && (
+          <button
+            onClick={(e) => { e.stopPropagation(); onSolicitarAdopcion(e, mascota) }}
+            className="mt-3 w-full flex items-center justify-center gap-1.5 bg-pettech-orange text-white text-xs font-medium rounded-lg py-1.5 hover:bg-orange-600 transition-colors"
+          >
+            <Heart className="w-3.5 h-3.5" />
+            Solicitar adopción
+          </button>
+        )}
       </div>
     </div>
   )
 }
+

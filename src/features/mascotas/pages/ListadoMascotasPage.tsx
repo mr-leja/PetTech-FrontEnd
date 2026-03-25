@@ -10,6 +10,7 @@ import Spinner from '@/shared/components/Spinner'
 import EmptyState from '@/shared/components/EmptyState'
 import { useAuthStore } from '@/shared/store/authStore'
 import NavBar from '@/shared/components/NavBar'
+import { solicitudesApi } from '@/features/adopciones/api/solicitudesApi'
 
 export default function ListadoMascotasPage() {
   const user = useAuthStore((s) => s.user)
@@ -19,6 +20,10 @@ export default function ListadoMascotasPage() {
   const [filtroEspecie, setFiltroEspecie] = useState('')
   const [deletingId, setDeletingId] = useState<number | null>(null)
   const [deleteLoading, setDeleteLoading] = useState(false)
+  // Solicitud de adopción
+  const [solicitudMascota, setSolicitudMascota] = useState<Mascota | null>(null)
+  const [solicitudMensaje, setSolicitudMensaje] = useState('')
+  const [solicitudLoading, setSolicitudLoading] = useState(false)
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['mascotas', filtroEstado, filtroEspecie],
@@ -42,6 +47,27 @@ export default function ListadoMascotasPage() {
     } finally {
       setDeleteLoading(false)
       setDeletingId(null)
+    }
+  }
+
+  const handleSolicitarAdopcion = (mascota: Mascota) => {
+    setSolicitudMascota(mascota)
+    setSolicitudMensaje('')
+  }
+
+  const handleConfirmarSolicitud = async () => {
+    if (!solicitudMascota) return
+    setSolicitudLoading(true)
+    try {
+      await solicitudesApi.crear(solicitudMascota.id, solicitudMensaje)
+      await qc.invalidateQueries({ queryKey: ['mascotas'] })
+      toast.success(`¡Solicitud enviada para ${solicitudMascota.nombre}! El administrador la revisará pronto.`)
+      setSolicitudMascota(null)
+    } catch (err: any) {
+      const msg = err?.response?.data?.error || err?.response?.data?.detail || 'Error al enviar la solicitud.'
+      toast.error(typeof msg === 'string' ? msg : 'Error al enviar la solicitud.')
+    } finally {
+      setSolicitudLoading(false)
     }
   }
 
@@ -106,12 +132,61 @@ export default function ListadoMascotasPage() {
               onClick={() => setSelected(m)}
               isAdmin={user?.rol === 'ADMIN'}
               onDeleteClick={(_e, id) => setDeletingId(id)}
+              onSolicitarAdopcion={(_e, mascota) => handleSolicitarAdopcion(mascota)}
             />
           ))}
         </div>
       </main>
 
-      {selected && <MascotaDetalleModal mascota={selected} onClose={() => setSelected(null)} />}
+      {selected && (
+        <MascotaDetalleModal
+          mascota={selected}
+          onClose={() => setSelected(null)}
+          onSolicitarAdopcion={handleSolicitarAdopcion}
+        />
+      )}
+
+      {/* Modal solicitud de adopción */}
+      {solicitudMascota && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="card w-full max-w-sm p-6 flex flex-col gap-4">
+            <h3 className="text-lg font-semibold text-gray-800">Solicitar adopción</h3>
+            <p className="text-sm text-gray-600">
+              Estás enviando una solicitud para adoptar a{' '}
+              <span className="font-medium text-gray-800">{solicitudMascota.nombre}</span>.
+              Un administrador revisará tu solicitud.
+            </p>
+            <div>
+              <label className="block text-sm text-gray-600 mb-1">
+                Mensaje para el administrador <span className="text-gray-400">(opcional)</span>
+              </label>
+              <textarea
+                className="input-field w-full text-sm resize-none"
+                rows={3}
+                placeholder="Cuéntanos por qué quieres adoptar a esta mascota..."
+                value={solicitudMensaje}
+                onChange={(e) => setSolicitudMensaje(e.target.value)}
+              />
+            </div>
+            <div className="flex gap-3 justify-end">
+              <button
+                onClick={() => setSolicitudMascota(null)}
+                disabled={solicitudLoading}
+                className="btn-secondary text-sm"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleConfirmarSolicitud}
+                disabled={solicitudLoading}
+                className="btn-primary text-sm"
+              >
+                {solicitudLoading ? 'Enviando...' : 'Enviar solicitud'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Modal de confirmación de eliminación */}
       {deletingId !== null && (

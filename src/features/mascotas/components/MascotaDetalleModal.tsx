@@ -1,4 +1,4 @@
-import { X, PawPrint, Pencil } from 'lucide-react'
+import { X, PawPrint, Pencil, Heart } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '@/shared/store/authStore'
 import type { Mascota } from '../api/mascotasApi'
@@ -54,9 +54,11 @@ function Field({ label, value }: { label: string; value?: string | null }) {
 export default function MascotaDetalleModal({
   mascota,
   onClose,
+  onSolicitarAdopcion,
 }: {
   mascota: Mascota
   onClose: () => void
+  onSolicitarAdopcion?: (mascota: Mascota) => void
 }) {
   const navigate = useNavigate()
   const user = useAuthStore((s) => s.user)
@@ -195,6 +197,17 @@ export default function MascotaDetalleModal({
           <div className="text-xs text-gray-400 pt-2 border-t border-gray-50">
             Registrado el {new Date(mascota.fecha_ingreso).toLocaleDateString('es-CO')}
           </div>
+
+          {/* Botón solicitar adopción desde el detalle (solo familia, solo disponible) */}
+          {user?.rol !== 'ADMIN' && mascota.estado === 'DISPONIBLE' && onSolicitarAdopcion && (
+            <button
+              onClick={() => { onClose(); onSolicitarAdopcion(mascota) }}
+              className="w-full flex items-center justify-center gap-2 bg-pettech-orange text-white font-medium rounded-lg py-2.5 hover:bg-orange-600 transition-colors"
+            >
+              <Heart className="w-4 h-4" />
+              Solicitar adopción
+            </button>
+          )}
         </div>
       </div>
     </div>
