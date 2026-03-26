@@ -6,28 +6,14 @@ import { z } from 'zod'
 import toast from 'react-hot-toast'
 import { useQueryClient } from '@tanstack/react-query'
 import { mascotasApi } from '../api/mascotasApi'
+import { ESPECIES, vacunaSchema, STEP1_FIELDS, getTodayDate } from '../formSchema'
 import { Input } from '@/shared/components/Input'
 import Button from '@/shared/components/Button'
 import NavBar from '@/shared/components/NavBar'
 import Spinner from '@/shared/components/Spinner'
 import { ArrowLeft, ArrowRight, Check, Upload, Plus, Trash2 } from 'lucide-react'
 
-const ESPECIES = [
-  { value: 'PERRO', label: 'Perro' },
-  { value: 'GATO', label: 'Gato' },
-  { value: 'CONEJO', label: 'Conejo' },
-  { value: 'HAMSTER', label: 'Hámster' },
-] as const
-
-const TODAY = new Date().toISOString().split('T')[0]
-
-const vacunaSchema = z.object({
-  nombre: z.string().min(1, 'Requerido'),
-  fecha_aplicacion: z.string().min(1, 'Requerido'),
-  proxima_dosis: z.string().optional(),
-  veterinario: z.string().optional(),
-  lote: z.string().optional(),
-})
+const TODAY = getTodayDate()
 
 const schema = z.object({
   nombre: z.string().min(2, 'Mínimo 2 caracteres'),
@@ -43,23 +29,18 @@ const schema = z.object({
   peso: z.string().min(1, 'Requerido'),
   sexo: z.string().min(1, 'Selecciona el sexo'),
   estado: z.enum(['DISPONIBLE', 'EN_PROCESO', 'NO_DISPONIBLE', 'ADOPTADO']),
-  nivel_energia: z.enum(['BAJO', 'MEDIO', 'ALTO', '']).optional(),
-  nivel_independencia: z.enum(['BAJO', 'MEDIO', 'ALTO', '']).optional(),
-  nivel_complejidad: z.enum(['BAJO', 'MEDIO', 'ALTO', '']).optional(),
-  nivel_sociabilidad: z.enum(['BAJO', 'MEDIO', 'ALTO', '']).optional(),
-  apta_ninos: z.enum(['SI', 'NO', '']).optional(),
-  costo_estimado_mensual: z.enum(['MENOS_1SMLV', '1_2SMLV', '2_4SMLV', 'MAS_4SMLV', '']).optional(),
-  vacunas: z.array(vacunaSchema).optional(),
+  nivel_energia: z.string().min(1, 'Selecciona el nivel de energía'),
+  nivel_independencia: z.string().min(1, 'Requerido'),
+  nivel_complejidad: z.string().min(1, 'Requerido'),
+  nivel_sociabilidad: z.string().min(1, 'Requerido'),
+  apta_ninos: z.string().min(1, 'Requerido'),
+  costo_estimado_mensual: z.string().min(1, 'Requerido'),
+  vacunas: z.array(vacunaSchema).min(1, 'Agrega al menos una vacuna'),
   historia_mascota: z.string().optional(),
   info_adicional: z.string().optional(),
 })
 
 type FormData = z.infer<typeof schema>
-
-const STEP1_FIELDS: (keyof FormData)[] = [
-  'nombre', 'especie', 'raza', 'edad', 'edad_unidad',
-  'fecha_nacimiento', 'tamano', 'peso', 'sexo', 'estado',
-]
 
 export default function EditarMascotaPage() {
   const { id } = useParams<{ id: string }>()
@@ -331,59 +312,64 @@ export default function EditarMascotaPage() {
                 <h2 className="text-lg font-semibold text-gray-800 mb-1">Información de salud</h2>
 
                 <div className="flex flex-col gap-1">
-                  <label className="text-sm font-medium text-gray-700">Nivel de energía</label>
+                  <label className="text-sm font-medium text-gray-700">Nivel de energía *</label>
                   <select className="input-field" {...register('nivel_energia')}>
                     <option value="">Seleccionar...</option>
                     <option value="BAJO">Bajo</option>
                     <option value="MEDIO">Medio</option>
                     <option value="ALTO">Alto</option>
                   </select>
+                  {errors.nivel_energia && <p className="text-xs text-red-500">{errors.nivel_energia.message}</p>}
                 </div>
 
                 {/* ── Características para adopción (matching) ── */}
                 <div className="border border-orange-100 rounded-xl p-4 bg-orange-50/40 flex flex-col gap-4">
-                  <h3 className="text-sm font-semibold text-pettech-orange">Características para adopción</h3>
+                  <h3 className="text-sm font-semibold text-pettech-orange">Características para adopción *</h3>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1">
-                      <label className="text-sm font-medium text-gray-700">Nivel de independencia</label>
+                      <label className="text-sm font-medium text-gray-700">Nivel de independencia *</label>
                       <select className="input-field" {...register('nivel_independencia')}>
                         <option value="">Seleccionar...</option>
                         <option value="BAJO">Baja (necesita compañía constante)</option>
                         <option value="MEDIO">Media (puede estar solo moderadamente)</option>
                         <option value="ALTO">Alta (muy independiente)</option>
                       </select>
+                      {errors.nivel_independencia && <p className="text-xs text-red-500">{errors.nivel_independencia.message}</p>}
                     </div>
                     <div className="flex flex-col gap-1">
-                      <label className="text-sm font-medium text-gray-700">Sociabilidad con otras mascotas</label>
+                      <label className="text-sm font-medium text-gray-700">Sociabilidad con otras mascotas *</label>
                       <select className="input-field" {...register('nivel_sociabilidad')}>
                         <option value="">Seleccionar...</option>
                         <option value="BAJO">Baja (prefiere estar solo)</option>
                         <option value="MEDIO">Media (se adapta)</option>
                         <option value="ALTO">Alta (muy sociable)</option>
                       </select>
+                      {errors.nivel_sociabilidad && <p className="text-xs text-red-500">{errors.nivel_sociabilidad.message}</p>}
                     </div>
                     <div className="flex flex-col gap-1">
-                      <label className="text-sm font-medium text-gray-700">Complejidad de cuidado</label>
+                      <label className="text-sm font-medium text-gray-700">Complejidad de cuidado *</label>
                       <select className="input-field" {...register('nivel_complejidad')}>
                         <option value="">Seleccionar...</option>
                         <option value="BAJO">Baja (ideal para principiantes)</option>
                         <option value="MEDIO">Media (algo de experiencia)</option>
                         <option value="ALTO">Alta (requiere experiencia)</option>
                       </select>
+                      {errors.nivel_complejidad && <p className="text-xs text-red-500">{errors.nivel_complejidad.message}</p>}
                     </div>
                     <div className="flex flex-col gap-1">
-                      <label className="text-sm font-medium text-gray-700">¿Apta para niños?</label>
+                      <label className="text-sm font-medium text-gray-700">¿Apta para niños? *</label>
                       <select className="input-field" {...register('apta_ninos')}>
                         <option value="">Seleccionar...</option>
                         <option value="SI">Sí</option>
                         <option value="NO">No</option>
                       </select>
+                      {errors.apta_ninos && <p className="text-xs text-red-500">{errors.apta_ninos.message}</p>}
                     </div>
                   </div>
 
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-gray-700">Costo estimado de cuidado mensual</label>
+                    <label className="text-sm font-medium text-gray-700">Costo estimado de cuidado mensual *</label>
                     <select className="input-field" {...register('costo_estimado_mensual')}>
                       <option value="">Seleccionar...</option>
                       <option value="MENOS_1SMLV">Menos de 1 SMLV</option>
@@ -391,6 +377,7 @@ export default function EditarMascotaPage() {
                       <option value="2_4SMLV">2–4 SMLV</option>
                       <option value="MAS_4SMLV">Más de 4 SMLV</option>
                     </select>
+                    {errors.costo_estimado_mensual && <p className="text-xs text-red-500">{errors.costo_estimado_mensual.message}</p>}
                   </div>
                 </div>
 
