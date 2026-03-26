@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { PawPrint, LogOut, Menu, X } from 'lucide-react'
 import { useState } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 import { useAuthStore } from '@/shared/store/authStore'
 import toast from 'react-hot-toast'
 
@@ -8,9 +9,11 @@ export default function NavBar() {
   const user = useAuthStore((s) => s.user)
   const logout = useAuthStore((s) => s.logout)
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const handleLogout = () => {
+    queryClient.clear()
     logout()
     toast.success('Sesión cerrada.')
     navigate('/login')
