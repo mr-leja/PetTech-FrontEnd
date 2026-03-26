@@ -1,8 +1,9 @@
-import { useQuery } from '@tanstack/react-query'
-import { PawPrint, ClipboardList } from 'lucide-react'
+import { useState } from 'react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { PawPrint, ClipboardList, X } from 'lucide-react'
+import toast from 'react-hot-toast'
 import NavBar from '@/shared/components/NavBar'
 import Spinner from '@/shared/components/Spinner'
-import EmptyState from '@/shared/components/EmptyState'
 import { solicitudesApi, type SolicitudAdopcion } from '../api/solicitudesApi'
 
 const ESTADO_LABEL: Record<string, string> = {
@@ -24,7 +25,24 @@ const ESPECIE_EMOJI: Record<string, string> = {
   HAMSTER: '🐹',
 }
 
-function SolicitudCard({ solicitud }: { solicitud: SolicitudAdopcion }) {
+function SolicitudCard({
+  solicitud,
+  confirmandoId,
+  cancelandoId,
+  onCancelarClick,
+  onCancelarConfirm,
+  onCancelarAbort,
+}: {
+  solicitud: SolicitudAdopcion
+  confirmandoId: number | null
+  cancelandoId: number | null
+  onCancelarClick: (id: number) => void
+  onCancelarConfirm: (id: number) => void
+  onCancelarAbort: () => void
+}) {
+  const confirmando = confirmandoId === solicitud.id
+  const cancelando = cancelandoId === solicitud.id
+
   return (
     <div className="card overflow-hidden">
       <div className="flex gap-4 p-4">
@@ -84,6 +102,40 @@ function SolicitudCard({ solicitud }: { solicitud: SolicitudAdopcion }) {
               )}
             </div>
           )}
+
+          {/* Botón / confirmación cancelar — solo para PENDIENTE */}
+          {solicitud.estado === 'PENDIENTE' && (
+            <div className="mt-3">
+              {confirmando ? (
+                <div className="flex items-center gap-2 bg-red-50 border border-red-100 rounded-lg px-3 py-2">
+                  <p className="text-xs text-red-700 flex-1">
+                    ¿Confirmas que deseas cancelar esta solicitud? La mascota volverá a estar disponible.
+                  </p>
+                  <button
+                    onClick={() => onCancelarConfirm(solicitud.id)}
+                    disabled={cancelando}
+                    className="text-xs font-semibold text-white bg-red-500 hover:bg-red-600 px-3 py-1.5 rounded-lg disabled:opacity-50 transition-colors shrink-0"
+                  >
+                    {cancelando ? 'Cancelando...' : 'Sí, cancelar'}
+                  </button>
+                  <button
+                    onClick={onCancelarAbort}
+                    disabled={cancelando}
+                    className="text-gray-400 hover:text-gray-600 disabled:opacity-50"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => onCancelarClick(solicitud.id)}
+                  className="text-xs text-red-500 hover:text-red-700 font-medium underline underline-offset-2 transition-colors"
+                >
+                  Cancelar solicitud
+                </button>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -91,11 +143,33 @@ function SolicitudCard({ solicitud }: { solicitud: SolicitudAdopcion }) {
 }
 
 export default function MisSolicitudesPage() {
+  const qc = useQueryClient()
+  const [confirmandoId, setConfirmandoId] = useState<number | null>(null)
+  const [cancelandoId, setCancelandoId] = useState<number | null>(null)
+
   const { data, isLoading, error } = useQuery({
     queryKey: ['solicitudes', 'mias'],
     queryFn: () => solicitudesApi.listar(),
-    refetchInterval: 30_000, // refresca cada 30s para ver cambios de estado
+    refetchInterval: 30_000,
   })
+
+  const handleCancelarClick = (id: number) => setConfirmandoId(id)
+  const handleCancelarAbort = () => setConfirmandoId(null)
+
+  const handleCancelarConfirm = async (id: number) => {
+    setCancelandoId(id)
+    try {
+      await solicitudesApi.cancelar(id)
+      await qc.invalidateQueries({ queryKey: ['solicitudes', 'mias'] })
+      await qc.invalidateQueries({ queryKey: ['mascotas'] })
+      toast.success('Solicitud cancelada. La mascota vuelve a estar disponible.')
+    } catch {
+      toast.error('No se pudo cancelar la solicitud.')
+    } finally {
+      setCancelandoId(null)
+      setConfirmandoId(null)
+    }
+  }
 
   const enRevision = data?.results.filter((s) => s.estado === 'PENDIENTE') ?? []
   const resueltas = data?.results.filter((s) => s.estado !== 'PENDIENTE') ?? []
@@ -134,7 +208,15 @@ export default function MisSolicitudesPage() {
             </h2>
             <div className="flex flex-col gap-3">
               {enRevision.map((s) => (
-                <SolicitudCard key={s.id} solicitud={s} />
+                <SolicitudCard
+                  key={s.id}
+                  solicitud={s}
+                  confirmandoId={confirmandoId}
+                  cancelandoId={cancelandoId}
+                  onCancelarClick={handleCancelarClick}
+                  onCancelarConfirm={handleCancelarConfirm}
+                  onCancelarAbort={handleCancelarAbort}
+                />
               ))}
             </div>
           </section>
@@ -149,7 +231,15 @@ export default function MisSolicitudesPage() {
             </h2>
             <div className="flex flex-col gap-3">
               {resueltas.map((s) => (
-                <SolicitudCard key={s.id} solicitud={s} />
+                <SolicitudCard
+                  key={s.id}
+                  solicitud={s}
+                  confirmandoId={confirmandoId}
+                  cancelandoId={cancelandoId}
+                  onCancelarClick={handleCancelarClick}
+                  onCancelarConfirm={handleCancelarConfirm}
+                  onCancelarAbort={handleCancelarAbort}
+                />
               ))}
             </div>
           </section>

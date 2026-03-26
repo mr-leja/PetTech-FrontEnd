@@ -118,6 +118,9 @@ export const solicitudesApi = {
   misContadores: () =>
     httpClient.get<ContadoresFamilia>('/solicitudes/mis-contadores/').then((r) => r.data),
 
+  cancelar: (id: number) =>
+    httpClient.delete(`/solicitudes/${id}/`).then((r) => r.data),
+
   listarAdopciones: () =>
     httpClient.get<AdopcionesResponse>('/adopciones/').then((r) => r.data),
 }
