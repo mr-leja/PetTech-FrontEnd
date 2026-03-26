@@ -327,7 +327,6 @@ export default function EditarMascotaPage() {
                 {/* ── Características para adopción (matching) ── */}
                 <div className="border border-orange-100 rounded-xl p-4 bg-orange-50/40 flex flex-col gap-4">
                   <h3 className="text-sm font-semibold text-pettech-orange">Características para adopción</h3>
-                  <p className="text-xs text-gray-500 -mt-2">Estos datos se usan para recomendar la mascota a familias compatibles.</p>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1">
