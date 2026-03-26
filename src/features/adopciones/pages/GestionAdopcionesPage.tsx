@@ -4,6 +4,7 @@ import { Heart, PawPrint, User, Calendar, Search, ChevronDown, ChevronUp } from 
 import { solicitudesApi, type Adopcion } from '../api/solicitudesApi'
 import NavBar from '@/shared/components/NavBar'
 import Spinner from '@/shared/components/Spinner'
+import { TAMANO_LABEL } from '@/shared/constants/labels'
 
 const ESPECIE_LABEL: Record<string, string> = {
   PERRO: 'Perro',
@@ -19,11 +20,7 @@ const SEXO_LABEL: Record<string, string> = {
   DESCONOCIDO: 'Desconocido',
 }
 
-const TAMANO_LABEL: Record<string, string> = {
-  PEQUENO: 'Pequeño',
-  MEDIANO: 'Mediano',
-  GRANDE: 'Grande',
-}
+// TAMANO_LABEL importado desde @/shared/constants/labels
 
 function DataItem({ label, value }: { label: string; value: React.ReactNode }) {
   if (!value && value !== 0 && value !== false) return null
