@@ -343,36 +343,6 @@ function SolicitudRow({ solicitud }: { solicitud: SolicitudAdopcion }) {
             </div>
           </div>
 
-          {/* ── CONDICIONES DEL HOGAR ── */}
-          {solicitud.condiciones_hogar && (
-            <div className="p-4 border-b border-gray-200">
-              <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-3">Condiciones del hogar</p>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                <DataItem label="Tipo de vivienda" value={TIPO_VIVIENDA_LABEL[solicitud.condiciones_hogar.tipo_vivienda] ?? solicitud.condiciones_hogar.tipo_vivienda} />
-                <DataItem label="Propiedad" value={PROPIEDAD_LABEL[solicitud.condiciones_hogar.propiedad_vivienda] ?? solicitud.condiciones_hogar.propiedad_vivienda} />
-                <DataItem label="Tamaño del hogar" value={TAMANO_LABEL[solicitud.condiciones_hogar.tamano_hogar] ?? solicitud.condiciones_hogar.tamano_hogar} />
-                <DataItem label="Personas en casa" value={solicitud.condiciones_hogar.numero_personas} />
-                <DataItem label="Tiene patio" value={solicitud.condiciones_hogar.tiene_patio ? 'Sí' : 'No'} />
-                <DataItem label="Niños en casa" value={solicitud.condiciones_hogar.tiene_ninos ? 'Sí' : 'No'} />
-                <DataItem label="Mascotas actuales" value={solicitud.condiciones_hogar.tiene_mascotas_actualmente ? 'Sí' : 'No'} />
-                <DataItem label="Horas solo / día" value={`${solicitud.condiciones_hogar.tiempo_solo_horas}h`} />
-                <DataItem label="Ingresos estimados" value={INGRESOS_LABEL[solicitud.condiciones_hogar.ingresos_estimados] ?? (solicitud.condiciones_hogar.ingresos_estimados || undefined)} />
-              </div>
-              {solicitud.condiciones_hogar.experiencia_mascotas && (
-                <div className="mt-2">
-                  <p className="text-gray-400 text-xs mb-0.5">Experiencia con mascotas</p>
-                  <p className="text-sm text-gray-700">{solicitud.condiciones_hogar.experiencia_mascotas}</p>
-                </div>
-              )}
-              {solicitud.condiciones_hogar.motivacion && (
-                <div className="mt-2">
-                  <p className="text-gray-400 text-xs mb-0.5">Motivación para adoptar</p>
-                  <p className="text-sm text-gray-700">{solicitud.condiciones_hogar.motivacion}</p>
-                </div>
-              )}
-            </div>
-          )}
-
           {/* ── MENSAJE Y NOTAS ── */}
           <div className="p-4 flex flex-col gap-3">
             {solicitud.mensaje && (
