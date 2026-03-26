@@ -67,6 +67,7 @@ export default function EditarMascotaPage() {
   const qc = useQueryClient()
   const [loading, setLoading] = useState(false)
   const [loadingData, setLoadingData] = useState(true)
+  const [estadoOriginal, setEstadoOriginal] = useState<string>('')
   const [fotoFile, setFotoFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
   const [fotoEliminada, setFotoEliminada] = useState(false)
@@ -113,6 +114,7 @@ export default function EditarMascotaPage() {
         info_adicional: m.info_adicional || '',
       })
       if (m.foto_url) setPreview(m.foto_url)
+      setEstadoOriginal(m.estado)
       setLoadingData(false)
     }).catch(() => {
       toast.error('No se pudo cargar la mascota.')
@@ -233,12 +235,26 @@ export default function EditarMascotaPage() {
                   <Input label="Raza *" placeholder="Labrador, Persa..." error={errors.raza?.message} {...register('raza')} />
                   <div className="flex flex-col gap-1">
                     <label className="text-sm font-medium text-gray-700">Estado</label>
-                    <select className="input-field" {...register('estado')}>
+                    <select
+                      className="input-field disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed"
+                      disabled={estadoOriginal === 'ADOPTADO' || estadoOriginal === 'EN_PROCESO'}
+                      {...register('estado')}
+                    >
                       <option value="DISPONIBLE">Disponible</option>
                       <option value="EN_PROCESO">En proceso</option>
                       <option value="NO_DISPONIBLE">No disponible</option>
                       <option value="ADOPTADO">Adoptado</option>
                     </select>
+                    {estadoOriginal === 'ADOPTADO' && (
+                      <p className="text-xs text-amber-600 mt-1">
+                        Esta mascota ya fue adoptada. No se puede cambiar su estado.
+                      </p>
+                    )}
+                    {estadoOriginal === 'EN_PROCESO' && (
+                      <p className="text-xs text-amber-600 mt-1">
+                        Hay una solicitud de adopción en proceso. No se puede cambiar el estado.
+                      </p>
+                    )}
                   </div>
                 </div>
 
