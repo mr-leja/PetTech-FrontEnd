@@ -12,6 +12,7 @@ import GestionSolicitudesPage from '@/features/adopciones/pages/GestionSolicitud
 import MisSolicitudesPage from '@/features/adopciones/pages/MisSolicitudesPage'
 import AdopcionesRealizadasPage from '@/features/adopciones/pages/AdopcionesRealizadasPage'
 import GestionAdopcionesPage from '@/features/adopciones/pages/GestionAdopcionesPage'
+import CalendarioVacunacionPage from '@/features/adopciones/pages/CalendarioVacunacionPage'
 import PrivateRoute from '@/shared/components/PrivateRoute'
 import AdminRoute from '@/shared/components/AdminRoute'
 
@@ -32,6 +33,7 @@ export default function AppRouter() {
         <Route path="/perfil-adoptante/registrar" element={<RegistrarAdoptantePage />} />
         <Route path="/mis-solicitudes" element={<MisSolicitudesPage />} />
         <Route path="/mis-adopciones" element={<AdopcionesRealizadasPage />} />
+        <Route path="/mis-adopciones/:adopcionId/calendario" element={<CalendarioVacunacionPage />} />
       </Route>
 
       {/* Rutas de admin */}

@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { Heart, PawPrint, Calendar, MapPin, Info } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Heart, PawPrint, Calendar, MapPin, Info, Syringe } from 'lucide-react'
 import { solicitudesApi, type Adopcion } from '../api/solicitudesApi'
 import NavBar from '@/shared/components/NavBar'
 import Spinner from '@/shared/components/Spinner'
@@ -103,7 +104,7 @@ function AdopcionCard({ adopcion }: { adopcion: Adopcion }) {
 
           {/* Notas del admin */}
           {adopcion.solicitud_notas_admin && (
-            <div className="bg-green-50 border border-green-200 rounded-lg p-3 text-sm">
+            <div className="bg-green-50 border border-green-200 rounded-lg p-3 text-sm mb-3">
               <p className="font-medium text-green-800 mb-0.5 flex items-center gap-1">
                 <Info className="w-3.5 h-3.5" />
                 Nota del administrador
@@ -111,6 +112,17 @@ function AdopcionCard({ adopcion }: { adopcion: Adopcion }) {
               <p className="text-green-700">{adopcion.solicitud_notas_admin}</p>
             </div>
           )}
+
+          {/* Acciones */}
+          <div className="flex flex-wrap gap-2">
+            <Link
+              to={`/mis-adopciones/${adopcion.id}/calendario`}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-pettech-orange text-white text-xs font-medium hover:bg-orange-600 transition-colors"
+            >
+              <Syringe className="w-3.5 h-3.5" />
+              Ver calendario de vacunas
+            </Link>
+          </div>
         </div>
       </div>
     </article>
