@@ -501,7 +501,9 @@ export default function RegistrarMascotaPage() {
                   >
                     <ArrowLeft className="w-4 h-4" /> Anterior
                   </button>
-                  <Button type="submit" loading={loading}>Registrar mascota</Button>
+                  <Button type="submit" loading={loading}>
+                    {loading ? (fotoFile ? 'Subiendo imagen...' : 'Registrando...') : 'Registrar mascota'}
+                  </Button>
                 </div>
               </div>
             )}

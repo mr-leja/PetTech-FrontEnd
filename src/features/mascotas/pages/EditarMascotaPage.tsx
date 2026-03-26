@@ -417,7 +417,7 @@ export default function EditarMascotaPage() {
 
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium text-gray-700">Historial de vacunas</label>
+                    <label className="text-sm font-medium text-gray-700">Historial de vacunas *</label>
                     <button
                       type="button"
                       onClick={() => appendVacuna({ nombre: '', fecha_aplicacion: '', proxima_dosis: '', veterinario: '', lote: '' })}
@@ -429,6 +429,9 @@ export default function EditarMascotaPage() {
 
                   {vacunaFields.length === 0 && (
                     <p className="text-xs text-gray-400 italic">Sin vacunas registradas.</p>
+                  )}
+                  {errors.vacunas && !Array.isArray(errors.vacunas) && (
+                    <p className="text-xs text-red-500">{(errors.vacunas as any).message}</p>
                   )}
 
                   {vacunaFields.map((field, index) => (
@@ -489,7 +492,9 @@ export default function EditarMascotaPage() {
                   <button type="button" onClick={() => setStep(1)} className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700">
                     <ArrowLeft className="w-4 h-4" /> Anterior
                   </button>
-                  <Button type="submit" loading={loading}>Guardar cambios</Button>
+                  <Button type="submit" loading={loading}>
+                    {loading ? (fotoFile ? 'Subiendo imagen...' : 'Guardando...') : 'Guardar cambios'}
+                  </Button>
                 </div>
               </div>
             )}
