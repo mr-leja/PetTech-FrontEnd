@@ -28,3 +28,45 @@ export const STEP1_FIELDS = [
 export function getTodayDate(): string {
   return new Date().toISOString().split('T')[0]
 }
+
+// ---------------------------------------------------------------------------
+// Comprime y redimensiona una imagen antes de subirla al backend.
+// Reduce el tamaño de envío en >80 % en imágenes grandes → menos latencia.
+// ---------------------------------------------------------------------------
+export async function compressImage(
+  file: File,
+  maxPx = 1200,
+  quality = 0.85,
+): Promise<File> {
+  return new Promise((resolve) => {
+    const img = new Image()
+    const objectUrl = URL.createObjectURL(file)
+    img.onload = () => {
+      URL.revokeObjectURL(objectUrl)
+      let { width, height } = img
+      if (width > maxPx || height > maxPx) {
+        if (width >= height) {
+          height = Math.round((height * maxPx) / width)
+          width = maxPx
+        } else {
+          width = Math.round((width * maxPx) / height)
+          height = maxPx
+        }
+      }
+      const canvas = document.createElement('canvas')
+      canvas.width = width
+      canvas.height = height
+      canvas.getContext('2d')!.drawImage(img, 0, 0, width, height)
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) { resolve(file); return }
+          resolve(new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), { type: 'image/jpeg' }))
+        },
+        'image/jpeg',
+        quality,
+      )
+    }
+    img.onerror = () => { URL.revokeObjectURL(objectUrl); resolve(file) }
+    img.src = objectUrl
+  })
+}

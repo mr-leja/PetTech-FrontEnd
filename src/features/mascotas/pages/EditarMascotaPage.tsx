@@ -6,7 +6,7 @@ import { z } from 'zod'
 import toast from 'react-hot-toast'
 import { useQueryClient } from '@tanstack/react-query'
 import { mascotasApi } from '../api/mascotasApi'
-import { ESPECIES, vacunaSchema, STEP1_FIELDS, getTodayDate } from '../formSchema'
+import { ESPECIES, vacunaSchema, STEP1_FIELDS, getTodayDate, compressImage } from '../formSchema'
 import { Input } from '@/shared/components/Input'
 import Button from '@/shared/components/Button'
 import NavBar from '@/shared/components/NavBar'
@@ -103,12 +103,13 @@ export default function EditarMascotaPage() {
     })
   }, [id])
 
-  const handleFoto = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
+    const compressed = await compressImage(file)
     setFotoEliminada(false)
-    setFotoFile(file)
-    setPreview(URL.createObjectURL(file))
+    setFotoFile(compressed)
+    setPreview(URL.createObjectURL(compressed))
   }
 
   const goToStep2 = async () => {
