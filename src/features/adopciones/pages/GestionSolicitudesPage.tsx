@@ -6,6 +6,7 @@ import NavBar from '@/shared/components/NavBar'
 import Spinner from '@/shared/components/Spinner'
 import EmptyState from '@/shared/components/EmptyState'
 import { solicitudesApi, type SolicitudAdopcion } from '../api/solicitudesApi'
+import { TAMANO_LABEL, NIVEL_LABEL, ENERGIA_LABEL, INGRESOS_LABEL } from '@/shared/constants/labels'
 
 const ESTADO_LABEL: Record<string, string> = {
   PENDIENTE: 'Pendiente',
@@ -19,15 +20,7 @@ const ESTADO_BADGE: Record<string, string> = {
   RECHAZADA: 'bg-red-100 text-red-700',
 }
 
-const TAMANO_LABEL: Record<string, string> = {
-  PEQUENO: 'Pequeño',
-  MEDIANO: 'Mediano',
-  GRANDE: 'Grande',
-}
-
-const ENERGIA_LABEL: Record<string, string> = {
-  BAJO: 'Bajo', MEDIO: 'Medio', ALTO: 'Alto',
-}
+// TAMANO_LABEL, NIVEL_LABEL, ENERGIA_LABEL, INGRESOS_LABEL importados desde @/shared/constants/labels
 
 const SEXO_LABEL: Record<string, string> = {
   MACHO: 'Macho', HEMBRA: 'Hembra',
@@ -41,16 +34,7 @@ const PROPIEDAD_LABEL: Record<string, string> = {
   PROPIA: 'Propia', ALQUILADA: 'Alquilada',
 }
 
-const INGRESOS_LABEL: Record<string, string> = {
-  MENOS_1SMLV: '< 1 SMLV',
-  '1_2SMLV': '1–2 SMLV',
-  '2_4SMLV': '2–4 SMLV',
-  MAS_4SMLV: '> 4 SMLV',
-}
 
-const NIVEL_LABEL: Record<string, string> = {
-  BAJO: 'Bajo', MEDIO: 'Medio', ALTO: 'Alto',
-}
 
 const COSTO_LABEL: Record<string, string> = {
   MENOS_1SMLV: '< 1 SMLV/mes',
@@ -59,8 +43,9 @@ const COSTO_LABEL: Record<string, string> = {
   MAS_4SMLV: '> 4 SMLV/mes',
 }
 
-// Orden numérico para comparaciones de nivel BAJO/MEDIO/ALTO
+// Orden numérico para comparaciones
 const NIVEL_NUM: Record<string, number> = { BAJO: 1, MEDIO: 2, ALTO: 3 }
+const TAMANO_NUM: Record<string, number> = { PEQUENO: 1, MEDIANO: 2, GRANDE: 3 }
 const INGRESOS_NUM: Record<string, number> = { MENOS_1SMLV: 1, '1_2SMLV': 2, '2_4SMLV': 3, MAS_4SMLV: 4 }
 
 function CompatRow({
@@ -69,15 +54,17 @@ function CompatRow({
   criterio: string
   mascota: string
   familia: string
-  compatible: boolean | null
+  compatible: boolean | 'partial' | null
 }) {
   const badge =
     compatible === true
       ? 'bg-green-100 text-green-700'
+      : compatible === 'partial'
+      ? 'bg-yellow-100 text-yellow-700'
       : compatible === false
       ? 'bg-red-100 text-red-600'
       : 'bg-gray-100 text-gray-500'
-  const icon = compatible === true ? '✓' : compatible === false ? '✗' : '?'
+  const icon = compatible === true ? '✓' : compatible === 'partial' ? '~' : compatible === false ? '✗' : '?'
   return (
     <div className="grid grid-cols-[1fr_1fr_1fr_52px] items-center gap-2 py-2 border-b border-gray-100 last:border-0">
       <span className="text-xs text-gray-500">{criterio}</span>
@@ -92,9 +79,15 @@ function PanelCompatibilidad({ solicitud }: { solicitud: SolicitudAdopcion }) {
   const ch = solicitud.condiciones_hogar
 
   // Criterio 1: Tamaño mascota vs tamaño hogar
-  const tamanoOk = solicitud.mascota_tamano && ch?.tamano_hogar
-    ? NIVEL_NUM[solicitud.mascota_tamano] <= NIVEL_NUM[ch.tamano_hogar]
-    : null
+  // pequeño < hogar → verde | igual → amarillo | mascota > hogar → rojo
+  const tamanoOk: boolean | 'partial' | null = (() => {
+    const mNum = TAMANO_NUM[solicitud.mascota_tamano]
+    const hNum = TAMANO_NUM[ch?.tamano_hogar ?? '']
+    if (mNum == null || hNum == null) return null
+    if (mNum < hNum) return true
+    if (mNum === hNum) return 'partial'
+    return false
+  })()
 
   // Criterio 2: Independencia (tiempo solo tolerado por mascota) vs horas que pasa sola
   const soledadOk = solicitud.mascota_nivel_independencia && ch?.tiempo_solo_horas != null
@@ -122,7 +115,7 @@ function PanelCompatibilidad({ solicitud }: { solicitud: SolicitudAdopcion }) {
     ? INGRESOS_NUM[ch.ingresos_estimados] >= INGRESOS_NUM[solicitud.mascota_costo_estimado_mensual]
     : null
 
-  const total = [tamanoOk, soledadOk, complejidadOk, sociabilidadOk, ninosOk, costoOk]
+  const total: (boolean | 'partial' | null)[] = [tamanoOk, soledadOk, complejidadOk, sociabilidadOk, ninosOk, costoOk]
   const conocidos = total.filter((v) => v !== null)
   const compatibles = total.filter((v) => v === true).length
   const scoreColor =
@@ -149,7 +142,7 @@ function PanelCompatibilidad({ solicitud }: { solicitud: SolicitudAdopcion }) {
       <div className="grid grid-cols-[1fr_1fr_1fr_52px] gap-2 mb-1">
         <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Criterio</span>
         <span className="text-xs font-semibold text-pettech-orange uppercase tracking-wide">Mascota</span>
-        <span className="text-xs font-semibold text-blue-600 uppercase tracking-wide">Familia</span>
+        <span className="text-xs font-semibold text-blue-600 uppercase tracking-wide">Adoptante</span>
         <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide text-center">OK</span>
       </div>
 
