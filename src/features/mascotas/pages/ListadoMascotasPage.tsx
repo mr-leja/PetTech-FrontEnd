@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { Plus, SlidersHorizontal } from 'lucide-react'
@@ -35,6 +35,38 @@ export default function ListadoMascotasPage() {
     refetchInterval: 30_000,
     staleTime: 0,
   })
+
+  // Para adoptantes: obtener sus solicitudes pendientes para saber qué mascotas EN_PROCESO les pertenecen
+  const { data: solicitudesData } = useQuery({
+    queryKey: ['solicitudes', 'mias'],
+    queryFn: () => solicitudesApi.listar(),
+    enabled: user?.rol === 'FAMILIA',
+    staleTime: 0,
+  })
+
+  const misSolicitudesMascotaIds = useMemo(() => {
+    if (user?.rol !== 'FAMILIA') return new Set<number>()
+    return new Set(
+      (solicitudesData?.results ?? [])
+        .filter((s) => s.estado === 'PENDIENTE')
+        .map((s) => s.mascota),
+    )
+  }, [solicitudesData, user?.rol])
+
+  // Filtrado por reglas de visibilidad según rol
+  const mascotasFiltradas = useMemo(() => {
+    const results = data?.results ?? []
+    if (user?.rol === 'ADMIN') {
+      // Admin ve todo excepto adoptadas (esas están en historial)
+      return results.filter((m) => m.estado !== 'ADOPTADO')
+    }
+    // Adoptante: solo DISPONIBLE o EN_PROCESO si tiene solicitud pendiente para esa mascota
+    return results.filter(
+      (m) =>
+        m.estado === 'DISPONIBLE' ||
+        (m.estado === 'EN_PROCESO' && misSolicitudesMascotaIds.has(m.id)),
+    )
+  }, [data, user?.rol, misSolicitudesMascotaIds])
 
   const handleDeleteConfirm = async () => {
     if (!deletingId) return
@@ -81,7 +113,7 @@ export default function ListadoMascotasPage() {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-2xl font-semibold text-gray-800">Mascotas</h1>
-            <p className="text-sm text-gray-500">{data?.count ?? 0} mascotas registradas</p>
+            <p className="text-sm text-gray-500">{mascotasFiltradas.length} mascotas registradas</p>
           </div>
           {user?.rol === 'ADMIN' && (
             <Link to="/mascotas/nueva" className="btn-primary flex items-center gap-2 text-sm">
@@ -96,17 +128,19 @@ export default function ListadoMascotasPage() {
             <SlidersHorizontal className="w-4 h-4" />
             <span>Filtros:</span>
           </div>
-          <select
-            className="input-field w-auto text-sm"
-            value={filtroEstado}
-            onChange={(e) => setFiltroEstado(e.target.value)}
-          >
-            <option value="">Todos los estados</option>
-            <option value="DISPONIBLE">Disponible</option>
-            <option value="EN_PROCESO">En proceso</option>
-            <option value="ADOPTADO">Adoptado</option>
-            <option value="NO_DISPONIBLE">No disponible</option>
-          </select>
+          {/* Solo admin filtra por estado (adoptantes ven su vista fija) */}
+          {user?.rol === 'ADMIN' && (
+            <select
+              className="input-field w-auto text-sm"
+              value={filtroEstado}
+              onChange={(e) => setFiltroEstado(e.target.value)}
+            >
+              <option value="">Todos los estados</option>
+              <option value="DISPONIBLE">Disponible</option>
+              <option value="EN_PROCESO">En proceso</option>
+              <option value="NO_DISPONIBLE">No disponible</option>
+            </select>
+          )}
           <select
             className="input-field w-auto text-sm"
             value={filtroEspecie}
@@ -123,11 +157,11 @@ export default function ListadoMascotasPage() {
         {/* Content */}
         {isLoading && <Spinner />}
         {error && <p className="text-red-500 text-center">Error al cargar mascotas.</p>}
-        {!isLoading && !error && data?.results.length === 0 && (
+        {!isLoading && !error && mascotasFiltradas.length === 0 && (
           <EmptyState message="No se encontraron mascotas con estos filtros." />
         )}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-          {data?.results.map((m) => (
+          {mascotasFiltradas.map((m) => (
             <MascotaCard
               key={m.id}
               mascota={m}
