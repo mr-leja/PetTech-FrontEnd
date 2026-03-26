@@ -71,7 +71,7 @@ export default function DashboardPage() {
           <>
             {(loadingMascotas || loadingFamilias) && <Spinner />}
             {!loadingMascotas && !loadingFamilias && (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
                 <StatCard
                   label="Total mascotas"
                   value={mascotas?.count ?? 0}
@@ -95,6 +95,12 @@ export default function DashboardPage() {
                   value={familiasData?.count ?? 0}
                   icon={<Users className="w-6 h-6 text-blue-500" />}
                   color="border-blue-400"
+                />
+                <StatCard
+                  label="Adopciones exitosas"
+                  value={adoptados}
+                  icon={<CheckCircle className="w-6 h-6 text-purple-500" />}
+                  color="border-purple-400"
                 />
               </div>
             )}
