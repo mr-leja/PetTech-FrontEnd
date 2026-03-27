@@ -1,215 +1,522 @@
-# TEST_PLAN.md
+# Historias de Usuario
+## Definition of Ready (DoR)
+
+Una historia de usuario está lista para entrar a un sprint cuando:
+
+- Está redactada en formato **Como / Quiero / Para**
+- Tiene **criterios de aceptación en Gherkin**, incluyendo:
+  - al menos un escenario de flujo exitoso (happy path)
+  - escenarios de validación de datos o reglas de negocio
+  - al menos un escenario edge case (cuando aplique)
+- El objetivo de negocio es claro
+- Los datos requeridos están definidos (ej: edad, especie, estado, etc.)
+- Las reglas de negocio son claras, por ejemplo:
+ - validar disponibilidad de mascota
+  - no permitir duplicados
+  - requerir mayoría de edad
+- El flujo funcional está claro (inicio → acción → resultado)
+- Tiene una estimación en Story Points
+- Tiene un tamaño adecuado (puede completarse dentro de un sprint)
+---
+
+# Definition of Done (DoD)
+
+Una historia de usuario se considera terminada cuando:
+
+- Cumple completamente todos los **criterios de aceptación definidos**
+- El flujo funcional es ejecutable de inicio a fin sin errores
+- Las reglas de negocio se respetan correctamente, por ejemplo:
+  - no se permiten registros duplicados
+  - no se pueden crear solicitudes inválidas
+  - los estados (pendiente, aprobada, adopción exitosa) se manejan correctamente
+- La información se almacena correctamente en base de datos
+- Las relaciones entre entidades están correctamente implementadas:
+  - mascota ↔ familia
+  - solicitud ↔ estado
+  - adopción ↔ calendario
+- Se manejan correctamente los errores y validaciones, mostrando mensajes claros al usuario
+- El código ha sido revisado (code review)
+- La historia cumple el objetivo de negocio definido inicialmente
+
+# Épica 1: Gestion de Mascotas
+
+## HU-01 - Registrar información basica de la mascota
+
+- **Como** administrador
+- **Quiero** registrar los datos básicos de una mascota
+- **Para** almacenar su información en el sistema
+
+## Criterios de aceptacion 
+
+### feature: Registro de información básica de mascota
+
+### Scenario: Registro exitoso
+- **Given**  que el administrador completa los campos obligatorios como nombre, especie, edad, sexo, nivel de energía
+- **When** confirma el registro de la mascota
+- **Then** el sistema almacena los datos de la mascota
+
+### Scenario: Validación de campos obligatorios
+- **Given** que el administrador deja vacíos campos obligatorios (como la edad o la especie)
+- **When** intenta guardar la mascota
+- **Then** el sistema debe mostrar un mensaje de error destacando los campos faltantes
+- **And** no debe crear el registro en la base de datos
+
+### Story Points HU-01
+  - 5 puntos de estimacion
+     registro completo con validaciones y almacenamiento en base de datos
+---
+
+## HU-02 – Registrar información de salud
+
+ - **Como** administrador
+ - **Quiero** registrar el estado de salud de la mascota
+ - **Para** tener control sobre vacunas y esterilización
+
+## Criterios de aceptación
+
+### feature: Registro de informacion médica de la mascota
+
+### Scenario: Registro de información de salud
+- **Given** que el administrador ingresa datos de salud
+- **When** guarda la información
+- **Then** el sistema la almacena correctamente
+
+### Scenario: Intento de registro sin seleccionar el estado de vacunación de la mascota
+- **Given** que el administrador  deja el campo de historial de vacunas sin completar
+- **When** intenta guardar la información de salud
+- **Then** el sistema muestra un mensaje indicando que el historial de vacunación es un dato requerido
+- **And** no almacena el registro incompleto
+
+### Scenario: Registro con fecha de vacunación futura
+- **Given** que el administrador ingresa información de salud de la mascota
+- **And** registra una fecha de vacunación mayor a la fecha actual
+- **When** intenta guardar la información
+- **Then** el sistema rechaza la operación
+- **And** muestra un mensaje indicando que la fecha de vacunación no puede ser futura
+
+
+### Story Points HU-02
+  - 3 puntos de estimacion
+     Registro de información de salud con almacenamiento
+ ---    
+
+## HU-03 - Subir fotos de la mascota
+
+- **Como** administrador
+- **Quiero** subir una fotografía de la mascota
+- **Para** mejorar su visualización en la plataforma
+
+## Criterios de aceptacion 
+
+### feature: Carga de fotografía de mascota
+
+### Scenario: Carga de imagen válida
+- **Given**  que el administrador selecciona una imagen válida
+- **When** la carga en el formulario
+- **Then** el sistema la almacena correctamente
+
+### Scenario: Validación de formato de imagen incorrecto
+- **Given**  que el administrador intenta subir un archivo que no es una imagen (ej. un .pdf o .docx)
+- **When** intenta procesar el registro
+- **Then** el sistema debe notificar que el formato de archivo no es compatible
+
+### Story Points HU-03
+  - 3 puntos de estimacion
+     Funcionalidad complementaria: carga y validación de imágenes
+---
+
+# Épica 2: Gestion de familias
+
+## HU-04 - Registrar información básica de familia
+
+- **Como** familia adoptante
+- **Quiero** registrar mi información personal
+- **Para** crear mi perfil en el sistema
+
+## Criterios de aceptacion
+
+### feature: Registro exitoso de familia adoptante
+
+### Scenario: Registro exitoso con información completa
+  - **Given** que la familia ingresa datos personales válidos y completos como nombre, apellido, número de identificación y edad
+  - **When** completa el registro
+  - **Then** la información queda almacenada correctamente
+
+### Scenario: Validación de datos obligatorios
+  - **Given** que la familia omite datos personales obligatorios (numero de identificacion o edad)
+  - **When**  intenta registrarse
+  - **Then**  el sistema rechaza el registro
+  - **And** muestra los campos faltantes
+
+### Scenario: Validación de mayoría de edad
+  - **Given**  que la familia ingresa una edad menor a 18
+  - **When** intenta completar el registro
+  - **Then** el sistema rechaza el registro
+  - **And** informa que debe ser mayor de edad
+
+### Story Points HU-04
+  - 5 puntos
+     registro de información con validaciones (datos obligatorios y mayoría de edad) y almacenamiento en base de datos
 
 ---
 
-## 1. Identificación del Plan
+## HU-05 - Registrar condiciones del hogar y experiencia
 
-| Campo | Detalle |
-|---|---|
-| **Nombre del Proyecto** | PetTech: Matcher de Adopción y Cuidados |
-| **Sistema Bajo Prueba** | PetTech — MVP Web |
-| **Versión** | v1.0 / MVP |
-| **Fecha** | 27/03/2026 |
-| **Ciclo** | Micro-Sprint 1 y Micro-Sprint 2 — HU-01 a HU-15 |
+- **Como** familia adoptante
+- **Quiero** registrar las condiciones de mi hogar y mi experiencia con mascotas
+- **Para** facilitar el proceso de evaluación para adopción
 
----
+## Criterios de aceptacion
 
-## 2. Contexto
+### feature: Registro exitoso de experiencia y condiciones del hogar
 
-PetTech es una plataforma web que facilita la adopción responsable de mascotas. El sistema permite que administradores de refugios registren animales disponibles y que familias adoptantes exploren opciones y envíen solicitudes. El motor de reglas de compatibilidad evalúa factores como el tamaño del hogar, la experiencia previa y la presencia de niños, con el objetivo de reducir el 20.7% de adopciones fallidas actuales.
+### Scenario: Registro de condiciones del hogar
+  - **Given** que la familia ingresa información del hogar y experiencia
+  - **When** guarda los datos
+  - **Then** el sistema almacena la información correctamente
 
-Este plan cubre dos Micro-Sprints: el Micro-Sprint 1 abarca las Épicas 1, 2 y el inicio de la Épica 3 (registro completo de mascotas y familias adoptantes, más la visualización del listado). El Micro-Sprint 2 cubre las HU restantes correspondientes a las Épicas 3 a 6 (HU-07 a HU-15).
+### Scenario: Intento de registro sin campos obligatorios
+- **Given** que la familia no selecciona el tipo de vivienda o no indica el tamaño del hogar
+- **When** intenta guardar la información
+- **Then** el sistema informa que los campos de tipo de vivienda y tamaño del hogar son obligatorios
+- **And** no actualiza el perfil con información incompleta
 
----
+### Scenario: Registro duplicado
+- **Given** que la familia adoptante ya tiene registrada su información
+- **When** intenta registrar nuevamente esta información como un nuevo registro
+- **Then** el sistema rechaza el registro por duplicidad
+- **And** se informa que el registro ya existe
 
-## 3. Alcance de las Pruebas
+### Scenario: Actualizacion de la información
+- **Given** que la familia adoptante esta previamente registrada
+- **When** modifica la información existente
+- **Then** el sistema actualiza correctamente la información del perfil
 
-### 3.1 Micro-Sprint 1 — Historias incluidas
-
-| ID | Historia de Usuario | Prioridad / SP |
-|---|---|---|
-| HU-01 | Registrar información básica de la mascota | Alta / 5 SP |
-| HU-02 | Registrar información de salud de la mascota | Alta / 3 SP |
-| HU-03 | Subir fotos de la mascota | Media / 3 SP |
-| HU-04 | Registrar información básica de familia adoptante | Alta / 5 SP |
-| HU-05 | Registrar condiciones del hogar y experiencia | Alta / 3 SP |
-| HU-06 | Ver listado de mascotas disponibles | Alta / 3 SP |
-
-### 3.2 Micro-Sprint 2 — Historias incluidas
-
-| ID | Historia de Usuario | Prioridad / SP |
-|---|---|---|
-| HU-07 | Ver detalle de mascota | Alta / 5 SP |
-| HU-08 | Solicitar adopción | Alta / 3 SP |
-| HU-09 | Consultar detalle de solicitud de adopción | Media / 3 SP |
-| HU-10 | Registrar decisión sobre solicitud | Alta / 5 SP |
-| HU-11 | Sugerir alternativa de adopción | Media / 3 SP |
-| HU-12 | Confirmar adopción | Alta / 3 SP |
-| HU-13 | Visualizar adopciones realizadas | Media / 5 SP |
-| HU-14 | Generar calendario de vacunas | Alta / 8 SP |
-| HU-15 | Consultar calendario de vacunación | Alta / 3 SP |
-
-### 3.3 Fuera del alcance (MVP)
-
-| Funcionalidad excluida | Razón |
-|---|---|
-| Pasarela de pagos | Fuera del MVP |
-| Matching con IA avanzado | Fuera del MVP |
-| Notificaciones / correos automáticos | Fuera del MVP |
-| Chat entre adoptante y refugio | Fuera del MVP |
+### Story Points HU-05
+  -  3 puntos
+     Registro de condiciones del hogar y experiencia con almacenamiento. Funcionalidad específica, con validaciones básicas y baja complejidad
 
 ---
 
-## 4. Estrategia de Pruebas
+# Épica 3: Visualización de Mascotas
 
-| Tipo de Prueba | Herramienta | Propósito |
-|---|---|---|
-| Pruebas Funcionales | SerenityBDD + Cucumber | Validar flujos de negocio mediante escenarios Gherkin |
-| Pruebas de API | Karate | Automatizar y validar endpoints REST (GET, POST, PUT, DELETE) |
-| Pruebas de Rendimiento | k6 | Medir tiempos de respuesta y comportamiento bajo carga |
-| Asistencia IA | Claude Code / OpenCode | Generación y revisión de casos de prueba, escenarios |
+## HU-06   - Ver listado de mascotas
+
+- **Como** familia adoptante
+- **Quiero** ver las mascotas disponibles
+- **Para** explorar opciones de adopción
+
+## Criterios de aceptacion
+
+### feature: Visualización del listado de mascotas disponibles
+
+ ### Scenario: Visualización de mascotas disponibles
+  - **Given** que existen mascotas registradas en el sistema
+  - **When** se consulta el listado de mascotas
+  - **Then** el sistema muestra las mascotas disponibles para adopción
+
+  ### Scenario: Exclusión de mascotas no disponibles
+  - **Given** que existen mascotas con diferentes estados de disponibilidad
+    - **When** se consulta el listado de mascotas
+  - **Then** el sistema incluye únicamente mascotas disponibles
+
+### Scenario: Información relevante en el listado
+  - **Given** que existen mascotas disponibles para adopción
+  - **When** se consulta el listado de mascotas
+  **Then** cada mascota presenta la información necesaria para su evaluación básica
+
+### Scenario: Visualización cuando no hay mascotas disponibles
+  - **Given** que no existen mascotas disponibles para adopción
+  - **When** se consulta el listado de mascotas
+  - **Then** el sistema informa que no hay mascotas disponibles
+
+  ### Story Points HU-06
+    3 puntos 
+     Visualización de listado con filtro por disponibilidad
+---
+
+## HU-07 – Ver detalle de mascota
+
+- **Como** familia adoptante
+- **Quiero** ver el detalle de una mascota
+- **Para** conocer sus características antes de solicitar adopción
+
+## Criterios de aceptación:
+
+### feature: Visualización de la Informacion de una mascota
+
+### Scenario: Visualización del detalle de una mascota
+ - **Given** que la familia selecciona una mascota del listado
+ - **When** accede a su detalle
+ - **Then** el sistema muestra la información completa de la mascota
+
+### Scenario: Visualización de fotografías
+ - **Given** que la familia accede al detalle de una mascota
+ - **When** existen imágenes asociadas
+ - **Then** el sistema muestra las fotos de la mascota
+
+### Scenario: Visualización de la informacion de salud de la mascota
+ - **Given** que la familia accede al detalle de una mascota
+ - **When** la mascota tiene información de salud registrada
+ - **Then** el sistema muestra su historial básico
+
+ ### Story Points HU-07
+    - 5 puntos
+    Visualización de detalle con más información (datos, fotos e historial). Mayor alcance que el listado
+---
+
+# Épica 4: Solicitud y Matching
+
+## HU-08 – Solicitar adopción
+
+ - **Como** familia adoptante
+ - **Quiero** enviar una solicitud de adopción
+ - **Para** expresar interés en una mascota
+
+## Criterios de aceptación
+
+### feature: Solicitud de adopción
+
+### Scenario: Selección de mascota para solicitud
+- **Given** que la familia adoptante está explorando mascotas disponibles
+- **When** selecciona una mascota y confirma el envio de la solicitud
+- **Then** el sistema permite iniciar una solicitud de adopción para esa mascota
+- **And** el sistema confirma y registra la solicitud de adopción
+
+### Scenario: La solicitud no se aprueba automáticamente
+- **Given** que la familia adoptante ha enviado una solicitud de adopción
+- **When** la solicitud es registrada en el sistema
+- **Then** el estado de la solicitud queda como "pendiente"
+- **And** la solicitud no debe estar ni en estado aprobado ni rechazado
+
+### Scenario: Intento de solicitud sobre una mascota no disponible
+- **Given** una mascota con estado no disponible para adopción
+- **When** la familia adoptante intenta enviar una solicitud de adopción
+- **Then** el sistema rechaza la solicitud
+- **And** notifica que la mascota no está disponible para adopción
+
+### Story Points HU-08
+  - 3 puntos de estimacion
+    Flujo CRUD sencillo: selección + registro + estado inicial+ validaciones simples.
+
+   --- 
+
+## HU-09 – Consultar detalle de solicitud de adopción
+
+**Como** administrador  
+**Quiero** visualizar la información de la familia y la mascota en una solicitud  
+**Para** analizar la viabilidad de la adopción  
+
+## Criterios de aceptacion
+
+### feature: Consulta de solicitud de adopción
+
+### Scenario: Visualización de información completa  
+**Given** que existe una solicitud de adopción  
+**When** el administrador accede a su detalle  
+**Then** el sistema muestra la información de la familia y de la mascota  
+
+### Scenario: Intento de acceso a una solicitud inexistente  
+**Given** que un administrador intenta acceder al detalle de una solicitud mediante un ID que no existe  
+**When** el sistema procesa la peticion 
+**Then** el sistema informa que la solicitud consultada no existe en el sistema  
+
+### Story Points HU-09
+  - 3 puntos de estimacion
+    Flujo unicamente de visualizacion no incluye logica compleja mas que manejo de sesiones
 
 ---
 
-## 5. Criterios de Entrada y Salida
+## HU-10– Registrar decisión sobre solicitud
 
-### 5.1 Micro-Sprint 1
+**Como** administrador  
+**Quiero** aprobar o rechazar una solicitud de adopción  
+**Para** controlar el proceso de asignación de mascotas  
 
-#### Criterios de Entrada
-- [ ] Las HU-01 a HU-06 están definidas y aceptadas por el equipo
-- [ ] El entorno de pruebas local está disponible (Django levantado en :8080)
-- [ ] La base de datos Postgres está configurada y migrada
-- [ ] Los casos de prueba del Micro-Sprint 1 están documentados en TEST_CASES.md
-- [ ] Los escenarios Gherkin (.feature) para cada HU están redactados
+## Criterios de aceptacion
 
-#### Criterios de Salida
-- [ ] El 100% de los casos críticos (happy path) de HU-01 a HU-06 han pasado
-- [ ] No existen bugs bloqueantes abiertos en el Micro-Sprint 1
-- [ ] Todos los escenarios de validación de campos obligatorios pasan correctamente
-- [ ] Las HU-01 a HU-06 cumplen los criterios de aceptación definidos en las USER_STORIES
+### feature: Gestión de decisión de solicitud  
 
-### 5.2 Micro-Sprint 2
+### Scenario: Aprobación de solicitud  
+**Given** que el administrador ha revisado la solicitud  
+**When** decide aprobarla  
+**Then** el sistema registra la solicitud como "aprobada"  
 
-#### Criterios de Entrada
-- [ ] Las HU-07 a HU-15 están definidas y aceptadas por el equipo
-- [ ] El Micro-Sprint 1 ha cerrado sin bugs bloqueantes abiertos
-- [ ] Los casos de prueba del Micro-Sprint 2 están documentados en TEST_CASES.md
-- [ ] Los escenarios Gherkin (.feature) para cada HU están redactados
+### Scenario: Rechazo de solicitud  
+**Given** que el administrador ha revisado la solicitud  
+**When** decide rechazarla  
+**Then** el sistema registra la solicitud como "rechazada"  
 
-#### Criterios de Salida
-- [ ] El 100% de los casos críticos (happy path) de HU-07 a HU-15 han pasado
-- [ ] No existen bugs bloqueantes abiertos en el Micro-Sprint 2
-- [ ] Todos los escenarios de validación de campos obligatorios pasan correctamente
-- [ ] Las HU-07 a HU-15 cumplen los criterios de aceptación definidos en las USER_STORIES
+### Scenario: Intento de cambiar una solicitud ya finalizada
+**Given** que existe una solicitud con estado "aprobada" o "rechazada"  
+**When** el administrador intenta realizar una acción sobre la solicitud  
+**Then** el sistema rechaza la operación  
+**And** muestra un mensaje indicando que la solicitud ya tiene una decisión final
 
----
-
-## 6. Entorno de Pruebas
-
-| Campo | Detalle |
-|---|---|
-| **URL / Entorno** | http://localhost:8080 (desarrollo local) |
-| **Sistema Operativo** | Windows 11 / macOS / Linux Ubuntu |
-| **Base de Datos** | PostgreSQL |
-| **Navegador** | Google Chrome v123+ / Firefox v124+ |
-| **Backend** | Django — Python 3.x |
-| **Configuración especial** | Variables de entorno: DB_URL, DB_USER, DB_PASS — Puerto: 8080 |
+### Story Points HU-10
+  - 5 puntos de estimacion
+    Logica de de cambio de estado de solicitud incluye ver datos de tablas con datos existentes
 
 ---
+## HU-11 – Sugerir alternativa de adopción
 
-## 7. Herramientas
+**Como** administrador  
+**Quiero** sugerir una mascota alternativa a una familia  
+**Para** mejorar la probabilidad de éxito en la adopción  
 
-| Herramienta | Versión | Propósito |
-|---|---|---|
-| SerenityBDD + Cucumber | 3.x | Automatización de pruebas funcionales con Gherkin |
-| Karate | 1.x | Automatización de pruebas de API REST |
-| k6 | 0.50+ | Pruebas de rendimiento y carga |
-| GitHub Projects | — | Gestión del backlog y seguimiento de casos de prueba |
-| Claude Code / OpenCode | Latest | Asistencia IA para generación de casos |
-| Postman | Latest | Exploración manual de endpoints antes de automatizar |
+## Criterios de aceptacion
 
+## feature: Sugerencia de mascota alternativa  
+
+### Scenario: Registro de sugerencia  
+**Given** que el administrador identifica una mejor opción  
+**When** asigna una mascota sugerida a la familia  
+**Then** el sistema registra la sugerencia de adopción  
+
+### Scenario: Validación de reglas de compatibilidad al sugerir
+**Given** que el administrador consulta la información de una familia y las mascotas disponibles
+**When** el sistema analiza los datos (tamaño de hogar, tiempo de soledad, presencia de niños e ingresos) contra el perfil de la mascota
+**Then** el sistema debe mostrar indicadores de compatibilidad basados en las reglas de negocio
+**And** el administrador puede seleccionar la mascota sugerida basándose en el mayor porcentaje de afinidad detectado
+
+### Scenario: Intento de sugerir una mascota no disponible
+**Given** que el administrador selecciona una mascota que ya está en proceso de adopción
+**When** registra la sugerencia para esa familia
+**Then** el sistema invalida la operación y retorna un mensaje informativo donde se indica que la mascota no se encuentra disponible para adopción
+
+### Story Points HU-11
+  - 3 puntos de estimacion
+    Logica no incluye tablas adyacentes unicamente incluye un registro en una tabla como sugerencia
+
+
+# Épica 5: Confirmación de Adopción
+
+## HU-12 – Confirmar adopción
+
+**Como** administrador  
+**Quiero** confirmar una adopción  
+**Para** registrar que la mascota ha encontrado una familia  
+
+## Criterios de aceptación
+
+### feature: Confirmación de adopción
+
+### Scenario: Confirmación exitosa de adopción
+**Given** que existe una solicitud de adopción con estado aprobada  
+**When** el administrador confirma la adopción  
+**Then** el estado de la solicitud cambia a adopción exitosa  
+**And** el sistema registra automáticamente la fecha de adopción  
+**And** la mascota queda vinculada a la familia en el registro de adopciones  
+**And** el estado de la mascota se actualiza a adoptada  
+
+### Scenario: Intento de confirmar una solicitud que no está aprobada
+**Given** que existe una solicitud con estado pendiente o rechazada  
+**When** el administrador intenta confirmar la adopción  
+**Then** el sistema rechaza la operación  
+**And** muestra un mensaje indicando que solo se pueden confirmar solicitudes aprobadas  
+
+### Scenario: Intento de confirmar una solicitud que ya fue confirmada
+**Given** que existe una solicitud con estado de adopción exitosa  
+**When** el administrador intenta confirmar la adopción nuevamente  
+**Then** el sistema rechaza la operación  
+**And** muestra un mensaje indicando que la solicitud ya fue confirmada
+
+### Story Points HU-12
+  - 3 puntos de estimacion
+    Cambio de estado , manejo de fechas , relacion de dos tablas logica directa
 ---
+    
+## HU-13 – Visualizar adopciones realizadas
 
-## 8. Roles y Responsabilidades
+**Como** administrador 
+**Quiero** ver el historial de adopciones  
+**Para** hacer seguimiento de adopciones exitosas  
 
-| Actividad | QA (Elian Condor) | DEV (Alejandra Marin) |
-|---|---|---|
-| Redacción del TEST_PLAN.md | QA | - |
-| Redacción del TEST_CASES.md | QA | - |
-| Implementación de Karate | QA | — |
-| Desarrollo del MVP | — | QA |
-| Registro de tiempos (time-tracking) | - | DEV |
-| REALITY_CHECK.md |QA | DEV |
+## Criterios de aceptación
 
----
+### feature: Visualización de adopciones realizadas
 
-## 9. Cronograma y Estimación
+### Scenario: Acceso a la sección de adopciones realizadas
+**Given** que el administrador accede al sistema  
+**When** navega a la sección "Adopciones realizadas"  
+**Then** el sistema muestra la sección de historial de adopciones  
 
-### Micro-Sprint 1
+### Scenario: Visualización de registros históricos
+**Given** que el administrador se encuentra en la sección de adopciones realizadas  
+**When** consulta el historial  
+**Then** el sistema muestra los registros de adopciones exitosas  
 
-| Historia de Usuario | Story Points Estimados | Fechas |
-|---|---|---|
-| HU-01 — Reg. básico mascota | 5 SP | 24/03 – 25/03 |
-| HU-02 — Info. de salud | 3 SP | 24/03 – 25/03 |
-| HU-03 — Subir fotos | 3 SP | 24/03 |
-| HU-04 — Reg. familia | 5 SP | 24/03 – 25/03 |
-| HU-05 — Cond. del hogar | 3 SP | 24/03 – 25/03 |
-| HU-06 — Ver listado mascotas | 3 SP | 25/03 |
-| **Subtotal** | **22 SP** | **24/03 – 25/03/2026** |
+### Scenario: Filtrado de adopciones por usuario
+**Given** que el administrador visualiza el historial de adopciones  
+**When** aplica un filtro por usuario  
+**Then** el sistema muestra únicamente las adopciones asociadas a ese usuario  
 
-### Micro-Sprint 2
+### Story Points HU-13
+  - 5 puntos de estimacion
+    logica de filtro complejo + paginacion
 
-| Historia de Usuario | Story Points Estimados | Fechas |
-|---|---|---|
-| HU-07 — Ver detalle de mascota | 5 SP | 26/03 – 27/03 |
-| HU-08 — Solicitar adopción | 3 SP | 26/03 – 27/03 |
-| HU-09 — Consultar detalle de solicitud | 3 SP | 27/03 |
-| HU-10 — Registrar decisión sobre solicitud | 5 SP | 26/03 – 27/03 |
-| HU-11 — Sugerir alternativa de adopción | 3 SP | 27/03 |
-| HU-12 — Confirmar adopción | 3 SP | 26/03 – 27/03 |
-| HU-13 — Visualizar adopciones realizadas | 5 SP | 27/03 |
-| HU-14 — Generar calendario de vacunas | 8 SP | 26/03 – 27/03 |
-| HU-15 — Consultar calendario de vacunación | 3 SP | 27/03 |
-| **Subtotal** | **38 SP** | **26/03 – 27/03/2026** |
+--- 
 
-### Total General
+# Épica 6: Calendario de Vacunación
 
-| | Story Points |
-|---|---|
-| Micro-Sprint 1 | 22 SP |
-| Micro-Sprint 2 | 38 SP |
-| **Total** | **60 SP** |
+## HU-14 – Generar calendario de vacunas
 
----
+**Como** administrador  
+**Quiero** generar un calendario inicial de vacunación  
+**Para** orientar al adoptante en el cuidado de la mascota  
 
-## 10. Entregables de Prueba
+## Criterios de aceptación
 
-| Artefacto | Micro-Sprint | Descripción | Responsable |
-|---|---|---|---|
-| TEST_PLAN.md | Sprint 1 | Plan formal de pruebas del micro-sprint | QA |
-| TEST_CASES.md | Sprint 1 y 2 | Matriz de casos de prueba: una tabla donde cada fila representa un caso de prueba individual con datos de entrada, precondiciones, pasos, resultado esperado y resultado obtenido | QA |
-| Evidencias de ejecución | Sprint 1 y 2 | Ejecución manual: pantallazos o video corto. Ejecución automatizada: reporte generado por SerenityBDD / Karate / k6 | QA |
-| Repositorio SerenityBDD | Sprint 1 y 2 | Repositorio independiente con escenarios funcionales automatizados | QA |
-| Repositorio Karate | Sprint 1 y 2 | Repositorio independiente con pruebas de API REST automatizadas (**entregable principal para el viernes**) | QA |
-| Repositorio k6 | Sprint 2 | Repositorio independiente con scripts de pruebas de rendimiento | QA |
-| Reporte de bugs / incidencias | Sprint 1 y 2 | Listado de defectos encontrados con pasos de reproducción, severidad y estado | QA |
-| REALITY_CHECK.md | Cierre | Documento retrospectivo del sprint | QA + DEV |
-| GitHub Projects Board | Ambos | Tablero con HU y casos de prueba organizados por sub-issues (ver sección 12) | QA + DEV |
+### feature: Generación de calendario de vacunación
 
----
+### Scenario: Generación de calendario de vacunación al confirmar una adopción
+- **Given** que existe una adopción confirmada
+- **When** la adopción es registrada como exitosa
+- **Then** el sistema genera un calendario de vacunación para la mascota
+- **And** asocia el calendario a la adopción correspondiente
 
-## 11. Riesgos y Contingencias
+### Scenario: Generación de calendario basada en características de la mascota
+- **Given** que una mascota adoptada tiene información de especie, edad e historial de Vacunación
+- **When** se genera el calendario de vacunación
+- **Then** el sistema define las vacunas correspondientes según dichas características
 
-| Riesgo | Probabilidad | Impacto | Mitigación |
-|---|---|---|---|
-| Entorno de pruebas no disponible | Media | Alto | Usar entorno local o contenedor Docker |
-| API no responde o endpoint inestable | Baja | Alto | Usar mocks o colección Postman como respaldo |
-| Tiempo insuficiente en Sprint 1 | Media | Medio | Priorizar casos críticos; mover HU no críticas al Sprint 2 |
-| Validación de datos incorrectos (edad, mayoría de edad) | Media | Alto | Definir datos de prueba y casos negativos explícitos en TEST_CASES |
+### Scenario: Asignación de fechas sugeridas en el calendario de vacunación
+- **Given** que existen vacunas definidas para una mascota adoptada
+- **When** el calendario de vacunación es generado
+- **Then** el sistema asigna fechas sugeridas para cada vacuna
 
+### Story Points HU-14
+  - 8 puntos de estimacion
+    logica de negocio importante filtro de vacunas disparo de eventos se debe probar el flujo con diferentes datos como especie, edad, nivel de energia, 
 
----
+--- 
 
+## HU-15 – Consultar calendario
 
+ - **Como** familia adoptante  
+ - **Quiero** ver el calendario de vacunación  
+ - **Para** cumplir con los cuidados de salud de la mascota  
 
-*Documento elaborado por: Elian Condor (QA) — Revisado por: Alejandra Marin (DEV) — Fecha: 27/03/2026*
+## Criterios de aceptación
+
+### feature: visualizacion del calendario de vacunación
+
+### Scenario: Asociación del calendario a la adopción
+**Given** que la familia adoptante ha completado una adopción  
+**When** accede a la información de su mascota  
+**Then** el sistema muestra el calendario de vacunación con sus fechas correspondientes 
+
+### Scenario: Consulta de calendario para una adopción no confirmada
+  **Given** que la familia adoptante tiene una solicitud de adopción en estado "pendiente"
+  **And** la mascota no ha sido entregada a la familia
+  **When** se consulta la información de la mascota
+  **Then** el sistema no muestra el calendario de vacunación
+
+### Scenario: Acceso a calendario sin tener una adopción registrada
+  **Given** que el usuario no tiene una adopción registrada
+  **When** intenta acceder a la información de una mascota
+  **Then** el sistema deniega el acceso al calendario de vacunación
+
+### Story Points HU-15
+  - 3 puntos de estimacion
+    Unicamente flujo de lectura no hay logica por detras
