@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
 import { Heart, PawPrint, User, Calendar, Search, ChevronDown, ChevronUp } from 'lucide-react'
-import { solicitudesApi, type Adopcion } from '../api/solicitudesApi'
+import { type Adopcion } from '../api/solicitudesApi'
+import { useAdopcionesBusqueda } from '../hooks/useAdopcionesBusqueda'
 import NavBar from '@/shared/components/NavBar'
 import Spinner from '@/shared/components/Spinner'
 import { TAMANO_LABEL } from '@/shared/constants/labels'
@@ -181,25 +181,7 @@ function AdopcionRow({ adopcion }: { adopcion: Adopcion }) {
 }
 
 export default function GestionAdopcionesPage() {
-  const [busqueda, setBusqueda] = useState('')
-
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['adopciones', 'todas'],
-    queryFn: () => solicitudesApi.listarAdopciones(),
-    refetchInterval: 30_000,
-    staleTime: 0,
-  })
-
-  const adopcionesFiltradas = data?.results.filter((a: Adopcion) => {
-    if (!busqueda.trim()) return true
-    const q = busqueda.toLowerCase()
-    return (
-      a.mascota_nombre.toLowerCase().includes(q) ||
-      a.familia_nombre.toLowerCase().includes(q) ||
-      a.familia_email.toLowerCase().includes(q) ||
-      (a.mascota_raza ?? '').toLowerCase().includes(q)
-    )
-  }) ?? []
+  const { busqueda, setBusqueda, adopcionesFiltradas, isLoading, isError, total } = useAdopcionesBusqueda()
 
   return (
     <div className="min-h-screen bg-pettech-cream">
@@ -216,7 +198,7 @@ export default function GestionAdopcionesPage() {
       </div>
 
       {/* Buscador */}
-      {!isLoading && !isError && (data?.count ?? 0) > 0 && (
+      {!isLoading && !isError && total > 0 && (
         <div className="relative mb-5">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input
