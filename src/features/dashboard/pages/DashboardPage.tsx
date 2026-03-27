@@ -7,18 +7,7 @@ import { familiasApi } from '@/features/familias/api/familiasApi'
 import { solicitudesApi } from '@/features/adopciones/api/solicitudesApi'
 import NavBar from '@/shared/components/NavBar'
 import Spinner from '@/shared/components/Spinner'
-
-function StatCard({ label, value, icon, color }: { label: string; value: string | number; icon: React.ReactNode; color: string }) {
-  return (
-    <div className={`card p-6 flex items-center gap-4 border-l-4 ${color}`}>
-      <div className="text-2xl">{icon}</div>
-      <div>
-        <p className="text-2xl font-bold text-gray-800">{value}</p>
-        <p className="text-sm text-gray-500">{label}</p>
-      </div>
-    </div>
-  )
-}
+import StatCard from '@/shared/components/StatCard'
 
 export default function DashboardPage() {
   const user = useAuthStore((s) => s.user)
