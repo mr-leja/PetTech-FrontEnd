@@ -156,7 +156,7 @@ export default function RegisterPage() {
       </div>
 
       {/* Panel derecho — formulario scrolleable */}
-      <div className="flex-1 bg-pettech-cream flex items-start justify-center py-8 px-6 overflow-y-auto">
+      <div className="flex-1 bg-pettech-cream flex items-center justify-center py-8 px-6 overflow-y-auto min-h-screen">
         <div className="w-full max-w-lg">
           {/* Logo móvil */}
           <div className="flex flex-col items-center mb-6 lg:hidden">
@@ -166,8 +166,8 @@ export default function RegisterPage() {
 
           <div className="card p-8">
             {/* Título de escritorio */}
-            <div className="hidden lg:block mb-6">
-              <h2 className="text-2xl font-bold text-gray-800">Crea tu cuenta</h2>
+            <div className="hidden lg:block mb-6 text-center">
+              <h2 className="text-2xl font-bold text-pettech-orange">Crea tu cuenta en PetTech</h2>
               <p className="text-gray-500 text-sm mt-1">Paso {step + 1} de {STEPS.length} — {STEPS[step]}</p>
             </div>
 
