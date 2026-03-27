@@ -31,52 +31,38 @@ npm run test -- --coverage  # cobertura
 
 ## Docker
 
-### Construcción manual
+El `Dockerfile` tiene dos etapas internas:
+1. **Build** — Node.js compila el código (`npm run build`) y genera la carpeta `/dist`.
+2. **Producción** — Nginx sirve esa carpeta estática en el puerto 80. Node.js no queda en la imagen final.
+
+El `nginx.conf` redirige todas las rutas a `index.html` para que React Router funcione correctamente.
+
+### Levantar el stack completo (forma habitual)
+
+> **Requisito único:** la red Docker debe existir antes del primer `up`. Se crea una sola vez:
+> ```bash
+> docker network create pettech_network
+> ```
 
 ```bash
-# Construir la imagen de producción (Nginx)
-docker build -t pettech-frontend .
-
-# Ejecutar en el puerto 80
-docker run -d --name pettech_frontend -p 80:80 pettech-frontend
-
-# Ver logs
-docker logs -f pettech_frontend
-
-# Detener y eliminar
-docker stop pettech_frontend && docker rm pettech_frontend
-```
-
-### Docker Compose (con red compartida del backend)
-
-```bash
-# Asegúrate de que la red externa existe (una sola vez)
-docker network create pettech_network
-
-# Levantar el frontend
+# 1. Backend (desde MVP_PetTech/)
 docker-compose up -d --build
 
-# Ver logs
-docker-compose logs -f
-
-# Bajar
-docker-compose down
+# 2. Frontend (desde MVP_FrontEnd/)
+docker-compose up -d --build
 ```
 
-> La imagen de producción usa **Nginx 1.27** como servidor estático. El `nginx.conf`
-> redirige todas las rutas a `index.html` para que React Router funcione correctamente.
+| URL | Qué es |
+|-----|--------|
+| `http://localhost` | Aplicación frontend |
+| `http://localhost:8000` | API Django |
 
-### Stack completo (frontend + backend)
+### Comandos útiles del día a día
 
 ```bash
-# En MVP_PetTech/
-docker-compose up -d --build   # backend + DB
-
-# En MVP_FrontEnd/
-docker-compose up -d --build   # frontend
-
-# Acceder:  http://localhost       (frontend)
-#           http://localhost:8000  (API Django)
+docker-compose logs -f          # ver logs en tiempo real
+docker-compose down             # apagar contenedores
+docker-compose up -d --build    # reconstruir tras cambios
 ```
 
 ---
