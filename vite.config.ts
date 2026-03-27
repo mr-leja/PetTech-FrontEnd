@@ -29,6 +29,7 @@ export default defineConfig({
       include: [
         'src/features/adopciones/api/calendarioApi.ts',
         'src/shared/store/authStore.ts',
+        'src/features/adopciones/domain/calendarioDomain.ts',
       ],
       thresholds: {
         lines: 80,
