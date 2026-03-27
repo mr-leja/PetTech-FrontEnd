@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useForm, useFieldArray } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import toast from 'react-hot-toast'
 import { useQueryClient } from '@tanstack/react-query'
 import { mascotasApi } from '../api/mascotasApi'
-import { ESPECIES, vacunaSchema, STEP1_FIELDS, getTodayDate, compressImage } from '../formSchema'
+import { ESPECIES, vacunaSchema, STEP1_FIELDS, getTodayDate } from '../formSchema'
+import { useMascotaForm } from '../hooks/useMascotaForm'
 import { Input } from '@/shared/components/Input'
 import Button from '@/shared/components/Button'
 import NavBar from '@/shared/components/NavBar'
-import { ArrowLeft, ArrowRight, Check, Upload, Plus, Trash2 } from 'lucide-react'
+import StepperHeader from '../components/StepperHeader'
+import VacunaFieldArray, { CarnetUpload } from '../components/VacunaFieldArray'
+import { ArrowLeft, ArrowRight, Upload } from 'lucide-react'
 
 const DRAFT_KEY = 'pettech_mascota_draft'
 
@@ -55,16 +58,19 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
+const STEPS = ['Información básica', 'Información de salud']
+
 export default function RegistrarMascotaPage() {
   const navigate = useNavigate()
   const qc = useQueryClient()
   const [loading, setLoading] = useState(false)
-  const [fotoFile, setFotoFile] = useState<File | null>(null)
-  const [preview, setPreview] = useState<string | null>(null)
-  const [carnetFile, setCarnetFile] = useState<File | null>(null)
-  const [step, setStep] = useState(1)
 
-  const { register, handleSubmit, trigger, control, watch, formState: { errors } } = useForm<FormData>({
+  const {
+    fotoFile, setFotoFile, preview, setPreview,
+    carnetFile, setCarnetFile, step, setStep, handleFoto,
+  } = useMascotaForm()
+
+  const methods = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       especie: 'PERRO', estado: 'DISPONIBLE', edad: 0, edad_unidad: 'ANIOS',
@@ -73,30 +79,17 @@ export default function RegistrarMascotaPage() {
     },
   })
 
-  // Persistir borrador en sessionStorage al cambiar cualquier campo
+  const { register, handleSubmit, trigger, watch, formState: { errors } } = methods
+
   const watchedValues = watch()
   useEffect(() => {
-    const { vacunas, ...rest } = watchedValues
     try {
-      sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ ...rest, vacunas }))
+      sessionStorage.setItem(DRAFT_KEY, JSON.stringify(watchedValues))
     } catch {}
-  }, [JSON.stringify(watchedValues)])
-
-  const { fields: vacunaFields, append: appendVacuna, remove: removeVacuna } = useFieldArray({
-    control,
-    name: 'vacunas',
-  })
-
-  const handleFoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    const compressed = await compressImage(file)
-    setFotoFile(compressed)
-    setPreview(URL.createObjectURL(compressed))
-  }
+  }, [JSON.stringify(watchedValues)]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const goToStep2 = async () => {
-    const valid = await trigger(STEP1_FIELDS)
+    const valid = await trigger(STEP1_FIELDS as any)
     if (valid) setStep(2)
   }
 
@@ -149,25 +142,11 @@ export default function RegistrarMascotaPage() {
           <ArrowLeft className="w-4 h-4" /> Volver
         </button>
 
-        {/* Stepper */}
-        <div className="flex items-center gap-3 mb-8">
-          <div className={`flex items-center gap-2 ${step >= 1 ? 'text-pettech-orange' : 'text-gray-400'}`}>
-            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold border-2 ${step > 1 ? 'bg-pettech-orange border-pettech-orange text-white' : step === 1 ? 'border-pettech-orange text-pettech-orange' : 'border-gray-300 text-gray-400'}`}>
-              {step > 1 ? <Check className="w-3 h-3" /> : '1'}
-            </div>
-            <span className="text-sm font-medium">Información básica</span>
-          </div>
-          <div className="flex-1 h-px bg-gray-200" />
-          <div className={`flex items-center gap-2 ${step >= 2 ? 'text-pettech-orange' : 'text-gray-400'}`}>
-            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold border-2 ${step >= 2 ? 'border-pettech-orange text-pettech-orange' : 'border-gray-300 text-gray-400'}`}>
-              2
-            </div>
-            <span className="text-sm font-medium">Información de salud</span>
-          </div>
-        </div>
+        <StepperHeader step={step} steps={STEPS} />
 
-        <div className="card p-8">
-          <form onSubmit={handleSubmit(onSubmit)}>
+        <FormProvider {...methods}>
+          <div className="card p-8">
+            <form onSubmit={handleSubmit(onSubmit)}>
 
             {/* â”€â”€ PASO 1 â”€â”€ */}
             {step === 1 && (
@@ -373,107 +352,8 @@ export default function RegistrarMascotaPage() {
                   </div>
                 </div>
 
-                {/* ── Historial de vacunas ── */}
-                <div className="flex flex-col gap-3">
-                  <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium text-gray-700">Historial de vacunas *</label>
-                    <button
-                      type="button"
-                      onClick={() => appendVacuna({ nombre: '', fecha_aplicacion: '', proxima_dosis: '', veterinario: '', lote: '' })}
-                      className="flex items-center gap-1 text-sm text-pettech-orange hover:underline font-medium"
-                    >
-                      <Plus className="w-4 h-4" /> Agregar vacuna
-                    </button>
-                  </div>
-                  {errors.vacunas && !Array.isArray(errors.vacunas) && (
-                    <p className="text-xs text-red-500">{(errors.vacunas as any).message}</p>
-                  )}
-
-                  {vacunaFields.length === 0 && (
-                    <p className="text-xs text-gray-400 italic">Sin vacunas registradas. Haz clic en "Agregar vacuna".</p>
-                  )}
-
-                  {vacunaFields.map((field, index) => (
-                    <div key={field.id} className="border border-gray-200 rounded-lg p-4 flex flex-col gap-3 bg-gray-50">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm font-semibold text-gray-600">Vacuna {index + 1}</span>
-                        <button
-                          type="button"
-                          onClick={() => removeVacuna(index)}
-                          className="text-red-400 hover:text-red-600 transition-colors"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                      <div className="grid grid-cols-2 gap-3">
-                        <div className="flex flex-col gap-1">
-                          <label className="text-xs font-medium text-gray-600">Nombre *</label>
-                          <input
-                            className="input-field"
-                            placeholder="Ej: Rabia"
-                            {...register(`vacunas.${index}.nombre`)}
-                          />
-                          {errors.vacunas?.[index]?.nombre && (
-                            <p className="text-xs text-red-500">{errors.vacunas[index]?.nombre?.message}</p>
-                          )}
-                        </div>
-                        <div className="flex flex-col gap-1">
-                          <label className="text-xs font-medium text-gray-600">Fecha de aplicación *</label>
-                          <input
-                            type="date"
-                            className="input-field"
-                            max={TODAY}
-                            {...register(`vacunas.${index}.fecha_aplicacion`)}
-                          />
-                          {errors.vacunas?.[index]?.fecha_aplicacion && (
-                            <p className="text-xs text-red-500">{errors.vacunas[index]?.fecha_aplicacion?.message}</p>
-                          )}
-                        </div>
-                        <div className="flex flex-col gap-1">
-                          <label className="text-xs font-medium text-gray-600">Próxima dosis</label>
-                          <input
-                            type="date"
-                            className="input-field"
-                            {...register(`vacunas.${index}.proxima_dosis`)}
-                          />
-                        </div>
-                        <div className="flex flex-col gap-1">
-                          <label className="text-xs font-medium text-gray-600">Veterinario / Clínica</label>
-                          <input
-                            className="input-field"
-                            placeholder="Ej: Clínica Vet Salud"
-                            {...register(`vacunas.${index}.veterinario`)}
-                          />
-                        </div>
-                        <div className="flex flex-col gap-1 col-span-2">
-                          <label className="text-xs font-medium text-gray-600">Lote</label>
-                          <input
-                            className="input-field"
-                            placeholder="Ej: ABC123"
-                            {...register(`vacunas.${index}.lote`)}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-
-                  {/* Carnet de vacunas */}
-                  <div className="flex flex-col gap-2">
-                    <label className="text-sm font-medium text-gray-700">Carnet de vacunas</label>
-                    <label className="flex items-center gap-3 cursor-pointer border-2 border-dashed border-gray-300 rounded-lg p-3 hover:border-pettech-orange transition-colors">
-                      <Upload className="w-4 h-4 text-gray-400" />
-                      <span className="text-sm text-gray-500">
-                        {carnetFile ? carnetFile.name : 'PDF o imagen del carnet'}
-                      </span>
-                      <input
-                        type="file"
-                        accept="image/*,.pdf"
-                        className="hidden"
-                        onChange={(e) => setCarnetFile(e.target.files?.[0] ?? null)}
-                      />
-                    </label>
-                  </div>
-                </div>
+                  <VacunaFieldArray />
+                  <CarnetUpload carnetFile={carnetFile} onChange={setCarnetFile} />
 
                 <div className="flex flex-col gap-1">
                   <label className="text-sm font-medium text-gray-700">Historia de la mascota</label>
@@ -509,7 +389,8 @@ export default function RegistrarMascotaPage() {
             )}
 
           </form>
-        </div>
+          </div>
+        </FormProvider>
       </main>
     </div>
   )
