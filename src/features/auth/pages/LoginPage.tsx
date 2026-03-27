@@ -86,8 +86,9 @@ export default function LoginPage() {
           </div>
 
           <div className="card p-8">
-            <div className="mb-7">
-              <h2 className="text-2xl font-bold text-gray-800">Bienvenido de vuelta</h2>
+            <div className="flex flex-col items-center mb-8">
+             
+      <h1 className="text-2xl text-pettech-orange">Bienvenid@</h1>
               <p className="text-gray-500 text-sm mt-1">Inicia sesión en tu cuenta</p>
             </div>
 
