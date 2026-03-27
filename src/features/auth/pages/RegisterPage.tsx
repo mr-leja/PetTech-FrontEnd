@@ -87,7 +87,9 @@ export default function RegisterPage() {
   const handleStep2 = async (data: Step2Data) => {
     setLoading(true)
     try {
-      await familiasApi.crearFamilia(data)
+      const formData = new FormData()
+      Object.entries(data).forEach(([k, v]) => formData.append(k, String(v)))
+      await familiasApi.crearFamilia(formData)
       toast.success('Familia registrada.')
       setStep(2)
     } catch {
@@ -101,7 +103,16 @@ export default function RegisterPage() {
   const handleStep3 = async (data: Step3Data) => {
     setLoading(true)
     try {
-      await familiasApi.registrarCondicionesHogar(data)
+      await familiasApi.registrarCondicionesHogar({
+        ...data,
+        propiedad_vivienda: 'ALQUILADA',
+        tiene_ninos: false,
+        tamano_hogar: 'MEDIANO',
+        otras_mascotas: [],
+        tiempo_solo_horas: 8,
+        ingresos_estimados: '',
+        motivacion: '',
+      })
       updateUser({ perfil_completo: true })
       toast.success('¡Perfil completo! Bienvenido a PetTech 🐾')
       navigate('/dashboard')
