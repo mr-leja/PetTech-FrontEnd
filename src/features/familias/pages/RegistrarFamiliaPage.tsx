@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useForm, useFieldArray } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import toast from 'react-hot-toast'
@@ -20,7 +20,8 @@ function loadDraft(): Partial<FormData> | null {
 import Button from '@/shared/components/Button'
 import NavBar from '@/shared/components/NavBar'
 import { useAuthStore } from '@/shared/store/authStore'
-import { CheckCircle, Plus, Trash2, Upload } from 'lucide-react'
+import OtrasMascotasFieldArray from '../components/OtrasMascotasFieldArray'
+import { CheckCircle, Upload } from 'lucide-react'
 
 const schema = z.object({
   // Paso 2 - Información básica
@@ -90,15 +91,7 @@ export default function RegistrarFamiliaPage() {
   const [fotoPreview, setFotoPreview] = useState<string | null>(null)
   const [fotoEliminada, setFotoEliminada] = useState(false)
 
-  const {
-    register,
-    handleSubmit,
-    trigger,
-    watch,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm<FormData>({
+  const methods = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       tiene_patio: false,
@@ -113,10 +106,7 @@ export default function RegistrarFamiliaPage() {
     },
   })
 
-  const { fields: mascotasFields, append: appendMascota, remove: removeMascota } = useFieldArray({
-    control,
-    name: 'otras_mascotas',
-  })
+  const { register, handleSubmit, trigger, watch, reset, formState: { errors } } = methods
 
   const tieneMascotas = watch('tiene_mascotas_actualmente')
 
@@ -127,7 +117,7 @@ export default function RegistrarFamiliaPage() {
     try {
       sessionStorage.setItem(DRAFT_KEY, JSON.stringify(watchedValues))
     } catch {}
-  }, [isEditing, JSON.stringify(watchedValues)])
+  }, [isEditing, JSON.stringify(watchedValues)]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     familiasApi.miFamilia().then(({ familia: f, tiene_familia }) => {
@@ -241,6 +231,7 @@ export default function RegistrarFamiliaPage() {
     <div className="min-h-screen bg-pettech-cream">
       <NavBar />
       <main className="max-w-2xl mx-auto p-6">
+      <FormProvider {...methods}>
         {/* Stepper */}
         <div className="flex items-center justify-center mb-8">
           {STEPS.map((label, i) => (
@@ -515,92 +506,7 @@ export default function RegistrarFamiliaPage() {
 
                 {/* Mascotas actuales */}
                 {tieneMascotas && (
-                  <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                    <div className="flex items-center justify-between mb-3">
-                      <h3 className="text-sm font-semibold text-gray-700">Mascotas actuales</h3>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          appendMascota({
-                            especie: '',
-                            cantidad: 1,
-                            edad_aprox: '',
-                            vacunadas: false,
-                            esterilizadas: false,
-                          })
-                        }
-                        className="flex items-center gap-1 text-xs text-pettech-orange hover:underline"
-                      >
-                        <Plus className="w-3 h-3" /> Agregar
-                      </button>
-                    </div>
-                    {mascotasFields.length === 0 && (
-                      <p className="text-xs text-gray-400 text-center py-2">
-                        Agrega tus mascotas actuales
-                      </p>
-                    )}
-                    {mascotasFields.map((field, idx) => (
-                      <div
-                        key={field.id}
-                        className="bg-white border border-gray-200 rounded-lg p-3 mb-2"
-                      >
-                        <div className="flex items-start justify-between gap-2">
-                          <div className="flex-1 grid grid-cols-2 gap-2">
-                            <Input
-                              label="Especie"
-                              placeholder="ej. perro, gato"
-                              error={errors.otras_mascotas?.[idx]?.especie?.message}
-                              {...register(`otras_mascotas.${idx}.especie`)}
-                            />
-                            <Input
-                              label="Cantidad"
-                              type="number"
-                              min={1}
-                              onKeyDown={(e) => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault()}
-                              error={errors.otras_mascotas?.[idx]?.cantidad?.message}
-                              {...register(`otras_mascotas.${idx}.cantidad`)}
-                            />
-                            <Input
-                              label="Edad aprox."
-                              placeholder="ej. 2 años"
-                              {...register(`otras_mascotas.${idx}.edad_aprox`)}
-                            />
-                            <div className="flex flex-col gap-2 justify-end pb-1">
-                              <div className="flex items-center gap-2">
-                                <input
-                                  type="checkbox"
-                                  id={`vac_${idx}`}
-                                  className="w-3 h-3 accent-pettech-orange"
-                                  {...register(`otras_mascotas.${idx}.vacunadas`)}
-                                />
-                                <label htmlFor={`vac_${idx}`} className="text-xs text-gray-600">
-                                  Vacunadas
-                                </label>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <input
-                                  type="checkbox"
-                                  id={`est_${idx}`}
-                                  className="w-3 h-3 accent-pettech-orange"
-                                  {...register(`otras_mascotas.${idx}.esterilizadas`)}
-                                />
-                                <label htmlFor={`est_${idx}`} className="text-xs text-gray-600">
-                                  Esterilizadas
-                                </label>
-                              </div>
-                            </div>
-                          </div>
-                          <button
-                            type="button"
-                            onClick={() => removeMascota(idx)}
-                            className="text-red-400 hover:text-red-600 mt-6"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                  <OtrasMascotasFieldArray />
                 )}
 
                 <div className="flex flex-col gap-1">
@@ -669,6 +575,7 @@ export default function RegistrarFamiliaPage() {
             )}
           </form>
         </div>
+      </FormProvider>
       </main>
     </div>
   )
