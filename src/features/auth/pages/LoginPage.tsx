@@ -50,41 +50,77 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-pettech-cream flex items-center justify-center p-4">
-      <div className="card w-full max-w-md p-8">
-        <div className="flex flex-col items-center mb-8">
-          <PawPrint className="w-12 h-12 text-pettech-orange mb-3" />
-          <h1 className="text-2xl text-pettech-orange">PetTech</h1>
-          <p className="text-gray-500 text-sm">Adopciones responsables</p>
+    <div className="min-h-screen flex">
+      {/* Panel izquierdo — imagen */}
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+        <img
+          src="/mascota-auth.jpg"
+          alt="Mascota PetTech"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Overlay con gradiente de marca */}
+        <div className="absolute inset-0 bg-gradient-to-br from-pettech-orange/70 to-pettech-yellow/40" />
+        {/* Texto sobre la imagen */}
+        <div className="relative z-10 flex flex-col justify-end p-12 text-white">
+          <div className="flex items-center gap-3 mb-4">
+            <PawPrint className="w-10 h-10" />
+            <span className="text-3xl font-bold tracking-tight">PetTech</span>
+          </div>
+          <p className="text-xl font-semibold leading-snug mb-2">
+            Conectamos mascotas<br />con familias que las aman.
+          </p>
+          <p className="text-sm text-white/80">
+            Adopciones responsables — porque cada mascota merece un hogar.
+          </p>
         </div>
+      </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <Input
-            label="Correo electrónico"
-            type="email"
-            placeholder="hola@ejemplo.com"
-            error={errors.email?.message}
-            {...register('email')}
-          />
-          <Input
-            label="Contraseña"
-            type="password"
-            placeholder="Tu contraseña"
-            error={errors.password?.message}
-            {...register('password')}
-          />
-          <Button type="submit" loading={loading} className="w-full mt-2">
-            Iniciar sesión
-          </Button>
-        </form>
+      {/* Panel derecho — formulario */}
+      <div className="flex-1 bg-pettech-cream flex items-center justify-center p-6">
+        <div className="w-full max-w-md">
+          {/* Logo móvil (solo visible en pantallas pequeñas) */}
+          <div className="flex flex-col items-center mb-8 lg:hidden">
+            <PawPrint className="w-12 h-12 text-pettech-orange mb-2" />
+            <h1 className="text-2xl font-bold text-pettech-orange">PetTech</h1>
+            <p className="text-gray-500 text-sm">Adopciones responsables</p>
+          </div>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
-          ¿No tienes cuenta?{' '}
-          <Link to="/registro" className="text-pettech-orange hover:underline font-medium">
-            Regístrate aquí
-          </Link>
-        </p>
+          <div className="card p-8">
+            <div className="mb-7">
+              <h2 className="text-2xl font-bold text-gray-800">Bienvenido de vuelta</h2>
+              <p className="text-gray-500 text-sm mt-1">Inicia sesión en tu cuenta</p>
+            </div>
+
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+              <Input
+                label="Correo electrónico"
+                type="email"
+                placeholder="hola@ejemplo.com"
+                error={errors.email?.message}
+                {...register('email')}
+              />
+              <Input
+                label="Contraseña"
+                type="password"
+                placeholder="Tu contraseña"
+                error={errors.password?.message}
+                {...register('password')}
+              />
+              <Button type="submit" loading={loading} className="w-full mt-2">
+                Iniciar sesión
+              </Button>
+            </form>
+
+            <p className="text-center text-sm text-gray-500 mt-6">
+              ¿No tienes cuenta?{' '}
+              <Link to="/registro" className="text-pettech-orange hover:underline font-medium">
+                Regístrate aquí
+              </Link>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   )
 }
+
