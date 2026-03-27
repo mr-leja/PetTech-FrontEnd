@@ -124,36 +124,75 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-pettech-cream flex items-center justify-center p-4">
-      <div className="card w-full max-w-lg p-8">
-        {/* Header */}
-        <div className="flex flex-col items-center mb-8">
-          <PawPrint className="w-10 h-10 text-pettech-orange mb-2" />
-          <h1 className="text-xl text-pettech-orange">Crea tu cuenta en PetTech</h1>
-        </div>
-
-        {/* Stepper */}
-        <div className="flex items-center mb-8">
-          {STEPS.map((label, i) => (
-            <div key={i} className="flex items-center flex-1">
-              <div className="flex flex-col items-center">
-                <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold
-                    ${ i < step ? 'bg-pettech-orange text-white'
-                      : i === step ? 'bg-pettech-orange text-white ring-4 ring-pettech-orange/30'
-                      : 'bg-gray-200 text-gray-500'}
-                  `}
-                >
-                  {i < step ? <CheckCircle className="w-5 h-5" /> : i + 1}
+    <div className="min-h-screen flex">
+      {/* Panel izquierdo — imagen sticky */}
+      <div className="hidden lg:flex lg:w-5/12 sticky top-0 h-screen overflow-hidden flex-shrink-0">
+        <img
+          src="/mascota-auth.jpg"
+          alt="Mascota PetTech"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-pettech-orange/70 to-pettech-yellow/40" />
+        <div className="relative z-10 flex flex-col justify-between p-12 text-white w-full">
+          <div className="flex items-center gap-3">
+            <PawPrint className="w-9 h-9" />
+            <span className="text-2xl font-bold tracking-tight">PetTech</span>
+          </div>
+          {/* Indicador de paso activo */}
+          <div className="space-y-3">
+            {STEPS.map((label, i) => (
+              <div key={i} className={`flex items-center gap-3 transition-opacity ${i === step ? 'opacity-100' : 'opacity-40'}`}>
+                <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 border-2 border-white ${i < step ? 'bg-white text-pettech-orange' : i === step ? 'bg-pettech-orange text-white' : 'bg-transparent text-white'}`}>
+                  {i < step ? '✓' : i + 1}
                 </div>
-                <span className="text-xs mt-1 text-gray-500 whitespace-nowrap">{label}</span>
+                <span className="text-sm font-medium">{label}</span>
               </div>
-              {i < STEPS.length - 1 && (
-                <div className={`flex-1 h-0.5 mx-2 ${i < step ? 'bg-pettech-orange' : 'bg-gray-200'}`} />
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
+          <p className="text-sm text-white/80">
+            Conectamos mascotas con familias que las aman.
+          </p>
         </div>
+      </div>
+
+      {/* Panel derecho — formulario scrolleable */}
+      <div className="flex-1 bg-pettech-cream flex items-start justify-center py-8 px-6 overflow-y-auto">
+        <div className="w-full max-w-lg">
+          {/* Logo móvil */}
+          <div className="flex flex-col items-center mb-6 lg:hidden">
+            <PawPrint className="w-10 h-10 text-pettech-orange mb-2" />
+            <h1 className="text-xl font-bold text-pettech-orange">Crea tu cuenta en PetTech</h1>
+          </div>
+
+          <div className="card p-8">
+            {/* Título de escritorio */}
+            <div className="hidden lg:block mb-6">
+              <h2 className="text-2xl font-bold text-gray-800">Crea tu cuenta</h2>
+              <p className="text-gray-500 text-sm mt-1">Paso {step + 1} de {STEPS.length} — {STEPS[step]}</p>
+            </div>
+
+            {/* Stepper móvil */}
+            <div className="flex items-center mb-8 lg:hidden">
+              {STEPS.map((label, i) => (
+                <div key={i} className="flex items-center flex-1">
+                  <div className="flex flex-col items-center">
+                    <div
+                      className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold
+                        ${ i < step ? 'bg-pettech-orange text-white'
+                          : i === step ? 'bg-pettech-orange text-white ring-4 ring-pettech-orange/30'
+                          : 'bg-gray-200 text-gray-500'}
+                      `}
+                    >
+                      {i < step ? <CheckCircle className="w-5 h-5" /> : i + 1}
+                    </div>
+                    <span className="text-xs mt-1 text-gray-500 whitespace-nowrap">{label}</span>
+                  </div>
+                  {i < STEPS.length - 1 && (
+                    <div className={`flex-1 h-0.5 mx-2 ${i < step ? 'bg-pettech-orange' : 'bg-gray-200'}`} />
+                  )}
+                </div>
+              ))}
+            </div>
 
         {/* Step 1 */}
         {step === 0 && (
@@ -218,6 +257,8 @@ export default function RegisterPage() {
             <Button type="submit" loading={loading} className="w-full mt-2">Completar registro</Button>
           </form>
         )}
+      </div>
+        </div>
       </div>
     </div>
   )
