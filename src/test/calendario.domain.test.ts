@@ -1,38 +1,11 @@
 /**
  * Tests unitarios — lógica de dominio del calendario de vacunación en frontend.
  * Cubre: parseLocalDate, formatFecha, getEstado (proxima/vencida/completada).
- * Se prueban las funciones puras exportadas desde CalendarioVacunacionPage.
- * Como son privadas, las reimplementamos aquí para testear la lógica de negocio
- * de la misma forma que la UI la consume.
+ * Importa directamente desde domain/calendarioDomain.ts (funciones exportadas).
  */
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import type { EntradaCalendario } from '../features/adopciones/api/calendarioApi'
-
-// ─── Reimplantación de las funciones puras del componente ───────────────────
-// (misma lógica que CalendarioVacunacionPage.tsx)
-
-function parseLocalDate(dateStr: string): Date {
-  const [y, m, d] = dateStr.split('-').map(Number)
-  return new Date(y, m - 1, d)
-}
-
-function formatFecha(dateStr: string): string {
-  return parseLocalDate(dateStr).toLocaleDateString('es-CO', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-}
-
-type EstadoVacuna = 'completada' | 'vencida' | 'proxima'
-
-function getEstado(entrada: EntradaCalendario): EstadoVacuna {
-  if (entrada.completada) return 'completada'
-  const hoy = new Date()
-  hoy.setHours(0, 0, 0, 0)
-  const fecha = parseLocalDate(entrada.fecha_sugerida)
-  return fecha < hoy ? 'vencida' : 'proxima'
-}
+import { parseLocalDate, formatFecha, getEstado } from '../features/adopciones/domain/calendarioDomain'
 
 // ─── Fixture base ────────────────────────────────────────────────────────────
 

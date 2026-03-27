@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useParams, Link } from 'react-router-dom'
 import { PawPrint, Syringe, ChevronLeft, AlertCircle, CheckCircle2, Clock } from 'lucide-react'
 import { calendarioApi, type EntradaCalendario } from '../api/calendarioApi'
+import { parseLocalDate, formatFecha, getEstado, type EstadoVacuna } from '../domain/calendarioDomain'
 import NavBar from '@/shared/components/NavBar'
 import Spinner from '@/shared/components/Spinner'
 
@@ -15,30 +16,7 @@ const ESPECIE_LABEL: Record<string, string> = {
 }
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
-
-function parseLocalDate(dateStr: string): Date {
-  // 'YYYY-MM-DD' → Date sin desfase de zona horaria
-  const [y, m, d] = dateStr.split('-').map(Number)
-  return new Date(y, m - 1, d)
-}
-
-function formatFecha(dateStr: string): string {
-  return parseLocalDate(dateStr).toLocaleDateString('es-CO', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-}
-
-type EstadoVacuna = 'completada' | 'vencida' | 'proxima'
-
-function getEstado(entrada: EntradaCalendario): EstadoVacuna {
-  if (entrada.completada) return 'completada'
-  const hoy = new Date()
-  hoy.setHours(0, 0, 0, 0)
-  const fecha = parseLocalDate(entrada.fecha_sugerida)
-  return fecha < hoy ? 'vencida' : 'proxima'
-}
+// parseLocalDate, formatFecha, getEstado → ver domain/calendarioDomain.ts
 
 // ─── Sub-componentes ─────────────────────────────────────────────────────────
 
