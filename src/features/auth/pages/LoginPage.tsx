@@ -42,7 +42,7 @@ export default function LoginPage() {
       toast.success(`¡Bienvenido, ${res.email}!`)
       navigate('/dashboard')
     } catch {
-      toast.error('Correo o contraseña incorrectos.')
+      toast.error('Las credenciales son incorrectas, vuelve a intentarlo.')
     } finally {
       setLoading(false)
     }
