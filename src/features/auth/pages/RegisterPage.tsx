@@ -148,7 +148,14 @@ export default function RegisterPage() {
         {step === 0 && (
           <form onSubmit={form1.handleSubmit(handleStep1)} className="flex flex-col gap-4">
             <Input label="Correo electrónico" type="email" error={form1.formState.errors.email?.message} {...form1.register('email')} />
-            <Input label="Contraseña" type="password" error={form1.formState.errors.password?.message} {...form1.register('password')} />
+            <div className="flex flex-col gap-1">
+              <Input label="Contraseña" type="password" error={form1.formState.errors.password?.message} {...form1.register('password')} />
+              {!form1.watch('password') && !form1.formState.errors.password && (
+                <p className="text-xs text-gray-400">
+                  Mínimo 8 caracteres · al menos 1 letra, 1 número y 1 carácter especial (ej. !, @, #)
+                </p>
+              )}
+            </div>
             <Input label="Confirmar contraseña" type="password" error={form1.formState.errors.password_confirm?.message} {...form1.register('password_confirm')} />
             <Button type="submit" loading={loading} className="w-full mt-2">Siguiente</Button>
             <p className="text-center text-sm text-gray-500">
