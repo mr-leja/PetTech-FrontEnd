@@ -15,11 +15,14 @@ httpClient.interceptors.request.use((config) => {
   return config
 })
 
-// Handle 401 → logout
+// Handle 401 → logout (excepto en login para que el error llegue al formulario)
 httpClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    if (
+      error.response?.status === 401 &&
+      error.config?.url !== '/auth/login/'
+    ) {
       useAuthStore.getState().logout()
       window.location.href = '/login'
     }
