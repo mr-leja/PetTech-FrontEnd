@@ -10,8 +10,9 @@ import { MemoryRouter } from 'react-router-dom'
 import LoginPage from '@/features/auth/pages/LoginPage'
 import RegisterPage from '@/features/auth/pages/RegisterPage'
 
-// Re-export screen and waitFor avec proper typing
-const { screen, waitFor } = RTL as any
+// Use RTL namespace to avoid type export issues with screen and waitFor
+const screen = (RTL as any).screen
+const waitFor = (RTL as any).waitFor
 
 // ---------------------------------------------------------------------------
 // Mocks
