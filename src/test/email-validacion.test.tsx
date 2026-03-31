@@ -2,8 +2,7 @@
  * Tests — SPEC-001: Validaciones de correo electrónico y contraseña (Frontend)
  * Covers: LoginPage y RegisterPage (paso 1) — Zod schema + on-blur behavior.
  */
-import { render } from '@testing-library/react'
-import { screen, waitFor } from '@testing-library/dom'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
