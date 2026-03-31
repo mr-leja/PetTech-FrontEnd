@@ -90,7 +90,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=pettech_frontend
+            -Dsonar.projectKey=mr-leja_PetTech-FrontEnd
             -Dsonar.organization=mr-leja
             -Dsonar.sources=src
             -Dsonar.exclusions=src/__tests__/**,src/test/**,coverage/**,dist/**,node_modules/**
