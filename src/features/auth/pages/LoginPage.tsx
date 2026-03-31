@@ -11,8 +11,12 @@ import Button from '@/shared/components/Button'
 import { PawPrint } from 'lucide-react'
 
 const schema = z.object({
-  email: z.string().email('Correo inválido'),
-  password: z.string().min(6, 'Mínimo 6 caracteres'),
+  email: z
+    .string()
+    .min(1, 'El correo es obligatorio.')
+    .min(5, 'El correo es demasiado corto.')
+    .email('Ingresa un correo electrónico válido.'),
+  password: z.string().min(8, 'Mínimo 8 caracteres.'),
 })
 
 type FormData = z.infer<typeof schema>
@@ -26,7 +30,7 @@ export default function LoginPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema) })
+  } = useForm<FormData>({ resolver: zodResolver(schema), mode: 'onBlur' })
 
   const onSubmit = async (data: FormData) => {
     setLoading(true)
@@ -107,7 +111,7 @@ export default function LoginPage() {
                 {...register('password')}
               />
               <Button type="submit" loading={loading} className="w-full mt-2">
-                Iniciar sesión
+                Ingresar
               </Button>
             </form>
 

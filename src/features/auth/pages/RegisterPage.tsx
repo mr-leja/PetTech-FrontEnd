@@ -14,8 +14,19 @@ import { PawPrint, CheckCircle } from 'lucide-react'
 // --- Schemas per step ---
 const step1Schema = z
   .object({
-    email: z.string().email('Correo inválido'),
-    password: z.string().min(8, 'Mínimo 8 caracteres'),
+    email: z
+      .string()
+      .min(1, 'El correo es obligatorio.')
+      .email('Ingresa un correo electrónico válido.')
+      .max(254, 'El correo no puede superar 254 caracteres.')
+      .min(5, 'El correo es demasiado corto.'),
+    password: z
+      .string()
+      .min(8, 'Mínimo 8 caracteres.')
+      .refine(
+        (pwd) => /[a-zA-Z]/.test(pwd) && /[0-9]/.test(pwd) && /[!@#$%^&*]/.test(pwd),
+        'La contraseña debe incluir al menos una letra, un número y un carácter especial.'
+      ),
     password_confirm: z.string(),
   })
   .refine((d) => d.password === d.password_confirm, {
@@ -52,10 +63,11 @@ export default function RegisterPage() {
   const [step, setStep] = useState(0)
   const [loading, setLoading] = useState(false)
 
-  const form1 = useForm<Step1Data>({ resolver: zodResolver(step1Schema) })
-  const form2 = useForm<Step2Data>({ resolver: zodResolver(step2Schema) })
+  const form1 = useForm<Step1Data>({ resolver: zodResolver(step1Schema), mode: 'onBlur' })
+  const form2 = useForm<Step2Data>({ resolver: zodResolver(step2Schema), mode: 'onBlur' })
   const form3 = useForm<Step3Data>({
     resolver: zodResolver(step3Schema),
+    mode: 'onBlur',
     defaultValues: { tiene_patio: false, tiene_mascotas_actualmente: false, acuerdo_responsabilidad: true },
   })
 
