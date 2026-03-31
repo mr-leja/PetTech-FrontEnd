@@ -90,7 +90,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectBaseDir=./MVP_FrontEnd
             -Dsonar.sources=src
             -Dsonar.exclusions=src/__tests__/**,src/test/**,coverage/**,dist/**,node_modules/**
             -Dsonar.tests=src
