@@ -2,17 +2,13 @@
  * Tests — SPEC-001: Validaciones de correo electrónico y contraseña (Frontend)
  * Covers: LoginPage y RegisterPage (paso 1) — Zod schema + on-blur behavior.
  */
-import { render } from '@testing-library/react'
-import * as RTL from '@testing-library/react'
+// @ts-ignore - screen and waitFor exist at runtime but TypeScript doesn't export them
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
 import LoginPage from '@/features/auth/pages/LoginPage'
 import RegisterPage from '@/features/auth/pages/RegisterPage'
-
-// Use RTL namespace to avoid type export issues with screen and waitFor
-const screen = (RTL as any).screen
-const waitFor = (RTL as any).waitFor
 
 // ---------------------------------------------------------------------------
 // Mocks
