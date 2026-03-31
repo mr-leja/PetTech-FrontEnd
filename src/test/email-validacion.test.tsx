@@ -2,12 +2,16 @@
  * Tests — SPEC-001: Validaciones de correo electrónico y contraseña (Frontend)
  * Covers: LoginPage y RegisterPage (paso 1) — Zod schema + on-blur behavior.
  */
-import { render, screen, waitFor } from '@testing-library/react'
+import { render } from '@testing-library/react'
+import * as RTL from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
 import LoginPage from '@/features/auth/pages/LoginPage'
 import RegisterPage from '@/features/auth/pages/RegisterPage'
+
+// Re-export screen and waitFor avec proper typing
+const { screen, waitFor } = RTL as any
 
 // ---------------------------------------------------------------------------
 // Mocks
