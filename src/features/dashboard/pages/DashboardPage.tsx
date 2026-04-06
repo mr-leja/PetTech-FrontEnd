@@ -47,7 +47,7 @@ export default function DashboardPage() {
       <img
         src="/mascotas-banner.png"
         alt="Mascotas"
-        className="hidden lg:block absolute right-0 bottom-0 h-[330px] w-[250px] object-contain object-bottom pointer-events-none select-none"
+        className="hidden lg:block absolute right-0 bottom-0 h-[340px] w-[260px] object-contain object-bottom pointer-events-none select-none opacity-40"
       />
       <main className="max-w-5xl mx-auto p-6">
         {/* Greeting */}
