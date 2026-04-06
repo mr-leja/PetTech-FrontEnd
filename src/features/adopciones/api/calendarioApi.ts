@@ -7,7 +7,7 @@ export interface EntradaCalendario {
   fecha_sugerida: string   // ISO date 'YYYY-MM-DD'
   es_refuerzo: boolean
   completada: boolean
-  foto_comprobante_url: string | null
+  foto_comprobante_url?: string | null
 }
 
 export interface CalendarioVacunacion {
