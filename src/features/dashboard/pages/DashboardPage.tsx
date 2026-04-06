@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { PawPrint, Users, Heart, Home, Clock, CheckCircle, ClipboardList } from 'lucide-react'
@@ -8,11 +9,24 @@ import { solicitudesApi } from '@/features/adopciones/api/solicitudesApi'
 import NavBar from '@/shared/components/NavBar'
 import Spinner from '@/shared/components/Spinner'
 import StatCard from '@/shared/components/StatCard'
+import MascotaGuia from '@/shared/components/MascotaGuia'
+import { useMascotaGuia } from '@/shared/hooks/useMascotaGuia'
 
 export default function DashboardPage() {
   const user = useAuthStore((s) => s.user)
   const isAdmin = user?.rol === 'ADMIN'
   const displayName = user?.nombre || user?.email?.split('@')[0] || ''
+
+  const mascota = useMascotaGuia()
+
+  // Consejo aleatorio al cargar el dashboard
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      mascota.consejoPedido()
+    }, 1500)
+    return () => clearTimeout(timer)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const { data: mascotas, isLoading: loadingMascotas } = useQuery({
     queryKey: ['mascotas', 'dashboard'],
@@ -50,13 +64,12 @@ export default function DashboardPage() {
         className="hidden lg:block absolute right-0 bottom-0 h-[340px] w-[260px] object-contain object-bottom pointer-events-none select-none opacity-40"
       />
       <main className="max-w-5xl mx-auto p-6">
-        {/* Greeting */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">
-            ¡Hola, {displayName}! 🐾
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-gray-800">
+            ¡Hola, <span className="text-pettech-orange">{displayName}</span>! 🐾
           </h1>
-          <p className="text-gray-500 mt-1">
-            {isAdmin ? 'Panel de administración PetTech' : 'Bienvenido a PetTech Adopciones'}
+          <p className="text-gray-500 text-sm mt-1">
+            {isAdmin ? 'Bienvenido al panel de administración de PetTech Adopciones' : 'Bienvenido a PetTech Adopciones'}
           </p>
         </div>
 
@@ -215,6 +228,15 @@ export default function DashboardPage() {
           </div>
         )}
       </main>
+
+      {/* Mascota guía interactiva */}
+      <MascotaGuia
+        visible={mascota.visible}
+        mensaje={mascota.mensaje}
+        emocion={mascota.emocion}
+        onCerrar={mascota.ocultar}
+        onPedirConsejo={mascota.consejoPedido}
+      />
     </div>
   )
 }

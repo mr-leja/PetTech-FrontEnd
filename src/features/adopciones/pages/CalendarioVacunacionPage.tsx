@@ -1,10 +1,13 @@
-import { useQuery } from '@tanstack/react-query'
+import { useEffect, useRef, useState } from 'react'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useParams, Link } from 'react-router-dom'
-import { PawPrint, Syringe, ChevronLeft, AlertCircle, CheckCircle2, Clock } from 'lucide-react'
+import { PawPrint, Syringe, ChevronLeft, AlertCircle, CheckCircle2, Clock, Upload, X, ImageIcon } from 'lucide-react'
 import { calendarioApi, type EntradaCalendario } from '../api/calendarioApi'
 import { parseLocalDate, formatFecha, getEstado, type EstadoVacuna } from '../domain/calendarioDomain'
 import NavBar from '@/shared/components/NavBar'
 import Spinner from '@/shared/components/Spinner'
+import MascotaGuia from '@/shared/components/MascotaGuia'
+import { useMascotaGuia } from '@/shared/hooks/useMascotaGuia'
 
 const ESPECIE_LABEL: Record<string, string> = {
   PERRO: 'Perro',
@@ -45,14 +48,51 @@ function EstadoBadge({ estado }: { estado: EstadoVacuna }) {
   )
 }
 
-function VacunaRow({ entrada }: { entrada: EntradaCalendario }) {
+function VacunaRow({ entrada, adopcionId }: { entrada: EntradaCalendario; adopcionId: number }) {
   const estado = getEstado(entrada)
+  const queryClient = useQueryClient()
+  const fileRef = useRef<HTMLInputElement>(null)
+  const [fotoSeleccionada, setFotoSeleccionada] = useState<File | null>(null)
+  const [preview, setPreview] = useState<string | null>(null)
+  const [expandido, setExpandido] = useState(false)
+
   const rowBg =
     estado === 'completada'
       ? 'bg-gray-50 opacity-70'
       : estado === 'vencida'
       ? 'bg-red-50 border-l-4 border-red-400'
       : 'bg-white border-l-4 border-green-400'
+
+  const mutation = useMutation({
+    mutationFn: (foto: File) => calendarioApi.marcarAplicada(entrada.id, foto),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['calendario', adopcionId] })
+      setExpandido(false)
+      setFotoSeleccionada(null)
+      setPreview(null)
+    },
+  })
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] ?? null
+    setFotoSeleccionada(file)
+    if (file) {
+      setPreview(URL.createObjectURL(file))
+    } else {
+      setPreview(null)
+    }
+  }
+
+  const handleConfirmar = () => {
+    if (fotoSeleccionada) mutation.mutate(fotoSeleccionada)
+  }
+
+  const handleCancelar = () => {
+    setExpandido(false)
+    setFotoSeleccionada(null)
+    setPreview(null)
+    if (fileRef.current) fileRef.current.value = ''
+  }
 
   return (
     <div className={`rounded-lg p-4 shadow-sm ${rowBg}`}>
@@ -74,8 +114,78 @@ function VacunaRow({ entrada }: { entrada: EntradaCalendario }) {
         <div className="flex flex-col items-end gap-1">
           <EstadoBadge estado={estado} />
           <p className="text-xs text-gray-500">{formatFecha(entrada.fecha_sugerida)}</p>
+          {estado !== 'completada' && !expandido && (
+            <button
+              onClick={() => setExpandido(true)}
+              className="mt-1 inline-flex items-center gap-1 text-xs bg-pettech-orange text-white px-2.5 py-1 rounded-full hover:bg-orange-600 transition-colors"
+            >
+              <CheckCircle2 className="w-3 h-3" />
+              Marcar como aplicada
+            </button>
+          )}
+          {estado === 'completada' && entrada.foto_comprobante_url && (
+            <a
+              href={entrada.foto_comprobante_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-xs text-pettech-orange hover:underline mt-1"
+            >
+              <ImageIcon className="w-3 h-3" />
+              Ver comprobante
+            </a>
+          )}
         </div>
       </div>
+
+      {/* Formulario inline para subir foto */}
+      {expandido && (
+        <div className="mt-3 border-t border-gray-100 pt-3">
+          <p className="text-xs text-gray-600 mb-2 font-medium">
+            Adjunta la foto del calendario de vacunas <span className="text-red-500">*</span>
+          </p>
+          <div className="flex flex-col gap-2">
+            <div
+              className="border-2 border-dashed border-gray-300 rounded-lg p-3 flex flex-col items-center gap-2 cursor-pointer hover:border-pettech-orange transition-colors"
+              onClick={() => fileRef.current?.click()}
+            >
+              {preview ? (
+                <img src={preview} alt="preview" className="h-24 object-contain rounded" />
+              ) : (
+                <>
+                  <Upload className="w-6 h-6 text-gray-400" />
+                  <p className="text-xs text-gray-500">Haz clic para seleccionar imagen</p>
+                </>
+              )}
+            </div>
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleFileChange}
+            />
+            {mutation.isError && (
+              <p className="text-xs text-red-600">Error al guardar. Intenta de nuevo.</p>
+            )}
+            <div className="flex gap-2">
+              <button
+                onClick={handleConfirmar}
+                disabled={!fotoSeleccionada || mutation.isPending}
+                className="flex-1 text-xs bg-green-600 text-white py-1.5 rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {mutation.isPending ? 'Guardando...' : 'Confirmar'}
+              </button>
+              <button
+                onClick={handleCancelar}
+                className="text-xs flex items-center gap-1 px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
+              >
+                <X className="w-3 h-3" />
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -85,6 +195,7 @@ function VacunaRow({ entrada }: { entrada: EntradaCalendario }) {
 export default function CalendarioVacunacionPage() {
   const { adopcionId } = useParams<{ adopcionId: string }>()
   const id = Number(adopcionId)
+  const mascota = useMascotaGuia()
 
   const { data: calendario, isLoading, isError } = useQuery({
     queryKey: ['calendario', id],
@@ -95,6 +206,16 @@ export default function CalendarioVacunacionPage() {
 
   const proximas = calendario?.entradas.filter((e) => getEstado(e) === 'proxima').length ?? 0
   const vencidas = calendario?.entradas.filter((e) => getEstado(e) === 'vencida').length ?? 0
+
+  useEffect(() => {
+    if (!isLoading && calendario) {
+      const timer = setTimeout(() => {
+        mascota.consejoCalendario()
+      }, 1000)
+      return () => clearTimeout(timer)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading, calendario])
 
   return (
     <div className="min-h-screen bg-pettech-cream">
@@ -169,7 +290,7 @@ export default function CalendarioVacunacionPage() {
             ) : (
               <div className="flex flex-col gap-3">
                 {calendario.entradas.map((entrada) => (
-                  <VacunaRow key={entrada.id} entrada={entrada} />
+                  <VacunaRow key={entrada.id} entrada={entrada} adopcionId={id} />
                 ))}
               </div>
             )}
@@ -184,6 +305,14 @@ export default function CalendarioVacunacionPage() {
           </>
         )}
       </main>
+
+      <MascotaGuia
+        visible={mascota.visible}
+        mensaje={mascota.mensaje}
+        emocion={mascota.emocion}
+        onCerrar={mascota.ocultar}
+        onPedirConsejo={mascota.consejoCalendario}
+      />
     </div>
   )
 }

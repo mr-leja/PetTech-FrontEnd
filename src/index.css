@@ -49,3 +49,44 @@
     @apply bg-red-100 text-red-700 px-2 py-0.5 rounded-full text-xs font-medium;
   }
 }
+
+/* ── Mascota Guía — animaciones ───────────────────────────────────────────── */
+@keyframes mascota-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes mascota-jump {
+  0%, 100% { transform: translateY(0) scale(1); }
+  30%      { transform: translateY(-24px) scale(1.08); }
+  60%      { transform: translateY(-10px) scale(1.04); }
+}
+
+@keyframes mascota-shake {
+  0%, 100% { transform: rotate(0deg); }
+  20%      { transform: rotate(-10deg); }
+  40%      { transform: rotate(10deg); }
+  60%      { transform: rotate(-7deg); }
+  80%      { transform: rotate(7deg); }
+}
+
+@keyframes mascota-fade-in-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.mascota-float {
+  animation: mascota-float 3s ease-in-out infinite;
+}
+
+.mascota-jump {
+  animation: mascota-jump 0.55s ease-in-out 3, mascota-float 3s ease-in-out infinite 1.65s;
+}
+
+.mascota-shake {
+  animation: mascota-shake 0.4s ease-in-out 3, mascota-float 3s ease-in-out infinite 1.2s;
+}
+
+.mascota-fade-in {
+  animation: mascota-fade-in-up 0.3s ease-out;
+}

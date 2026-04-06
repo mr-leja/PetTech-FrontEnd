@@ -7,6 +7,7 @@ export interface EntradaCalendario {
   fecha_sugerida: string   // ISO date 'YYYY-MM-DD'
   es_refuerzo: boolean
   completada: boolean
+  foto_comprobante_url: string | null
 }
 
 export interface CalendarioVacunacion {
@@ -25,4 +26,14 @@ export const calendarioApi = {
     httpClient
       .get(`adopciones/${adopcionId}/calendario/`)
       .then((r) => r.data),
+
+  marcarAplicada: (entradaId: number, foto: File): Promise<EntradaCalendario> => {
+    const form = new FormData()
+    form.append('foto_comprobante', foto)
+    return httpClient
+      .patch(`entradas/${entradaId}/aplicar/`, form, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      .then((r) => r.data)
+  },
 }
