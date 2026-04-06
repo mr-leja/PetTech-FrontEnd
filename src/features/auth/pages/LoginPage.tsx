@@ -98,6 +98,7 @@ export default function LoginPage() {
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
               <Input
                 label="Correo electrónico"
+                required
                 type="email"
                 placeholder="hola@ejemplo.com"
                 error={errors.email?.message}
@@ -105,6 +106,7 @@ export default function LoginPage() {
               />
               <Input
                 label="Contraseña"
+                required
                 type="password"
                 placeholder="Tu contraseña"
                 error={errors.password?.message}

@@ -154,9 +154,9 @@ export default function RegistrarMascotaPage() {
                 <h2 className="text-lg font-semibold text-gray-800 mb-1">Información básica</h2>
 
                 <div className="grid grid-cols-2 gap-4">
-                  <Input label="Nombre *" error={errors.nombre?.message} {...register('nombre')} />
+                  <Input label="Nombre" required error={errors.nombre?.message} {...register('nombre')} />
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-gray-700">Especie *</label>
+                    <label className="text-sm font-medium text-gray-700">Especie <span className="text-red-500">*</span></label>
                     <select className="input-field" {...register('especie')}>
                       {ESPECIES.map((e) => (
                         <option key={e.value} value={e.value}>{e.label}</option>
@@ -166,7 +166,7 @@ export default function RegistrarMascotaPage() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                  <Input label="Raza *" placeholder="Labrador, Persa..." error={errors.raza?.message} {...register('raza')} />
+                  <Input label="Raza" required placeholder="Labrador, Persa..." error={errors.raza?.message} {...register('raza')} />
                   <div className="flex flex-col gap-1">
                     <label className="text-sm font-medium text-gray-700">Estado</label>
                     <select className="input-field" {...register('estado')}>
@@ -179,7 +179,7 @@ export default function RegistrarMascotaPage() {
 
                 {/* Edad + unidad */}
                 <div className="flex flex-col gap-1">
-                  <label className="text-sm font-medium text-gray-700">Edad *</label>
+                  <label className="text-sm font-medium text-gray-700">Edad <span className="text-red-500">*</span></label>
                   <div className="flex gap-2">
                     <input
                       type="number"
@@ -199,12 +199,12 @@ export default function RegistrarMascotaPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-gray-700">Fecha de nacimiento *</label>
+                    <label className="text-sm font-medium text-gray-700">Fecha de nacimiento <span className="text-red-500">*</span></label>
                     <input type="date" className="input-field" max={TODAY} {...register('fecha_nacimiento')} />
                     {errors.fecha_nacimiento && <p className="text-xs text-red-500">{errors.fecha_nacimiento.message}</p>}
                   </div>
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-gray-700">Tamaño *</label>
+                    <label className="text-sm font-medium text-gray-700">Tamaño <span className="text-red-500">*</span></label>
                     <select className="input-field" {...register('tamano')}>
                       <option value="">Seleccionar...</option>
                       <option value="PEQUENO">Raza pequeña</option>
@@ -217,7 +217,8 @@ export default function RegistrarMascotaPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <Input
-                    label="Peso en kg *"
+                    label="Peso en kg"
+                    required
                     type="number"
                     step="0.1"
                     min={0}
@@ -227,7 +228,7 @@ export default function RegistrarMascotaPage() {
                     {...register('peso')}
                   />
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-gray-700">Sexo *</label>
+                    <label className="text-sm font-medium text-gray-700">Sexo <span className="text-red-500">*</span></label>
                     <select className="input-field" {...register('sexo')}>
                       <option value="">Seleccionar...</option>
                       <option value="MACHO">Macho</option>
@@ -251,7 +252,7 @@ export default function RegistrarMascotaPage() {
                 <h2 className="text-lg font-semibold text-gray-800 mb-1">Información de salud</h2>
 
                 <div className="flex flex-col gap-1">
-                  <label className="text-sm font-medium text-gray-700">Nivel de energía *</label>
+                  <label className="text-sm font-medium text-gray-700">Nivel de energía <span className="text-red-500">*</span></label>
                   <select className="input-field" {...register('nivel_energia')}>
                     <option value="">Seleccionar...</option>
                     <option value="BAJO">Bajo</option>
@@ -266,7 +267,7 @@ export default function RegistrarMascotaPage() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1">
-                      <label className="text-sm font-medium text-gray-700">Nivel de independencia *</label>
+                      <label className="text-sm font-medium text-gray-700">Nivel de independencia <span className="text-red-500">*</span></label>
                       <select className="input-field" {...register('nivel_independencia')}>
                         <option value="">Seleccionar...</option>
                         <option value="BAJO">Baja (necesita compañía constante)</option>
@@ -276,7 +277,7 @@ export default function RegistrarMascotaPage() {
                       {errors.nivel_independencia && <p className="text-xs text-red-500">{errors.nivel_independencia.message}</p>}
                     </div>
                     <div className="flex flex-col gap-1">
-                      <label className="text-sm font-medium text-gray-700">Sociabilidad con otras mascotas *</label>
+                      <label className="text-sm font-medium text-gray-700">Sociabilidad con otras mascotas <span className="text-red-500">*</span></label>
                       <select className="input-field" {...register('nivel_sociabilidad')}>
                         <option value="">Seleccionar...</option>
                         <option value="BAJO">Baja (prefiere estar solo)</option>
@@ -286,7 +287,7 @@ export default function RegistrarMascotaPage() {
                       {errors.nivel_sociabilidad && <p className="text-xs text-red-500">{errors.nivel_sociabilidad.message}</p>}
                     </div>
                     <div className="flex flex-col gap-1">
-                      <label className="text-sm font-medium text-gray-700">Complejidad de cuidado *</label>
+                      <label className="text-sm font-medium text-gray-700">Complejidad de cuidado <span className="text-red-500">*</span></label>
                       <select className="input-field" {...register('nivel_complejidad')}>
                         <option value="">Seleccionar...</option>
                         <option value="BAJO">Baja (ideal para principiantes)</option>
@@ -296,7 +297,7 @@ export default function RegistrarMascotaPage() {
                       {errors.nivel_complejidad && <p className="text-xs text-red-500">{errors.nivel_complejidad.message}</p>}
                     </div>
                     <div className="flex flex-col gap-1">
-                      <label className="text-sm font-medium text-gray-700">¿Apta para niños? *</label>
+                      <label className="text-sm font-medium text-gray-700">¿Apta para niños? <span className="text-red-500">*</span></label>
                       <select className="input-field" {...register('apta_ninos')}>
                         <option value="">Seleccionar...</option>
                         <option value="SI">Sí</option>
@@ -307,7 +308,7 @@ export default function RegistrarMascotaPage() {
                   </div>
 
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-gray-700">Costo estimado de cuidado mensual *</label>
+                    <label className="text-sm font-medium text-gray-700">Costo estimado de cuidado mensual <span className="text-red-500">*</span></label>
                     <select className="input-field" {...register('costo_estimado_mensual')}>
                       <option value="">Seleccionar...</option>
                       <option value="MENOS_1SMLV">Menos de 1 SMLV</option>

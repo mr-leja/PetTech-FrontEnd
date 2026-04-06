@@ -279,6 +279,7 @@ export default function RegistrarFamiliaPage() {
 
                 <Input
                   label="Nombre completo"
+                  required
                   error={errors.nombre_familia?.message}
                   {...register('nombre_familia')}
                 />
@@ -286,11 +287,12 @@ export default function RegistrarFamiliaPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <Input
                     label="Número de cédula"
+                    required
                     error={errors.cedula?.message}
                     {...register('cedula')}
                   />
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-gray-700">Fecha de nacimiento</label>
+                    <label className="text-sm font-medium text-gray-700">Fecha de nacimiento <span className="text-red-500">*</span></label>
                     <input
                       type="date"
                       max={new Date(new Date().setFullYear(new Date().getFullYear() - 18)).toISOString().split('T')[0]}
@@ -305,6 +307,7 @@ export default function RegistrarFamiliaPage() {
 
                 <Input
                   label="Teléfono"
+                  required
                   type="tel"
                   onKeyDown={(e) => {
                     const allowed = ['0','1','2','3','4','5','6','7','8','9','+','-',' ','Backspace','Delete','ArrowLeft','ArrowRight','Tab']
@@ -317,11 +320,13 @@ export default function RegistrarFamiliaPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <Input
                     label="Ciudad"
+                    required
                     error={errors.ciudad?.message}
                     {...register('ciudad')}
                   />
                   <Input
                     label="Departamento"
+                    required
                     error={errors.departamento?.message}
                     {...register('departamento')}
                   />
@@ -406,7 +411,7 @@ export default function RegistrarFamiliaPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-gray-700">Tipo de vivienda</label>
+                    <label className="text-sm font-medium text-gray-700">Tipo de vivienda <span className="text-red-500">*</span></label>
                     <select className="input-field" {...register('tipo_vivienda')}>
                       <option value="CASA">Casa</option>
                       <option value="APARTAMENTO">Apartamento</option>
@@ -415,7 +420,7 @@ export default function RegistrarFamiliaPage() {
                     </select>
                   </div>
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-gray-700">Propiedad</label>
+                    <label className="text-sm font-medium text-gray-700">Propiedad <span className="text-red-500">*</span></label>
                     <select className="input-field" {...register('propiedad_vivienda')}>
                       <option value="PROPIA">Propia</option>
                       <option value="ALQUILADA">Alquilada</option>
@@ -425,7 +430,7 @@ export default function RegistrarFamiliaPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-gray-700">Tamaño del hogar</label>
+                    <label className="text-sm font-medium text-gray-700">Tamaño del hogar <span className="text-red-500">*</span></label>
                     <select className="input-field" {...register('tamano_hogar')}>
                       <option value="PEQUENO">Pequeño (&lt; 50 m²)</option>
                       <option value="MEDIANO">Mediano (50–120 m²)</option>
@@ -434,6 +439,7 @@ export default function RegistrarFamiliaPage() {
                   </div>
                   <Input
                     label="Personas en casa"
+                    required
                     type="number"
                     min={1}
                     onKeyDown={(e) => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault()}
@@ -444,7 +450,7 @@ export default function RegistrarFamiliaPage() {
 
                 <div className="flex flex-col gap-1">
                   <label className="text-sm font-medium text-gray-700">
-                    Ingresos estimados del hogar
+                    Ingresos estimados del hogar <span className="text-red-500">*</span>
                   </label>
                   <select className="input-field" {...register('ingresos_estimados')}>
                     <option value="">Selecciona...</option>
@@ -460,6 +466,7 @@ export default function RegistrarFamiliaPage() {
 
                 <Input
                   label="Horas que queda sola la mascota al día"
+                  required
                   type="number"
                   min={0}
                   max={24}
@@ -511,7 +518,7 @@ export default function RegistrarFamiliaPage() {
 
                 <div className="flex flex-col gap-1">
                   <label className="text-sm font-medium text-gray-700">
-                    Experiencia con mascotas
+                    Experiencia con mascotas <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     className="input-field min-h-[80px]"
@@ -525,7 +532,7 @@ export default function RegistrarFamiliaPage() {
 
                 <div className="flex flex-col gap-1">
                   <label className="text-sm font-medium text-gray-700">
-                    ¿Por qué quieres adoptar?
+                    ¿Por qué quieres adoptar? <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     className="input-field min-h-[80px]"

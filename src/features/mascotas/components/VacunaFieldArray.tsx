@@ -11,7 +11,7 @@ export default function VacunaFieldArray() {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <label className="text-sm font-medium text-gray-700">Historial de vacunas *</label>
+        <label className="text-sm font-medium text-gray-700">Historial de vacunas <span className="text-red-500">*</span></label>
         <button
           type="button"
           onClick={() => append({ nombre: '', fecha_aplicacion: '', proxima_dosis: '', veterinario: '', lote: '' })}
@@ -39,14 +39,14 @@ export default function VacunaFieldArray() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="flex flex-col gap-1">
-              <label className="text-xs font-medium text-gray-600">Nombre *</label>
+              <label className="text-xs font-medium text-gray-600">Nombre <span className="text-red-500">*</span></label>
               <input className="input-field" placeholder="Ej: Rabia" {...register(`vacunas.${index}.nombre`)} />
               {(errors.vacunas as any)?.[index]?.nombre && (
                 <p className="text-xs text-red-500">{(errors.vacunas as any)[index]?.nombre?.message}</p>
               )}
             </div>
             <div className="flex flex-col gap-1">
-              <label className="text-xs font-medium text-gray-600">Fecha de aplicación *</label>
+              <label className="text-xs font-medium text-gray-600">Fecha de aplicación <span className="text-red-500">*</span></label>
               <input type="date" className="input-field" max={TODAY} {...register(`vacunas.${index}.fecha_aplicacion`)} />
               {(errors.vacunas as any)?.[index]?.fecha_aplicacion && (
                 <p className="text-xs text-red-500">{(errors.vacunas as any)[index]?.fecha_aplicacion?.message}</p>

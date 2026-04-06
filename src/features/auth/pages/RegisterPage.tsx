@@ -209,16 +209,16 @@ export default function RegisterPage() {
         {/* Step 1 */}
         {step === 0 && (
           <form onSubmit={form1.handleSubmit(handleStep1)} className="flex flex-col gap-4">
-            <Input label="Correo electrónico" type="email" error={form1.formState.errors.email?.message} {...form1.register('email')} />
+            <Input label="Correo electrónico" required type="email" error={form1.formState.errors.email?.message} {...form1.register('email')} />
             <div className="flex flex-col gap-1">
-              <Input label="Contraseña" type="password" error={form1.formState.errors.password?.message} {...form1.register('password')} />
+              <Input label="Contraseña" required type="password" error={form1.formState.errors.password?.message} {...form1.register('password')} />
               {!form1.watch('password') && !form1.formState.errors.password && (
                 <p className="text-xs text-gray-400">
                   Mínimo 8 caracteres · al menos 1 letra, 1 número y 1 carácter especial (ej. !, @, #)
                 </p>
               )}
             </div>
-            <Input label="Confirmar contraseña" type="password" error={form1.formState.errors.password_confirm?.message} {...form1.register('password_confirm')} />
+            <Input label="Confirmar contraseña" required type="password" error={form1.formState.errors.password_confirm?.message} {...form1.register('password_confirm')} />
             <Button type="submit" loading={loading} className="w-full mt-2">Siguiente</Button>
             <p className="text-center text-sm text-gray-500">
               ¿Ya tienes cuenta? <Link to="/login" className="text-pettech-orange hover:underline">Inicia sesión</Link>
@@ -229,10 +229,10 @@ export default function RegisterPage() {
         {/* Step 2: Datos familia (HU-04) */}
         {step === 1 && (
           <form onSubmit={form2.handleSubmit(handleStep2)} className="flex flex-col gap-4">
-            <Input label="Nombre de la familia" placeholder="Familia Pérez" error={form2.formState.errors.nombre_familia?.message} {...form2.register('nombre_familia')} />
-            <Input label="Teléfono" type="tel" placeholder="300 123 4567" onKeyDown={(e) => { const allowed = ['0','1','2','3','4','5','6','7','8','9','+','-',' ','Backspace','Delete','ArrowLeft','ArrowRight','Tab']; if (!allowed.includes(e.key) && !e.ctrlKey && !e.metaKey) e.preventDefault() }} error={form2.formState.errors.telefono?.message} {...form2.register('telefono')} />
-            <Input label="Ciudad" placeholder="Bogotá" error={form2.formState.errors.ciudad?.message} {...form2.register('ciudad')} />
-            <Input label="Departamento" placeholder="Cundinamarca" error={form2.formState.errors.departamento?.message} {...form2.register('departamento')} />
+            <Input label="Nombre de la familia" required placeholder="Familia Pérez" error={form2.formState.errors.nombre_familia?.message} {...form2.register('nombre_familia')} />
+            <Input label="Teléfono" required type="tel" placeholder="300 123 4567" onKeyDown={(e) => { const allowed = ['0','1','2','3','4','5','6','7','8','9','+','-',' ','Backspace','Delete','ArrowLeft','ArrowRight','Tab']; if (!allowed.includes(e.key) && !e.ctrlKey && !e.metaKey) e.preventDefault() }} error={form2.formState.errors.telefono?.message} {...form2.register('telefono')} />
+            <Input label="Ciudad" required placeholder="Bogotá" error={form2.formState.errors.ciudad?.message} {...form2.register('ciudad')} />
+            <Input label="Departamento" required placeholder="Cundinamarca" error={form2.formState.errors.departamento?.message} {...form2.register('departamento')} />
             <Button type="submit" loading={loading} className="w-full mt-2">Siguiente</Button>
           </form>
         )}
@@ -241,7 +241,7 @@ export default function RegisterPage() {
         {step === 2 && (
           <form onSubmit={form3.handleSubmit(handleStep3)} className="flex flex-col gap-4">
             <div className="flex flex-col gap-1">
-              <label className="text-sm font-medium text-gray-700">Tipo de vivienda</label>
+              <label className="text-sm font-medium text-gray-700">Tipo de vivienda <span className="text-red-500">*</span></label>
               <select className="input-field" {...form3.register('tipo_vivienda')}>
                 <option value="CASA">Casa</option>
                 <option value="APARTAMENTO">Apartamento</option>
@@ -249,7 +249,7 @@ export default function RegisterPage() {
                 <option value="OTRO">Otro</option>
               </select>
             </div>
-            <Input label="Número de personas en el hogar" type="number" min={1} onKeyDown={(e) => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault()} error={form3.formState.errors.numero_personas?.message} {...form3.register('numero_personas')} />
+            <Input label="Número de personas en el hogar" required type="number" min={1} onKeyDown={(e) => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault()} error={form3.formState.errors.numero_personas?.message} {...form3.register('numero_personas')} />
             <div className="flex items-center gap-3">
               <input type="checkbox" id="patio" className="w-4 h-4 accent-pettech-orange" {...form3.register('tiene_patio')} />
               <label htmlFor="patio" className="text-sm text-gray-700">¿Tienes patio o jardín?</label>
