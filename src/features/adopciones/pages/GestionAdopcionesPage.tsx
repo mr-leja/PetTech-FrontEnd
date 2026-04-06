@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Heart, PawPrint, User, Calendar, Search, ChevronDown, ChevronUp } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Heart, PawPrint, User, Calendar, Search, ChevronDown, ChevronUp, Syringe } from 'lucide-react'
 import { type Adopcion } from '../api/solicitudesApi'
 import { useAdopcionesBusqueda } from '../hooks/useAdopcionesBusqueda'
 import NavBar from '@/shared/components/NavBar'
@@ -174,6 +175,17 @@ function AdopcionRow({ adopcion }: { adopcion: Adopcion }) {
               </div>
             )}
           </section>
+
+          {/* Calendario de vacunación */}
+          <div className="pt-1">
+            <Link
+              to={`/adopciones/${adopcion.id}/calendario`}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-pettech-orange text-white text-sm font-medium rounded-lg hover:bg-orange-600 transition-colors"
+            >
+              <Syringe className="w-4 h-4" />
+              Ver calendario de vacunación
+            </Link>
+          </div>
         </div>
       )}
     </div>

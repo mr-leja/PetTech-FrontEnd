@@ -42,6 +42,7 @@ export default function AppRouter() {
         <Route path="/mascotas/:id/editar" element={<EditarMascotaPage />} />
         <Route path="/solicitudes" element={<GestionSolicitudesPage />} />
         <Route path="/adopciones" element={<GestionAdopcionesPage />} />
+        <Route path="/adopciones/:adopcionId/calendario" element={<CalendarioVacunacionPage />} />
       </Route>
 
       {/* Root redirect */}

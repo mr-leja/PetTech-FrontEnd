@@ -8,6 +8,7 @@ import NavBar from '@/shared/components/NavBar'
 import Spinner from '@/shared/components/Spinner'
 import MascotaGuia from '@/shared/components/MascotaGuia'
 import { useMascotaGuia } from '@/shared/hooks/useMascotaGuia'
+import { useAuthStore } from '@/shared/store/authStore'
 
 const ESPECIE_LABEL: Record<string, string> = {
   PERRO: 'Perro',
@@ -48,7 +49,7 @@ function EstadoBadge({ estado }: { estado: EstadoVacuna }) {
   )
 }
 
-function VacunaRow({ entrada, adopcionId }: { entrada: EntradaCalendario; adopcionId: number }) {
+function VacunaRow({ entrada, adopcionId, soloLectura }: { entrada: EntradaCalendario; adopcionId: number; soloLectura?: boolean }) {
   const estado = getEstado(entrada)
   const queryClient = useQueryClient()
   const fileRef = useRef<HTMLInputElement>(null)
@@ -114,7 +115,7 @@ function VacunaRow({ entrada, adopcionId }: { entrada: EntradaCalendario; adopci
         <div className="flex flex-col items-end gap-1">
           <EstadoBadge estado={estado} />
           <p className="text-xs text-gray-500">{formatFecha(entrada.fecha_sugerida)}</p>
-          {estado !== 'completada' && !expandido && (
+          {estado !== 'completada' && !expandido && !soloLectura && (
             <button
               onClick={() => setExpandido(true)}
               className="mt-1 inline-flex items-center gap-1 text-xs bg-pettech-orange text-white px-2.5 py-1 rounded-full hover:bg-orange-600 transition-colors"
@@ -138,7 +139,7 @@ function VacunaRow({ entrada, adopcionId }: { entrada: EntradaCalendario; adopci
       </div>
 
       {/* Formulario inline para subir foto */}
-      {expandido && (
+      {expandido && !soloLectura && (
         <div className="mt-3 border-t border-gray-100 pt-3">
           <p className="text-xs text-gray-600 mb-2 font-medium">
             Adjunta la foto del calendario de vacunas <span className="text-red-500">*</span>
@@ -196,6 +197,8 @@ export default function CalendarioVacunacionPage() {
   const { adopcionId } = useParams<{ adopcionId: string }>()
   const id = Number(adopcionId)
   const mascota = useMascotaGuia()
+  const rol = useAuthStore((s) => s.user?.rol)
+  const esAdmin = rol === 'ADMIN'
 
   const { data: calendario, isLoading, isError } = useQuery({
     queryKey: ['calendario', id],
@@ -208,14 +211,14 @@ export default function CalendarioVacunacionPage() {
   const vencidas = calendario?.entradas.filter((e) => getEstado(e) === 'vencida').length ?? 0
 
   useEffect(() => {
-    if (!isLoading && calendario) {
+    if (!isLoading && calendario && !esAdmin) {
       const timer = setTimeout(() => {
         mascota.consejoCalendario()
       }, 1000)
       return () => clearTimeout(timer)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading, calendario])
+  }, [isLoading, calendario, esAdmin])
 
   return (
     <div className="min-h-screen bg-pettech-cream">
@@ -224,11 +227,11 @@ export default function CalendarioVacunacionPage() {
 
         {/* Volver */}
         <Link
-          to="/mis-adopciones"
+          to={esAdmin ? '/adopciones' : '/mis-adopciones'}
           className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-pettech-orange mb-5"
         >
           <ChevronLeft className="w-4 h-4" />
-          Volver a mis adopciones
+          {esAdmin ? 'Volver a gestión de adopciones' : 'Volver a mis adopciones'}
         </Link>
 
         {isLoading && <Spinner />}
@@ -290,7 +293,7 @@ export default function CalendarioVacunacionPage() {
             ) : (
               <div className="flex flex-col gap-3">
                 {calendario.entradas.map((entrada) => (
-                  <VacunaRow key={entrada.id} entrada={entrada} adopcionId={id} />
+                  <VacunaRow key={entrada.id} entrada={entrada} adopcionId={id} soloLectura={esAdmin} />
                 ))}
               </div>
             )}
@@ -306,13 +309,15 @@ export default function CalendarioVacunacionPage() {
         )}
       </main>
 
-      <MascotaGuia
-        visible={mascota.visible}
-        mensaje={mascota.mensaje}
-        emocion={mascota.emocion}
-        onCerrar={mascota.ocultar}
-        onPedirConsejo={mascota.consejoCalendario}
-      />
+      {!esAdmin && (
+        <MascotaGuia
+          visible={mascota.visible}
+          mensaje={mascota.mensaje}
+          emocion={mascota.emocion}
+          onCerrar={mascota.ocultar}
+          onPedirConsejo={mascota.consejoCalendario}
+        />
+      )}
     </div>
   )
 }
