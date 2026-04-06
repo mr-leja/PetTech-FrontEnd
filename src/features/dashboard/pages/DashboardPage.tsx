@@ -42,8 +42,13 @@ export default function DashboardPage() {
   const enProceso = mascotas?.results.filter((m) => m.estado === 'EN_PROCESO').length ?? 0
 
   return (
-    <div className="min-h-screen bg-pettech-cream">
+    <div className="min-h-screen bg-pettech-cream relative overflow-hidden">
       <NavBar />
+      <img
+        src="/mascotas-banner.png"
+        alt="Mascotas"
+        className="hidden lg:block absolute right-0 bottom-0 h-[330px] w-[250px] object-contain object-bottom pointer-events-none select-none"
+      />
       <main className="max-w-5xl mx-auto p-6">
         {/* Greeting */}
         <div className="mb-8">
