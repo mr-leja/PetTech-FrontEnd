@@ -5,8 +5,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import toast from 'react-hot-toast'
 import { useQueryClient } from '@tanstack/react-query'
+import type { FieldPath } from 'react-hook-form'
 import { mascotasApi } from '../api/mascotasApi'
-import { ESPECIES, vacunaSchema, STEP1_FIELDS, getTodayDate } from '../formSchema'
+import { ESPECIES, STEP1_FIELDS, getTodayDate, mascotaBaseSchema } from '../formSchema'
 import { useMascotaForm } from '../hooks/useMascotaForm'
 import { Input } from '@/shared/components/Input'
 import Button from '@/shared/components/Button'
@@ -28,32 +29,12 @@ function loadDraft(): Partial<FormData> | null {
 
 const TODAY = getTodayDate()
 
-const schema = z.object({
-  // Paso 1 — Información básica
-  nombre: z.string().min(2, 'Mínimo 2 caracteres'),
-  especie: z.enum(['PERRO', 'GATO', 'CONEJO']),
-  raza: z.string().min(1, 'Requerido'),
-  edad: z.coerce.number().min(0, 'Debe ser ≥ 0'),
-  edad_unidad: z.enum(['ANIOS', 'MESES']),
+const schema = mascotaBaseSchema.extend({
   fecha_nacimiento: z.string().min(1, 'Requerido').refine(
     (v) => !v || new Date(v) <= new Date(),
     'La fecha no puede ser futura'
   ),
-  tamano: z.string().min(1, 'Selecciona un tamaño'),
-  peso: z.string().min(1, 'Requerido'),
-  sexo: z.string().min(1, 'Selecciona el sexo'),
   estado: z.enum(['DISPONIBLE', 'EN_PROCESO', 'NO_DISPONIBLE']).default('DISPONIBLE'),
-  // Paso 2 — Características para adopción (matching) — obligatorios
-  nivel_energia: z.string().min(1, 'Selecciona el nivel de energía'),
-  nivel_independencia: z.string().min(1, 'Requerido'),
-  nivel_complejidad: z.string().min(1, 'Requerido'),
-  nivel_sociabilidad: z.string().min(1, 'Requerido'),
-  apta_ninos: z.string().min(1, 'Requerido'),
-  costo_estimado_mensual: z.string().min(1, 'Requerido'),
-  // Paso 2 — Historial de vacunas — obligatorio
-  vacunas: z.array(vacunaSchema).min(1, 'Agrega al menos una vacuna'),
-  historia_mascota: z.string().optional(),
-  info_adicional: z.string().optional(),
 })
 
 type FormData = z.infer<typeof schema>
@@ -89,7 +70,7 @@ export default function RegistrarMascotaPage() {
   }, [JSON.stringify(watchedValues)]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const goToStep2 = async () => {
-    const valid = await trigger(STEP1_FIELDS as any)
+    const valid = await trigger([...STEP1_FIELDS] as FieldPath<FormData>[])
     if (valid) setStep(2)
   }
 

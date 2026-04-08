@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useAuthStore } from '@/shared/store/authStore'
+import { navigateTo } from '@/shared/services/navigationService'
 
 const httpClient = axios.create({
   baseURL: '/api/v1',
@@ -45,7 +46,7 @@ httpClient.interceptors.response.use(
     const refreshToken = useAuthStore.getState().refreshToken
     if (!refreshToken) {
       useAuthStore.getState().logout()
-      window.location.href = '/login'
+      navigateTo('/login')
       return Promise.reject(error)
     }
 
@@ -79,7 +80,7 @@ httpClient.interceptors.response.use(
     } catch (refreshError) {
       processPendingQueue(refreshError, null)
       useAuthStore.getState().logout()
-      window.location.href = '/login'
+      navigateTo('/login')
       return Promise.reject(refreshError)
     } finally {
       isRefreshing = false

@@ -1,5 +1,13 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '@/shared/store/authStore'
+import { registerNavigate } from '@/shared/services/navigationService'
+
+function RouterSync() {
+  const navigate = useNavigate()
+  useEffect(() => { registerNavigate(navigate) }, [navigate])
+  return null
+}
 import LoginPage from '@/features/auth/pages/LoginPage'
 import RegisterPage from '@/features/auth/pages/RegisterPage'
 import DashboardPage from '@/features/dashboard/pages/DashboardPage'
@@ -20,6 +28,8 @@ export default function AppRouter() {
   const token = useAuthStore((s) => s.token)
 
   return (
+    <>
+    <RouterSync />
     <Routes>
       {/* Rutas públicas */}
       <Route path="/login" element={!token ? <LoginPage /> : <Navigate to="/dashboard" replace />} />
@@ -49,5 +59,6 @@ export default function AppRouter() {
       <Route path="/" element={<Navigate to={token ? '/dashboard' : '/login'} replace />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    </>
   )
 }

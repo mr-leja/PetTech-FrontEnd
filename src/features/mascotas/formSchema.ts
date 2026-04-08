@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import type { FieldPath } from 'react-hook-form'
 
 export const ESPECIES = [
   { value: 'PERRO', label: 'Perro' },
@@ -27,6 +26,27 @@ export const STEP1_FIELDS = [
 export function getTodayDate(): string {
   return new Date().toISOString().split('T')[0]
 }
+
+/** Schema base compartido entre RegistrarMascotaPage y EditarMascotaPage */
+export const mascotaBaseSchema = z.object({
+  nombre: z.string().min(2, 'Mínimo 2 caracteres'),
+  especie: z.enum(['PERRO', 'GATO', 'CONEJO']),
+  raza: z.string().min(1, 'Requerido'),
+  edad: z.coerce.number().min(0, 'Debe ser ≥ 0'),
+  edad_unidad: z.enum(['ANIOS', 'MESES']),
+  tamano: z.string().min(1, 'Selecciona un tamaño'),
+  peso: z.string().min(1, 'Requerido'),
+  sexo: z.string().min(1, 'Selecciona el sexo'),
+  nivel_energia: z.string().min(1, 'Selecciona el nivel de energía'),
+  nivel_independencia: z.string().min(1, 'Requerido'),
+  nivel_complejidad: z.string().min(1, 'Requerido'),
+  nivel_sociabilidad: z.string().min(1, 'Requerido'),
+  apta_ninos: z.string().min(1, 'Requerido'),
+  costo_estimado_mensual: z.string().min(1, 'Requerido'),
+  vacunas: z.array(vacunaSchema).min(1, 'Agrega al menos una vacuna'),
+  historia_mascota: z.string().optional(),
+  info_adicional: z.string().optional(),
+})
 
 // ---------------------------------------------------------------------------
 // Comprime y redimensiona una imagen antes de subirla al backend.
