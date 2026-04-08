@@ -20,7 +20,7 @@ const TODAY = getTodayDate()
 
 const schema = z.object({
   nombre: z.string().min(2, 'Mínimo 2 caracteres'),
-  especie: z.enum(['PERRO', 'GATO', 'CONEJO', 'HAMSTER']),
+  especie: z.enum(['PERRO', 'GATO', 'CONEJO']),
   raza: z.string().min(1, 'Requerido'),
   edad: z.coerce.number().min(0, 'Debe ser ≥ 0'),
   edad_unidad: z.enum(['ANIOS', 'MESES']),

@@ -77,7 +77,7 @@ function appendToForm(form: FormData, key: string, value: unknown) {
 }
 
 export const mascotasApi = {
-  listar: (params?: { estado?: string; especie?: string; page?: number }) =>
+  listar: (params?: { estado?: string; especie?: string; page?: number; page_size?: number }) =>
     httpClient.get<MascotasResponse>('/mascotas/', { params }).then((r) => r.data),
 
   obtener: (id: number) =>

@@ -5,7 +5,6 @@ export const ESPECIES = [
   { value: 'PERRO', label: 'Perro' },
   { value: 'GATO', label: 'Gato' },
   { value: 'CONEJO', label: 'Conejo' },
-  { value: 'HAMSTER', label: 'Hámster' },
 ] as const
 
 export const vacunaSchema = z.object({

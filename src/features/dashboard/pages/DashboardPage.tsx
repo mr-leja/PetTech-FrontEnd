@@ -30,7 +30,7 @@ export default function DashboardPage() {
 
   const { data: mascotas, isLoading: loadingMascotas } = useQuery({
     queryKey: ['mascotas', 'dashboard'],
-    queryFn: () => mascotasApi.listar(),
+    queryFn: () => mascotasApi.listar({ page_size: 100 }),
     refetchInterval: 30_000,
     staleTime: 0,
   })
@@ -81,7 +81,7 @@ export default function DashboardPage() {
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
                 <StatCard
                   label="Total mascotas"
-                  value={mascotas?.count ?? 0}
+                  value={mascotas?.results.length ?? 0}
                   icon={<PawPrint className="w-6 h-6 text-pettech-orange" />}
                   color="border-pettech-orange"
                 />
