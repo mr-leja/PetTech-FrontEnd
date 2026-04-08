@@ -78,7 +78,7 @@ export default function EditarMascotaPage() {
     mascotasApi.obtener(parseInt(id)).then((m) => {
       reset({
         nombre: m.nombre,
-        especie: m.especie,
+        especie: m.especie as 'PERRO' | 'GATO' | 'CONEJO',
         raza: m.raza || '',
         edad: m.edad_anios,
         edad_unidad: m.edad_unidad,
