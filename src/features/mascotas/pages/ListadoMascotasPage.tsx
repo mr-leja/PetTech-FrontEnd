@@ -31,6 +31,7 @@ export default function ListadoMascotasPage() {
       mascotasApi.listar({
         ...(filtroEstado && { estado: filtroEstado }),
         ...(filtroEspecie && { especie: filtroEspecie }),
+        page_size: 100,
       }),
     refetchInterval: 30_000,
     staleTime: 0,
